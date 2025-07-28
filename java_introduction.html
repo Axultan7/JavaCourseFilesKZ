@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java-ға Кіріспе</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+            padding: 40px 0;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .lesson-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(52, 152, 219, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .feature-description {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 15px 0;
+            font-size: 1rem;
+        }
+
+        .code-example {
+            background: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            line-height: 1.8;
+            box-shadow: 0 10px 30px rgba(44, 62, 80, 0.3);
+        }
+
+        .code-header {
+            background: #34495e;
+            color: white;
+            padding: 12px 20px;
+            margin: -25px -25px 20px -25px;
+            border-radius: 15px 15px 0 0;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .keyword { color: #e74c3c; font-weight: bold; }
+        .string { color: #f39c12; }
+        .comment { color: #95a5a6; font-style: italic; }
+        .variable { color: #2ecc71; }
+        .method { color: #9b59b6; }
+
+        .history-timeline {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .timeline-item {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid white;
+        }
+
+        .timeline-year {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .java-ecosystem {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .ecosystem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .ecosystem-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .ecosystem-card:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .comparison-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid #ecf0f1;
+            font-size: 1rem;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .comparison-table tr:hover {
+            background: #e3f2fd;
+        }
+
+        .info-box {
+            background: rgba(52, 152, 219, 0.1);
+            border: 2px solid #3498db;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #2980b9;
+        }
+
+        .info-box h4 {
+            color: #3498db;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .warning-box {
+            background: rgba(231, 76, 60, 0.1);
+            border: 2px solid #e74c3c;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #c0392b;
+        }
+
+        .warning-box h4 {
+            color: #e74c3c;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .success-box {
+            background: rgba(46, 204, 113, 0.1);
+            border: 2px solid #2ecc71;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #27ae60;
+        }
+
+        .success-box h4 {
+            color: #2ecc71;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .syntax-demo {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .syntax-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .syntax-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid white;
+        }
+
+        .interactive-demo {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .demo-button {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .demo-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(52, 152, 219, 0.3);
+        }
+
+        .output-display {
+            background: #2c3e50;
+            color: #2ecc71;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 1.1rem;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .ecosystem-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .syntax-examples {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        .animate-in {
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .jvm-visualization {
+            background: linear-gradient(135deg, #fd79a8, #e17055);
+            color: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .jvm-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 25px 0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .jvm-step {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            flex: 1;
+            min-width: 150px;
+            position: relative;
+        }
+
+        .jvm-arrow {
+            font-size: 2rem;
+            color: white;
+            margin: 0 10px;
+        }
+
+        .career-paths {
+            background: linear-gradient(135deg, #48c6ef, #6f86d6);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .paths-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .path-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .path-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .path-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>☕ Java Программалау Тіліне Кіріспе</h1>
+            <p>Дүниежүзілік танымал программалау тілі</p>
+            <div style="background: rgba(255,255,255,0.2); border-radius: 50px; padding: 15px 30px; display: inline-block; margin-top: 20px;">
+                <strong>"Write Once, Run Anywhere"</strong> - Бір рет жаз, кез келген жерде іске қос
+            </div>
+        </div>
+
+        <div class="lesson-section animate-in">
+            <h2 class="section-title">🌟 Java дегеніміз не?</h2>
+            
+            <p style="font-size: 1.2rem; margin-bottom: 25px; color: #7f8c8d; text-align: center;">
+                Java - объектіге бағытталған, көп платформалы, қауіпсіз және қуатты программалау тілі
+            </p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>🖥️ Көп платформалы</h3>
+                    <div class="feature-description">
+                        Windows, Mac, Linux - барлық жүйеде жұмыс істейді
+                    </div>
+                    <div class="feature-description">
+                        JVM арқылы қолдау көрсетеді
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <h3>🛡️ Қауіпсіз</h3>
+                    <div class="feature-description">
+                        Автоматты жад басқаруы
+                    </div>
+                    <div class="feature-description">
+                        Сандбокс қауіпсіздігі
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <h3>🏗️ Объектіге бағытталған</h3>
+                    <div class="feature-description">
+                        Класстар мен объектілер
+                    </div>
+                    <div class="feature-description">
+                        Мұрагерлік, полиморфизм
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <h3>⚡ Жылдам</h3>
+                    <div class="feature-description">
+                        Just-In-Time компиляциясы
+                    </div>
+                    <div class="feature-description">
+                        Оңтайландырылған байт-код
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="history-timeline">
+            <h2 style="text-align: center; margin-bottom: 25px;">📚 Java Тарихы</h2>
+            <p style="text-align: center; margin-bottom: 25px; font-size: 1.1rem;">
+                Sun Microsystems компаниясынан бастап, Oracle-ға дейінгі жол
+            </p>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">1991</div>
+                <p><strong>James Gosling</strong> жетекшілігімен Sun Microsystems компаниясында "Oak" жобасы басталды</p>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">1995</div>
+                <p><strong>Java 1.0</strong> - алғаш рет жарияланды. "Oak" атауы "Java" болып өзгертілді</p>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">2006</div>
+                <p><strong>Open Source</strong> - Java ашық көзделген жоба болды</p>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">2010</div>
+                <p><strong>Oracle сатып алуы</strong> - Sun Microsystems компаниясы Oracle-мен бірікті</p>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-year">2024</div>
+                <p><strong>Java 21 LTS</strong> - қазіргі ұзақ мерзімді қолдау нұсқасы</p>
+            </div>
+        </div>
+
+        <div class="jvm-visualization">
+            <h2 style="margin-bottom: 20px;">🔄 Java Virtual Machine (JVM) Жұмыс Принципі</h2>
+            <p style="margin-bottom: 25px; font-size: 1.1rem;">
+                Java кодының кез келген жүйеде қалай жұмыс істейтінін көріңіз
+            </p>
+            
+            <div class="jvm-flow">
+                <div class="jvm-step">
+                    <h4>📝 Java код</h4>
+                    <p>MyProgram.java</p>
+                </div>
+                <div class="jvm-arrow">→</div>
+                <div class="jvm-step">
+                    <h4>⚙️ Компилятор</h4>
+                    <p>javac</p>
+                </div>
+                <div class="jvm-arrow">→</div>
+                <div class="jvm-step">
+                    <h4>📦 Байт-код</h4>
+                    <p>MyProgram.class</p>
+                </div>
+                <div class="jvm-arrow">→</div>
+                <div class="jvm-step">
+                    <h4>🖥️ JVM</h4>
+                    <p>Кез келген ОС</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-section animate-in">
+            <h2 class="section-title">💻 Алғашқы Java Программасы</h2>
+            
+            <div class="code-example">
+                <div class="code-header">
+                    👋 Hello World - дәстүрлі алғашқы программа
+                </div>
+                <div>
+<span class="comment">// HelloWorld.java файлы</span>
+<span class="keyword">public class</span> <span class="variable">HelloWorld</span> {
+    <span class="comment">// Программаның басталу нүктесі</span>
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="keyword">String</span>[] <span class="variable">args</span>) {
+        <span class="comment">// Консольға мәтін шығару</span>
+        <span class="variable">System</span>.<span class="method">out</span>.<span class="method">println</span>(<span class="string">"Сәлем, Java әлемі!"</span>);
+        <span class="variable">System</span>.<span class="method">out</span>.<span class="method">println</span>(<span class="string">"Менің алғашқы программам"</span>);
+    }
+}
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h4>💡 Код түсініктемесі:</h4>
+                <p>• <strong>public class HelloWorld</strong> - HelloWorld деп аталатын класс жариялайды<br>
+                • <strong>main</strong> методы - программаның басталу нүктесі<br>
+                • <strong>System.out.println</strong> - консольға мәтін шығарады<br>
+                • <strong>Файл атауы</strong> класс атауымен бірдей болуы керек (HelloWorld.java)</p>
+            </div>
+
+            <div class="interactive-demo">
+                <h3>🎮 Қозғаулы Demo</h3>
+                <p>Төмендегі түймені басып, Java кодының нәтижесін көріңіз:</p>
+                <button class="demo-button" onclick="runJavaDemo()">▶️ Java кодын іске қосу</button>
+                <div class="output-display" id="output">Нәтижені көру үшін түймені басыңыз</div>
+            </div>
+        </div>
+
+        <div class="syntax-demo">
+            <h2 style="text-align: center; margin-bottom: 25px;">📋 Java Синтаксис Негіздері</h2>
+            <p style="text-align: center; margin-bottom: 25px; font-size: 1.1rem;">
+                Java тілінің негізгі ережелері мен конструкциялары
+            </p>
+            
+            <div class="syntax-examples">
+                <div class="syntax-item">
+                    <h4>📦 Пакеттер</h4>
+                    <p><code>package com.mycompany.myapp;</code><br>
+                    Код ұйымдастыру үшін</p>
+                </div>
+                
+                <div class="syntax-item">
+                    <h4>📥 Импорттар</h4>
+                    <p><code>import java.util.Scanner;</code><br>
+                    Басқа класстарды пайдалану</p>
+                </div>
+                
+                <div class="syntax-item">
+                    <h4>🏗️ Класс</h4>
+                    <p><code>public class MyClass { }</code><br>
+                    Код контейнері</p>
+                </div>
+                
+                <div class="syntax-item">
+                    <h4>🔧 Методтар</h4>
+                    <p><code>public void myMethod() { }</code><br>
+                    Қайталанатын код блоктары</p>
+                </div>
+                
+                <div class="syntax-item">
+                    <h4>📝 Айнымалылар</h4>
+                    <p><code>int age = 25;</code><br>
+                    Деректерді сақтау</p>
+                </div>
+                
+                <div class="syntax-item">
+                    <h4>💬 Пікірлер</h4>
+                    <p><code>// Бір жолды пікір</code><br>
+                    <code>/* Көп жолды пікір */</code></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-section animate-in">
+            <h2 class="section-title">🗂️ Java Деректер Типтері Шолуы</h2>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Категория</th>
+                        <th>Типтер</th>
+                        <th>Мысалдар</th>
+                        <th>Қолданылуы</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Бүтін сандар</strong></td>
+                        <td>byte, short, int, long</td>
+                        <td>int age = 25;</td>
+                        <td>Бүтін сандар үшін</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Бөлшек сандар</strong></td>
+                        <td>float, double</td>
+                        <td>double price = 99.99;</td>
+                        <td>Ондық сандар үшін</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Символдар</strong></td>
+                        <td>char</td>
+                        <td>char grade = 'A';</td>
+                        <td>Бір символ үшін</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Логикалық</strong></td>
+                        <td>boolean</td>
+                        <td>boolean isValid = true;</td>
+                        <td>Ақиқат/жалған үшін</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Мәтіндер</strong></td>
+                        <td>String</td>
+                        <td>String name = "Асем";</td>
+                        <td>Мәтіндер үшін</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="code-example">
+                <div class="code-header">
+                    📊 Деректер типтерінің мысалдары
+                </div>
+                <div>
+<span class="comment">// Бүтін сандар</span>
+<span class="keyword">int</span> <span class="variable">studentCount</span> = <span class="number">30</span>;
+<span class="keyword">long</span> <span class="variable">population</span> = <span class="number">19000000L</span>;
+
+<span class="comment">// Бөлшек сандар</span>
+<span class="keyword">double</span> <span class="variable">temperature</span> = <span class="number">36.6</span>;
+<span class="keyword">float</span> <span class="variable">discount</span> = <span class="number">0.15f</span>;
+
+<span class="comment">// Символдар мен мәтіндер</span>
+<span class="keyword">char</span> <span class="variable">firstLetter</span> = <span class="string">'А'</span>;
+<span class="keyword">String</span> <span class="variable">cityName</span> = <span class="string">"Алматы"</span>;
+
+<span class="comment">// Логикалық</span>
+<span class="keyword">boolean</span> <span class="variable">isStudent</span> = <span class="keyword">true</span>;
+<span class="keyword">boolean</span> <span class="variable">hasLicense</span> = <span class="keyword">false</span>;
+                </div>
+            </div>
+        </div>
+
+        <div class="java-ecosystem">
+            <h2 style="text-align: center; margin-bottom: 25px;">🌐 Java Экожүйесі</h2>
+            <p style="text-align: center; margin-bottom: 25px; font-size: 1.1rem;">
+                Java тілі негізінде құрылған технологиялар мен фреймворктер
+            </p>
+            
+            <div class="ecosystem-grid">
+                <div class="ecosystem-card">
+                    <h4>🌍 Spring</h4>
+                    <p>Веб-қосымшалар мен микросервистер</p>
+                </div>
+                
+                <div class="ecosystem-card">
+                    <h4>📱 Android</h4>
+                    <p>Мобильді қосымшалар жасау</p>
+                </div>
+                
+                <div class="ecosystem-card">
+                    <h4>🏢 Maven/Gradle</h4>
+                    <p>Жоба басқару құралдары</p>
+                </div>
+                
+                <div class="ecosystem-card">
+                    <h4>🔧 JUnit</h4>
+                    <p>Кодты тестілеу</p>
+                </div>
+                
+                <div class="ecosystem-card">
+                    <h4>🗄️ Hibernate</h4>
+                    <p>Деректер базасымен жұмыс</p>
+                </div>
+                
+                <div class="ecosystem-card">
+                    <h4>☁️ Apache Kafka</h4>
+                    <p>Деректер ағындары</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="career-paths">
+            <h2 style="text-align: center; margin-bottom: 25px;">🚀 Java арқылы Мансап Жолдары</h2>
+            <p style="text-align: center; margin-bottom: 25px; font-size: 1.1rem;">
+                Java білу арқылы қол жеткізуге болатын кәсіби бағыттар
+            </p>
+            
+            <div class="paths-grid">
+                <div class="path-card">
+                    <div class="path-icon">💻</div>
+                    <h4>Backend Әзірлеуші</h4>
+                    <p>Сервер жағындағы логика, API, микросервистер жасау</p>
+                </div>
+                
+                <div class="path-card">
+                    <div class="path-icon">📱</div>
+                    <h4>Android Әзірлеуші</h4>
+                    <p>Мобильді қосымшалар мен ойындар жасау</p>
+                </div>
+                
+                <div class="path-card">
+                    <div class="path-icon">🌐</div>
+                    <h4>Full-Stack Әзірлеуші</h4>
+                    <p>Толық веб-қосымшалар жасау (frontend + backend)</p>
+                </div>
+                
+                <div class="path-card">
+                    <div class="path-icon">🏗️</div>
+                    <h4>Жүйе Архитекторы</h4>
+                    <p>Ауқымды жүйелердің архитектурасын жобалау</p>
+                </div>
+                
+                <div class="path-card">
+                    <div class="path-icon">☁️</div>
+                    <h4>Cloud Инженері</b>
+                    <p>Бұлттық технологиялар мен DevOps</p>
+                </div>
+                
+                <div class="path-card">
+                    <div class="path-icon">📊</div>
+                    <h4>Big Data Инженері</h4>
+                    <p>Үлкен деректер өңдеу мен талдау</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-section animate-in">
+            <h2 class="section-title">✅ Java Үйренудің Артықшылықтары</h2>
+            
+            <div class="success-box">
+                <h4>🎯 Неліктен Java үйрену керек?</h4>
+                <p><strong>✨ Жоғары сұраныс:</strong> Әлемде ең көп қолданылатын тілдердің бірі<br>
+                <strong>💰 Жақсы жалақы:</strong> Java әзірлеушілеріне жоғары ақы төленеді<br>
+                <strong>🌍 Кең қолдану:</strong> Банктер, корпорациялар, стартаптар қолданады<br>
+                <strong>📚 Көп ресурс:</strong> Үйренуге қолжетімді материалдар көп<br>
+                <strong>👥 Үлкен қауымдастық:</strong> Көмек сұрауға жер көп</p>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ Қиындықтары</h4>
+                <p><strong>📝 Көп код:</strong> Кейде артық детальды синтаксис<br>
+                <strong>⏱️ Баяу басталу:</strong> JVM іске қосылуы уақыт алады<br>
+                <strong>🧠 Күрделілік:</strong> ООП ұғымдарын меңгеру қажет<br>
+                <strong>💾 Жад:</strong> Көп жад ресурстарын пайдаланады</p>
+            </div>
+
+            <div class="info-box">
+                <h4>📈 Келесі қадамдар</h4>
+                <p><strong>1.</strong> JDK орнату және IDE таңдау (IntelliJ IDEA, Eclipse)<br>
+                <strong>2.</strong> Негізгі синтаксис пен деректер типтерін үйрену<br>
+                <strong>3.</strong> Объектіге бағытталған программалауды меңгеру<br>
+                <strong>4.</strong> Collections Framework пен Exception Handling<br>
+                <strong>5.</strong> Spring Framework және жобалар жасау</p>
+            </div>
+        </div>
+
+        <div class="lesson-section animate-in" style="text-align: center; background: linear-gradient(135deg, #667eea, #764ba2); color: white;">
+            <h2 style="color: white; border-bottom: 3px solid white;">🎓 Қорытынды</h2>
+            <p style="font-size: 1.3rem; margin: 30px 0;">
+                Java - қуатты, сенімді және кең қолданылатын программалау тілі.<br>
+                Үйренуге қиын болғанымен, мансаптық мүмкіндіктер зор!
+            </p>
+            <div style="background: rgba(255,255,255,0.2); border-radius: 15px; padding: 20px; margin: 30px 0;">
+                <h3>☕ Java-мен жолыңыз сәтті болсын!</h3>
+                <p>Алдағы сабақтарда кодтаумен практика жасаймыз</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function runJavaDemo() {
+            const output = document.getElementById('output');
+            output.innerHTML = '';
+            
+            const messages = [
+                '⏳ Java компиляторы іске қосылуда...',
+                '⚙️ Байт-код генерациялануда...',
+                '🖥️ JVM іске қосылуда...',
+                '✅ Сәлем, Java әлемі!<br>✅ Менің алғашқы программам'
+            ];
+            
+            let index = 0;
+            const interval = setInterval(() => {
+                output.innerHTML = messages[index];
+                index++;
+                if (index >= messages.length) {
+                    clearInterval(interval);
+                    output.style.color = '#2ecc71';
+                }
+            }, 1000);
+        }
+
+        // Анимация эффекттері
+        const sections = document.querySelectorAll('.lesson-section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
