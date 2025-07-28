@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Методтар толық сабағы</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+            padding: 40px 0;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .lesson-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+        }
+
+        .concept-overview {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .concept-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .concept-card:hover {
+            transform: scale(1.05);
+        }
+
+        .concept-card h4 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .method-structure {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .structure-diagram {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .structure-parts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .structure-part {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .method-types {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .types-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .type-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .code-example {
+            background: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            line-height: 1.8;
+            box-shadow: 0 10px 30px rgba(44, 62, 80, 0.3);
+        }
+
+        .code-header {
+            background: #34495e;
+            color: white;
+            padding: 12px 20px;
+            margin: -25px -25px 20px -25px;
+            border-radius: 15px 15px 0 0;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .keyword { color: #e74c3c; font-weight: bold; }
+        .number { color: #3498db; }
+        .comment { color: #95a5a6; font-style: italic; }
+        .variable { color: #2ecc71; }
+        .operator { color: #f39c12; font-weight: bold; }
+        .string { color: #f1c40f; }
+        .method { color: #9b59b6; font-weight: bold; }
+
+        .parameters-section {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .parameter-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .parameter-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .return-types {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .overloading-section {
+            background: linear-gradient(135deg, #00b894, #00cec9);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .recursion-section {
+            background: linear-gradient(135deg, #fd79a8, #fdcb6e);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .scope-section {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .practical-examples {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .example-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+        }
+
+        .warning-box {
+            background: rgba(231, 76, 60, 0.1);
+            border: 2px solid #e74c3c;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #c0392b;
+        }
+
+        .warning-box h4 {
+            color: #e74c3c;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .info-box {
+            background: rgba(52, 152, 219, 0.1);
+            border: 2px solid #3498db;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #2980b9;
+        }
+
+        .info-box h4 {
+            color: #3498db;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .tips-container {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .tip-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid white;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .structure-parts {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .animate-in {
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .method-signature {
+            font-family: 'Courier New', monospace;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚙️ Java Методтар</h1>
+            <p>Функциялар мен процедуралар - кодты ұйымдастыру негізі</p>
+            <div style="background: rgba(255,255,255,0.2); border-radius: 50px; padding: 15px 30px; display: inline-block; margin-top: 20px;">
+                <strong>Метод</strong> — белгілі бір тапсырманы орындайтын код блогы
+            </div>
+        </div>
+
+        <div class="concept-overview">
+            <h2 style="margin-bottom: 20px;">🧠 Метод дегеніміз не?</h2>
+            <p style="margin-bottom: 25px; font-size: 1.1rem;">
+                Метод - бұл белгілі бір тапсырманы орындау үшін жазылған код блогы
+            </p>
+            
+            <div class="concept-grid">
+                <div class="concept-card">
+                    <h4>🔄 Қайта пайдалану</h4>
+                    <p>Бір рет жазып, көп рет қолдану мүмкіндігі</p>
+                    <small>DRY принципі</small>
+                </div>
+                
+                <div class="concept-card">
+                    <h4>📦 Модульдік</h4>
+                    <p>Кодты логикалық бөліктерге бөлу</p>
+                    <small>Оқылуын жеңілдетеді</small>
+                </div>
+                
+                <div class="concept-card">
+                    <h4>🧪 Тестілеу</h4>
+                    <p>Әрбір методты жеке тестілеу мүмкіндігі</p>
+                    <small>Сапалы код</small>
+                </div>
+                
+                <div class="concept-card">
+                    <h4>🔧 Сақтау</h4>
+                    <p>Қатені табу және түзету оңай</p>
+                    <small>Maintainability</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="method-structure">
+            <h2 style="text-align: center; margin-bottom: 25px;">🏗️ Метод құрылымы</h2>
+            
+            <div class="structure-diagram">
+                <div style="font-size: 1.2rem; margin-bottom: 20px;">
+                    <span style="color: #f1c40f;">access_modifier</span> 
+                    <span style="color: #e74c3c;">static</span> 
+                    <span style="color: #2ecc71;">return_type</span> 
+                    <span style="color: #3498db;">method_name</span>(<span style="color: #9b59b6;">parameters</span>) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #95a5a6;">// method body</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #e67e22;">return value;</span><br>
+                    }
+                </div>
+            </div>
+            
+            <div class="structure-parts">
+                <div class="structure-part">
+                    <h4 style="color: #f1c40f;">Access Modifier</h4>
+                    <p>public, private, protected, package-private</p>
+                </div>
+                
+                <div class="structure-part">
+                    <h4 style="color: #e74c3c;">Static</h4>
+                    <p>Объект жасамай-ақ шақыру мүмкіндігі</p>
+                </div>
+                
+                <div class="structure-part">
+                    <h4 style="color: #2ecc71;">Return Type</h4>
+                    <p>Қайтаратын мәннің типі (void егер ештеңе қайтармаса)</p>
+                </div>
+                
+                <div class="structure-part">
+                    <h4 style="color: #3498db;">Method Name</h4>
+                    <p>Методтың атауы (camelCase стилінде)</p>
+                </div>
+                
+                <div class="structure-part">
+                    <h4 style="color: #9b59b6;">Parameters</h4>
+                    <p>Методқа берілетін мәндер тізімі</p>
+                </div>
+                
+                <div class="structure-part">
+                    <h4 style="color: #e67e22;">Return</h4>
+                    <p>Методтың нәтижесін қайтару</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-section animate-in">
+            <h2 class="section-title">🚀 Қарапайым методтар мысалдары</h2>
+            
+            <div class="code-example">
+                <div class="code-header">
+                    📝 Негізгі методтар
+                </div>
+                <div>
+<span class="keyword">public</span> <span class="keyword">class</span> BasicMethods {
+    
+    <span class="comment">// 1. Параметрсіз, мән қайтармайтын метод</span>
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="method">sayHello</span>() {
+        System.out.println(<span class="string">"Сәлем!"</span>);
+    }
+    
+    <span class="comment">// 2. Параметрлі, мән қайтармайтын метод</span>
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="method">greetPerson</span>(<span class="keyword">String</span> <span class="variable">name</span>) {
+        System.out.println(<span class="string">"Сәлем, "</span> + <span class="variable">name</span> + <span class="string">"!"</span>);
+    }
+    
+    <span class="comment">// 3. Параметрсіз, мән қайтаратын метод</span>
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="method">getRandomNumber</span>() {
+        <span class="keyword">return</span> (<span class="keyword">int</span>)(Math.random() * <span class="number">100</span>);
+    }
+    
+    <span class="comment">// 4. Параметрлі, мән қайтаратын метод</span>
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="method">addNumbers</span>(<span class="keyword">int</span> <span class="variable">a</span>, <span class="keyword">int</span> <span class="variable">b</span>) {
+        <span class="keyword">return</span> <span class="variable">a</span> + <span class="variable">b</span>;
+    }
+    
+    <span class="comment">// 5. Бірнеше параметрлі метод</span>
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="method">calculateArea</span>(<span class="keyword">double</span> <span class="variable">length</span>, <span class="keyword">double</span> <span class="variable">width</span>) {
+        <span class="keyword">return</span> <span class="variable">length</span> * <span class="variable">width</span>;
+    }
+    
+    <span class="comment">// Main метод - методтарды тестілеу</span>
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="method">main</span>(<span class="keyword">String</span>[] <span class="variable">args</span>) {
+        <span class="comment">// Методтарды шақыру</span>
+        <span class="method">sayHello</span>();                    <span class="comment">// Сәлем!</span>
+        <span class="method">greetPerson</span>(<span class="string">"Асхат"</span>);         <span class="comment">// Сәлем, Асхат!</span>
+        
+        <span class="keyword">int</span> <span class="variable">randomNum</span> = <span class="method">getRandomNumber</span>();
+        System.out.println(<span class="string">"Кездейсоқ сан: "</span> + <span class="variable">randomNum</span>);
+        
+        <span class="keyword">int</span> <span class="variable">sum</span> = <span class="method">addNumbers</span>(<span class="number">5</span>, <span class="number">3</span>);
+        System.out.println(<span class="string">"Қосынды: "</span> + <span class="variable">sum</span>);      <span class="comment">// 8</span>
+        
+        <span class="keyword">double</span> <span class="variable">area</span> = <span class="method">calculateArea</span>(<span class="number">4.5</span>, <span class="number">3.2</span>);
+        System.out.println(<span class="string">"Аудан: "</span> + <span class="variable">area</span>);       <span class="comment">// 14.4</span>
+    }
+}
+                </div>
+            </div>
+        </div>
+
+        <div class="method-types">
+            <h2 style="text-align: center; margin-bottom: 25px;">🎭 Метод түрлері</h2>
+            
+            <div class="types-grid">
+                <div class="type-card">
+                    <h4>🔄 void методтар</h4>
+                    <p>Ешнәрсе қайтармайтын методтар</p>
+                    <div class="method-signature">
+                        public static void printMessage() {<br>
+                        &nbsp;&nbsp;System.out.println("Хабарлама");<br>
+                        }
+                    </div>
+                    <p><strong>Қолданылуы:</strong> Шығару, файлға жазу, интерфейсті жаңарту</p>
+                </div>
+                
+                <div class="type-card">
+                    <h4>↩️ return методтар</h4>
+                    <p>Белгілі бір мән қайтаратын методтар</p>
+                    <div class="method-signature">
+                        public static int multiply(int a, int b) {<br>
+                        &nbsp;&nbsp;return a * b;<br>
+                        }
+                    </div>
+                    <p><strong>Қолданылуы:</strong> Есептеулер, деректерді өңдеу</p>
+                </div>
+                
+                <div class="type-card">
+                    <h4>📥 параметрлі методтар</h4>
+                    <p>Сыртқы мәндерді қабылдайтын методтар</p>
+                    <div class="method-signature">
+                        public static void greet(String name, int age) {<br>
+                        &nbsp;&nbsp;System.out.println(name + ", " + age);<br>
+                        }
+                    </div>
+                    <p><strong>Қолданылуы:</strong> Икемді, қайта пайдаланатын код</p>
+                </div>
+                
+                <div class="type-card">
+                    <h4>⚡ static методтар</h4>
+                    <p>Объект жасамай-ақ шақырылатын методтар</p>
+                    <div class="method-signature">
+                        public static double sqrt(double x) {<br>
+                        &nbsp;&nbsp;return Math.sqrt(x);<br>
+                        }
+                    </div>
+                    <p><strong>Қолданылуы:</strong> Utility функциялар, математикалық операциялар</p>
+                </div>
+                
+                <div class="type-card">
+                    <h4>🏠 non-static методтар</h4>
+                    <p>Объект арқылы шақырылатын методтар</p>
+                    <div class="method-signature">
+                        public void displayInfo() {<br>
+                        &nbsp;&nbsp;System.out.println(this.name);<br>
+                        }
+                    </div>
+                    <p><strong>Қолданылуы:</strong> Объектпен байланысты операциялар</p>
+                </div>
+                
+                <div class="type-card">
+                    <h4>🔄 Recursive методтар</h4>
+                    <p>Өзін-өзі шақыратын методтар</p>
+                    <div class="method-signature">
+                        public static int factorial(int n) {<br>
+                        &nbsp;&nbsp;if (n <= 1) return 1;<br>
+                        &nbsp;&nbsp;return n * factorial(n-1);<br>
+                        }
+                    </div>
+                    <p><strong>Қолданылуы:</strong> Математикалық есептеулер, ағаш құрылымдар</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="parameters-section">
+            <h2 style="text-align: center; margin-bottom: 25px;">📥 Параметрлер мен аргументтер</h2>
+            
+            <div class="parameter-types">
+                <div class="parameter-card">
+                    <h4>📝 Негізгі түсініктер</h4>
+                    <p><strong>Параметр:</strong> Метод анықтамасындағы айнымалы</p>
+                    <p><strong>Аргумент:</strong> Методты шақырғанда берілетін нақты мән</p>
+                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin: 10px 0; font-family: monospace;">
+                        // name - параметр<br>
+                        public static void greet(String name) {<br>
+                        &nbsp;&nbsp;System.out.println("Hello " + name);<br>
+                        }<br><br>
+                        // "Асхат" - аргумент<br>
+                        greet("Асхат");
+                    </div>
+                </div>
+                
+                <div class="parameter-card">
+                    <h4>🔢 Primitive параметрлер</h4>
+                    <p>Мән бойынша беріледі (pass by value)</p>
+                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin: 10px 0; font-family: monospace;">
+                        public static void changeNumber(int x) {<br>
+                        &nbsp;&nbsp;x = 100; // тек көшірмесі өзгереді<br>
+                        }<br><br>
+                        int num = 5;<br>
+                        changeNumber(num);<br>
+                        // num әлі де 5
+                    </div>
+                </div>
+                
+                <div class="parameter-card">
+                    <h4>📦 Object параметрлер</h4>
+                    <p>Сілтеме бойынша беріледі (pass by reference)</p>
+                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin: 10px 0; font-family: monospace;">
+                        public static void changeArray(int[] arr) {<br>
+                        &nbsp;&nbsp;arr[0] = 100; // түпнұсқа өзгереді<br>
+                        }<br><br>
+                        int[] numbers = {1, 2, 3};<br>
+                        changeArray(numbers);<br>
+                        // numbers[0] енді 100
+                    </div>
+                </div>
+                
+                <div class="parameter-card">
+                    <h4>📊 Varargs (өзгермелі параметрлер)</h4>
+                    <p>Әртүрлі санда параметр қабылдау</p>
+                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin: 10px 0; font-family: monospace;">
+                        public static int sum(int... numbers) {<br>
+                        &nbsp;&nbsp;int total = 0;<br>
+                        &nbsp;&nbsp;for (int num : numbers) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;total += num;<br>
+                        &nbsp;&nbsp;}<br>
+                        &nbsp;&nbsp;return total;<br>
+                        }<br><br>
+                        sum(1, 2, 3, 4, 5); // 15
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-section animate-in">
+            <h2 class="section-title">📊 Параметрлермен жұмыс мысалдары</h2>
+            
+            <div class="code-example">
+                <div class="code-header">
+                    🧮 Параметрлер мен аргументтер
+                </div>
+                <div>
+<span class="keyword">public</span> <span class="keyword">class</span> ParameterExamples {
+    
+    <span class="comment">// 1. Бір параметр</span>
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="method">printSquare</span>(<span class="keyword">int</span> <span class="variable">number</span>) {
+        <span class="keyword">int</span> <span class="variable">square</span> = <span class="variable">number</span> * <span class="variable">number</span>;
+        System.out.println(<span class="variable">number</span> + <span class="string">" санының квадраты: "</span> + <span class="variable">square</span>);
+    }
+    
+<span class="comment">// 2. Бірнеше параметр</span>
+<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="method">calculateGrade</span>(
+    <span class="keyword">int</span> <span class="variable">totalPoints</span>, 
+    <span class="keyword">int</span> <span class="variable">maxPoints</span>) {
+    <span class="keyword">if</span> (<span class="variable">maxPoints</span> == <span class="number">0</span>) {
+        <span class="keyword">return</span> <span class="number">0</span>;
+    }
+    <span class="keyword">return</span> ((<span class="keyword">double</span>) <span class="variable">totalPoints</span> / <span class="variable">maxPoints</span>) * <span class="number">100</span>;
+}

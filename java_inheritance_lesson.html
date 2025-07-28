@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Мұрагерлік</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+            padding: 40px 0;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .lesson-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+        }
+
+        .inheritance-concept {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .inheritance-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .type-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .type-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .type-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .code-example {
+            background: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            line-height: 1.8;
+            box-shadow: 0 10px 30px rgba(44, 62, 80, 0.3);
+        }
+
+        .code-header {
+            background: #34495e;
+            color: white;
+            padding: 12px 20px;
+            margin: -25px -25px 20px -25px;
+            border-radius: 15px 15px 0 0;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .keyword { color: #e74c3c; font-weight: bold; }
+        .string { color: #f39c12; }
+        .comment { color: #95a5a6; font-style: italic; }
+        .variable { color: #3498db; }
+        .method { color: #2ecc71; }
+        .number { color: #f39c12; }
+
+        .inheritance-demo {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .inheritance-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            border-left: 4px solid white;
+        }
+
+        .feature-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .hierarchy-demo {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .hierarchy-tree {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 25px 0;
+            gap: 20px;
+        }
+
+        .tree-level {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .tree-node {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 15px 25px;
+            border: 2px solid white;
+            position: relative;
+        }
+
+        .tree-connector {
+            width: 2px;
+            height: 20px;
+            background: white;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .comparison-table td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .examples-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .example-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .example-card h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .warning-box {
+            background: rgba(231, 76, 60, 0.1);
+            border: 2px solid #e74c3c;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #6a241c;
+        }
+
+        .warning-box h4 {
+            color: #e74c3c;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .info-box {
+            background: rgba(52, 152, 219, 0.1);
+            border: 2px solid #3498db;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #13344b;
+        }
+
+        .info-box h4 {
+            color: #3498db;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .polymorphism-demo {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .polymorphism-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .poly-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .access-modifiers {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .access-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .access-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .access-level {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .examples-showcase {
+                grid-template-columns: 1fr;
+            }
+            
+            .tree-level {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .inheritance-types {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .animate-in {
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏗️ Java Мұрагерлік</h1>
+            <p>Класстар арасындағы ата-бала қатынасы</p>
+            <div style="background: rgba(255,255,255,0.2); border-radius: 50px; padding: 15px 30px; display: inline-block; margin-top: 20px;">
+                <strong>Inheritance:</strong> мұрагерлік &nbsp;&nbsp; <strong>extends:</strong> кеңейту &nbsp;&nbsp; <strong>super:</strong> ата класс
+            </div>
+        </div>
+
+        <div class="inheritance-concept">
+            <h2 style="margin-bottom: 20px;">🎯 Мұрагерлік дегеніміз не?</h2>
+            <p style="margin-bottom: 25px; font-size: 1.2rem;">
+                Мұрагерлік - бұл бір класстың (бала) екінші класстан (ата) қасиеттер мен әдістерді алу механизмі. extends кілт сөзі арқылы орындалады.
+            </p>
+            
+            <div class="inheritance-types">
+                <div class="type-card">
+                    <h4>👨‍👦 Жалғыз мұрагерлік</h4>
+                    <p>Single Inheritance<br>Бір ата класстан мұра алу<br>Java-да негізгі түрі</p>
+                </div>
+                <div class="type-card">
+                    <h4>👨‍👦‍👦 Көп деңгейлі</h4>
+                    <p>Multilevel Inheritance<br>Ата→Бала→Немере<br>Тізбек түрінде</p>
+                </div>
+                <div class="type-card">
+                    <h4>🌳 Иерархиялық</h4>
+                    <p>Hierarchical Inheritance<br>Бір атадан көп бала<br>Ағаш құрылымы</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-section animate-in">
+            <h2 class="section-title">🔍 Мұрагерліктің Артықшылықтары</h2>
+            
+            <div class="inheritance-demo">
+                <h3 style="text-align: center; margin-bottom: 20px;">✨ Неге Мұрагерлік Қажет?</h3>
+                
+                <div class="inheritance-features">
+                    <div class="feature-card">
+                        <h4>🔄 Код қайта пайдалану</h4>
+                        <p>• Бар кодты қайта жазбайсыз<br>
+                        • Ата класстың барлық мүмкіндіктері<br>
+                        • Жаңа функционалдық қосасыз</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>🏗️ Модульдік дизайн</h4>
+                        <p>• Ортақ қасиеттерді бір жерде<br>
+                        • Оңай басқару мен жаңарту<br>
+                        • Логикалық топтастыру</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>🔧 Полиморфизм негізі</h4>
+                        <p>• Бір интерфейс, көп орындау<br>
+                        • Method overriding мүмкіндігі<br>
+                        • Икемді архитектура</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>📊 Абстракция</h4>
+                        <p>• Күрделі детальдарды жасыру<br>
+                        • Ортақ интерфейс ұсыну<br>
+                        • Оңай түсіну мен қолдану</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-section animate-in">
+            <h2 class="section-title">👨‍👦 Негізгі Мұрагерлік Мысалы</h2>
+            
+            <div class="code-example">
+                <div class="code-header">
+                    🐾 Animal (ата класс) және Dog (бала класс)
+                </div>
+                <div>
+<span class="comment">// Ата класс - Animal</span>
+<span class="keyword">public class</span> <span class="variable">Animal</span> {
+    <span class="keyword">protected</span> <span class="keyword">String</span> <span class="variable">name</span>;
+    <span class="keyword">protected</span> <span class="keyword">int</span> <span class="variable">age</span>;
+    <span class="keyword">protected</span> <span class="keyword">String</span> <span class="variable">color</span>;
+
+    <span class="comment">// Конструктор</span>
+    <span class="keyword">public</span> <span class="method">Animal</span>(<span class="keyword">String</span> <span class="variable">name</span>, <span class="keyword">int</span> <span class="variable">age</span>, <span class="keyword">String</span> <span class="variable">color</span>) {
+        <span class="keyword">this</span>.<span class="variable">name</span> = <span class="variable">name</span>;
+        <span class="keyword">this</span>.<span class="variable">age</span> = <span class="variable">age</span>;
+        <span class="keyword">this</span>.<span class="variable">color</span> = <span class="variable">color</span>;
+        System.out.println(<span class="string">"Animal конструкторы шақырылды"</span>);
+    }
+
+    <span class="comment">// Ортақ әдістер</span>
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">eat</span>() {
+        System.out.println(<span class="variable">name</span> + <span class="string">" тамақ жейді"</span>);
+    }
+
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">sleep</span>() {
+        System.out.println(<span class="variable">name</span> + <span class="string">" ұйықтайды"</span>);
+    }
+
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">displayInfo</span>() {
+        System.out.println(<span class="string">"Аты: "</span> + <span class="variable">name</span> + <span class="string">", Жасы: "</span> + <span class="variable">age</span> + <span class="string">", Түсі: "</span> + <span class="variable">color</span>);
+    }
+}
+
+<span class="comment">// Бала класс - Dog (Animal-дан мұра алады)</span>
+<span class="keyword">public class</span> <span class="variable">Dog</span> <span class="keyword">extends</span> <span class="variable">Animal</span> {
+    <span class="keyword">private</span> <span class="keyword">String</span> <span class="variable">breed</span>; <span class="comment">// Тұқымы</span>
+    <span class="keyword">private</span> <span class="keyword">boolean</span> <span class="variable">isTrained</span>; <span class="comment">// Үйретілген бе</span>
+
+    <span class="comment">// Dog конструкторы</span>
+    <span class="keyword">public</span> <span class="method">Dog</span>(<span class="keyword">String</span> <span class="variable">name</span>, <span class="keyword">int</span> <span class="variable">age</span>, <span class="keyword">String</span> <span class="variable">color</span>, <span class="keyword">String</span> <span class="variable">breed</span>) {
+        <span class="keyword">super</span>(<span class="variable">name</span>, <span class="variable">age</span>, <span class="variable">color</span>); <span class="comment">// Ата класс конструкторын шақыру</span>
+        <span class="keyword">this</span>.<span class="variable">breed</span> = <span class="variable">breed</span>;
+        <span class="keyword">this</span>.<span class="variable">isTrained</span> = <span class="keyword">false</span>;
+        System.out.println(<span class="string">"Dog конструкторы шақырылды"</span>);
+    }
+
+    <span class="comment">// Dog-қа тән әдістер</span>
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">bark</span>() {
+        System.out.println(<span class="variable">name</span> + <span class="string">" қабылдайды: Уау! Уау!"</span>);
+    }
+
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">wagTail</span>() {
+        System.out.println(<span class="variable">name</span> + <span class="string">" құйрығын бұлғайды"</span>);
+    }
+
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">train</span>() {
+        <span class="variable">isTrained</span> = <span class="keyword">true</span>;
+        System.out.println(<span class="variable">name</span> + <span class="string">" үйретілді!"</span>);
+    }
+
+    <span class="comment">// Method Overriding - ата класс әдісін қайта жазу</span>
+    <span class="keyword">@Override</span>
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">displayInfo</span>() {
+        <span class="keyword">super</span>.<span class="method">displayInfo</span>(); <span class="comment">// Ата класс әдісін шақыру</span>
+        System.out.println(<span class="string">"Тұқымы: "</span> + <span class="variable">breed</span> + <span class="string">", Үйретілген: "</span> + <span class="variable">isTrained</span>);
+    }
+}
+                </div>
+            </div>
+
+            <div class="code-example">
+                <div class="code-header">
+                    🧪 Мұрагерлікті тестілеу
+                </div>
+                <div>
+<span class="keyword">public class</span> <span class="variable">InheritanceTest</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="keyword">String</span>[] <span class="variable">args</span>) {
+        System.out.println(<span class="string">"=== Мұрагерлік мысалы ==="</span>);
+        
+        <span class="comment">// Dog объектісін жасау</span>
+        <span class="variable">Dog</span> <span class="variable">myDog</span> = <span class="keyword">new</span> <span class="variable">Dog</span>(<span class="string">"Ақбөз"</span>, <span class="number">3</span>, <span class="string">"Қоңыр"</span>, <span class="string">"Немис бөрісі"</span>);
+        
+        System.out.println(<span class="string">"\n=== Ата класстың әдістері ==="</span>);
+        <span class="variable">myDog</span>.<span class="method">eat</span>();      <span class="comment">// Animal-дан мұра алған</span>
+        <span class="variable">myDog</span>.<span class="method">sleep</span>();    <span class="comment">// Animal-дан мұра алған</span>
+        
+        System.out.println(<span class="string">"\n=== Бала класстың әдістері ==="</span>);
+        <span class="variable">myDog</span>.<span class="method">bark</span>();     <span class="comment">// Dog-қа тән</span>
+        <span class="variable">myDog</span>.<span class="method">wagTail</span>();  <span class="comment">// Dog-қа тән</span>
+        <span class="variable">myDog</span>.<span class="method">train</span>();    <span class="comment">// Dog-қа тән</span>
+        
+        System.out.println(<span class="string">"\n=== Қайта жазылған әдіс ==="</span>);
+        <span class="variable">myDog</span>.<span class="method">displayInfo</span>(); <span class="comment">// Override жасалған</span>
+    }
+}
+                </div>
+            </div>
+        </div>
+
+        <div class="hierarchy-demo">
+            <h2 style="text-align: center; margin-bottom: 20px;">🌳 Мұрагерлік Иерархиясы</h2>
+            <p style="text-align: center; margin-bottom: 25px; font-size: 1.1rem;">
+                Java-да класстар арасында ағаш тәрізді иерархия құрылады. Object класы барлық класстардың ата класы болып табылады.
+            </p>
+            
+            <div class="hierarchy-tree">
+                <div class="tree-level">
+                    <div class="tree-node">
+                        <strong>Object</strong><br>
+                        <small>Барлық класстардың атасы</small>
+                    </div>
+                </div>
+                
+                <div class="tree-connector"></div>
+                
+                <div class="tree-level">
+                    <div class="tree-node">
+                        <strong>Animal</strong><br>
+                        <small>name, age, color</small>
+                    </div>
+                </div>
+                
+                <div class="tree-connector"></div>
+                
+                <div class="tree-level">
+                    <div class="tree-node">
+                        <strong>Dog</strong><br>
+                        <small>breed, isTrained</small>
+                    </div>
+                    <div class="tree-node">
+                        <strong>Cat</strong><br>
+                        <small>isIndoor, livesCount</small>
+                    </div>
+                    <div class="tree-node">
+                        <strong>Bird</strong><br>
+                        <small>canFly, wingspan</small>
+                    </div>
+                </div>
+                
+                <div class="tree-connector"></div>
+                
+                <div class="tree-level">
+                    <div class="tree-node">
+                        <strong>GermanShepherd</strong><br>
+                        <small>policeService</small>
+                    </div>
+                    <div class="tree-node">
+                        <strong>Bulldog</strong><br>
+                        <small>isGuardDog</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="access-modifiers">
+            <h2 style="text-align: center; margin-bottom: 20px;">🔐 Access Modifiers және Мұрагерлік</h2>
+            <p style="text-align: center; margin-bottom: 25px; font-size: 1.1rem;">
+                Мұрагерлікте қандай қасиеттер мен әдістер бала класста көрінетіні access modifier-лермен анықталады.
+            </p>
+            
+            <div class="access-grid">
+                <div class="access-card">
+                    <div class="access-level">🔓 public</div>
+                    <h4>Ашық</h4>
+                    <p>• Барлық жерден қол жетімді<br>
+                    • Мұра алынады<br>
+                    • Ең кең көлемді</p>
+                </div>
+                <div class="access-card">
+                    <div class="access-level">🛡️ protected</div>
+                    <h4>Қорғалған</h4>
+                    <p>• Сол package және бала класстарда<br>
+                    • Мұра алынады<br>
+                    • Мұрагерлік үшін қолайлы</p>
+                </div>
+                <div class="access-card">
+                    <div class="access-level">📦 default</div>
+                    <h4>Пакет деңгейі</h4>
+                    <p>• Тек сол package-те<br>
+                    • Басқа package-тегі балада жоқ<br>
+                    • Modifier жазылмайды</p>
+                </div>
+                <div class="access-card">
+                    <div class="access-level">🔒 private</div>
+                    <h4>Жеке</h4>
+                    <p>• Тек сол класста<br>
+                    • Мұра алынбайды<br>
+                    • Ең шектеулі</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-section animate-in">
+            <h2 class="section-title">📊 super кілт сөзі</h2>
+            
+            <div class="code-example">
+                <div class="code-header">
+                    🔗 super() арқылы ата класс конструкторын шақыру
+                </div>
+                <div>
+<span class="keyword">public class</span> <span class="variable">Vehicle</span> {
+    <span class="keyword">protected</span> <span class="keyword">String</span> <span class="variable">brand</span>;
+    <span class="keyword">protected</span> <span class="keyword">int</span> <span class="variable">year</span>;
+    <span class="keyword">protected</span> <span class="keyword">double</span> <span class="variable">price</span>;
+
+    <span class="keyword">public</span> <span class="method">Vehicle</span>(<span class="keyword">String</span> <span class="variable">brand</span>, <span class="keyword">int</span> <span class="variable">year</span>, <span class="keyword">double</span> <span class="variable">price</span>) {
+        <span class="keyword">this</span>.<span class="variable">brand</span> = <span class="variable">brand</span>;
+        <span class="keyword">this</span>.<span class="variable">year</span> = <span class="variable">year</span>;
+        <span class="keyword">this</span>.<span class="variable">price</span> = <span class="variable">price</span>;
+        System.out.println(<span class="string">"Vehicle конструкторы: "</span> + <span class="variable">brand</span>);
+    }
+
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">start</span>() {
+        System.out.println(<span class="variable">brand</span> + <span class="string">" қозғалтқышы іске қосылды"</span>);
+    }
+
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">displayInfo</span>() {
+        System.out.println(<span class="string">"Марка: "</span> + <span class="variable">brand</span> + <span class="string">", Жылы: "</span> + <span class="variable">year</span> + <span class="string">", Бағасы: $"</span> + <span class="variable">price</span>);
+    }
+}
+
+<span class="keyword">public class</span> <span class="variable">Car</span> <span class="keyword">extends</span> <span class="variable">Vehicle</span> {
+    <span class="keyword">private</span> <span class="keyword">int</span> <span class="variable">doors</span>;
+    <span class="keyword">private</span> <span class="keyword">String</span> <span class="variable">fuelType</span>;
+
+    <span class="keyword">public</span> <span class="method">Car</span>(<span class="keyword">String</span> <span class="variable">brand</span>, <span class="keyword">int</span> <span class="variable">year</span>, <span class="keyword">double</span> <span class="variable">price</span>, <span class="keyword">int</span> <span class="variable">doors</span>, <span class="keyword">String</span> <span class="variable">fuelType</span>) {
+        <span class="keyword">super</span>(<span class="variable">brand</span>, <span class="variable">year</span>, <span class="variable">price</span>); <span class="comment">// Ата класс конструкторын шақыру</span>
+        <span class="keyword">this</span>.<span class="variable">doors</span> = <span class="variable">doors</span>;
+        <span class="keyword">this</span>.<span class="variable">fuelType</span> = <span class="variable">fuelType</span>;
+        System.out.println(<span class="string">"Car конструкторы аяқталды"</span>);
+    }
+
+    <span class="comment">// super арқылы ата класс әдісін шақыру</span>
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">startEngine</span>() {
+        System.out.println(<span class="string">"Көлік дайындалуда..."</span>);
+        <span class="keyword">super</span>.<span class="method">start</span>(); <span class="comment">// Vehicle класының start() әдісі</span>
+        System.out.println(<span class="string">"Көлік жүруге дайын!"</span>);
+    }
+
+    <span class="comment">// Method overriding with super</span>
+    <span class="keyword">@Override</span>
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">displayInfo</span>() {
+        <span class="keyword">super</span>.<span class="method">displayInfo</span>(); <span class="comment">// Ата класс ақпаратын алдымен көрсету</span>
+        System.out.println(<span class="string">"Есік саны: "</span> + <span class="variable">doors</span> + <span class="string">", Отын: "</span> + <span class="variable">fuelType</span>);
+    }
+}
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h4>💡 super кілт сөзінің қолданылуы:</h4>
+                <p>• <strong>super()</strong> - ата класс конструкторын шақыру (алғашқы жолда болуы керек)<br>
+                • <strong>super.method()</strong> - ата класс әдісін шақыру<br>
+                • <strong>super.variable</strong> - ата класс өрісіне қол жету</p>
+            </div>
+        </div>
+
+        <div class="polymorphism-demo">
+            <h2 style="text-align: center; margin-bottom: 20px;">🎭 Method Overriding</h2>
+            <p style="text-align: center; margin-bottom: 25px; font-size: 1.1rem;">
+                Бала класс ата класстың әдісін өз қажеттілігіне сай қайта жаза алады. Бұл Method Overriding деп аталады.
+            </p>
+            
+            <div class="polymorphism-examples">
+                <div class="poly-card">
+                    <h4>📝 Overriding ережелері</h4>
+                    <div style="text-align: left; margin-top: 15px;">
+                        • Әдіс атауы бірдей болуы керек<br>
+                        • Параметрлер бірдей болуы керек<br>
+                        • Return типі бірдей немесе коvariant<br>
+                        • @Override annotation қолдану керек<br>
+                        • Access modifier кемітуге болмайды
+                    </div>
+                </div>
+                
+                <div class="poly-card">
+                    <h4>🔄 Overloading vs Overriding</h4>
+                    <div style="text-align: left; margin-top: 15px;">
+                        <strong>Overloading:</strong> Бір класста<br>
+                        <strong>Overriding:</strong> Ата-бала арасында<br><br>
+                        <strong>Overloading:</strong> Параметрлер әртүрлі<br>
+                        <strong>Overriding:</strong> Параметрлер бірдей
+                    </div>
+                </div>
+                
+                <div class="poly-card">
+                    <h4>⚡ Полиморфизм</h4>
+                    <div style="text-align: left; margin-top: 15px;">
+                        • Бір интерфейс, көп іске асыру<br>
+                        • Runtime-да қай әдіс шақырылатыны анықталады<br>
+                        • Dynamic method dispatch<br>
+                        • Икемді код жазуға мүмкіндік
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-section animate-in">
+            <h2 class="section-title">🎭 Полиморфизм мысалы</h2>
+            
+            <div class="code-example">
+                <div class="code-header">
+                    🎨 Shape иерархиясы арқылы полиморфизм
+                </div>
+                <div>
+<span class="keyword">abstract class</span> <span class="variable">Shape</span> {
+    <span class="keyword">protected</span> <span class="keyword">String</span> <span class="variable">color</span>;
+    
+    <span class="keyword">public</span> <span class="method">Shape</span>(<span class="keyword">String</span> <span class="variable">color</span>) {
+        <span class="keyword">this</span>.<span class="variable">color</span> = <span class="variable">color</span>;
+    }
+    
+    <span class="comment">// Abstract әдіс - бала класста міндетті іске асыру керек</span>
+    <span class="keyword">public abstract double</span> <span class="method">calculateArea</span>();
+    <span class="keyword">public abstract double</span> <span class="method">calculatePerimeter</span>();
+    
+    <span class="comment">// Ортақ әдіс</span>
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">displayInfo</span>() {
+        System.out.println(<span class="string">"Фигура түсі: "</span> + <span class="variable">color</span>);
+        System.out.println(<span class="string">"Ауданы: "</span> + <span class="method">calculateArea</span>());
+        System.out.println(<span class="string">"Периметрі: "</span> + <span class="method">calculatePerimeter</span>());
+    }
+}
+
+<span class="keyword">class</span> <span class="variable">Circle</span> <span class="keyword">extends</span> <span class="variable">Shape</span> {
+    <span class="keyword">private</span> <span class="keyword">double</span> <span class="variable">radius</span>;
+    
+    <span class="keyword">public</span> <span class="method">Circle</span>(<span class="keyword">String</span> <span class="variable">color</span>, <span class="keyword">double</span> <span class="variable">radius</span>) {
+        <span class="keyword">super</span>(<span class="variable">color</span>);
+        <span class="keyword">this</span>.<span class="variable">radius</span> = <span class="variable">radius</span>;
+    }
+    
+    <span class="keyword">@Override</span>
+    <span class="keyword">public double</span> <span class="method">calculateArea</span>() {
+        <span class="keyword">return</span> Math.PI * <span class="variable">radius</span> * <span class="variable">radius</span>;
+    }
+    
+    <span class="keyword">@Override</span>
+    <span class="keyword">public double</span> <span class="method">calculatePerimeter</span>() {
+        <span class="keyword">return</span> <span class="number">2</span> * Math.PI * <span class="variable">radius</span>;
+    }
+    
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">roll</span>() {
+        System.out.println(<span class="string">"Дөңгелек домалайды"</span>);
+    }
+}
+
+<span class="keyword">class</span> <span class="variable">Rectangle</span> <span class="keyword">extends</span> <span class="variable">Shape</span> {
+    <span class="keyword">private</span> <span class="keyword">double</span> <span class="variable">length</span>, <span class="variable">width</span>;
+    
+    <span class="keyword">public</span> <span class="method">Rectangle</span>(<span class="keyword">String</span> <span class="variable">color</span>, <span class="keyword">double</span> <span class="variable">length</span>, <span class="keyword">double</span> <span class="variable">width</span>) {
+        <span class="keyword">super</span>(<span class="variable">color</span>);
+        <span class="keyword">this</span>.<span class="variable">length</span> = <span class="variable">length</span>;
+        <span class="keyword">this</span>.<span class="variable">width</span> = <span class="variable">width</span>;
+    }
+    
+    <span class="keyword">@Override</span>
+    <span class="keyword">public double</span> <span class="method">calculateArea</span>() {
+        <span class="keyword">return</span> <span class="variable">length</span> * <span class="variable">width</span>;
+    }
+    
+    <span class="keyword">@Override</span>
+    <span class="keyword">public double</span> <span class="method">calculatePerimeter</span>() {
+        <span class="keyword">return</span> <span class="number">2</span> * (<span class="variable">length</span> + <span class="variable">width</span>);
+    }
+}
+                </div>
+            </div>
+
+            <div class="code-example">
+                <div class="code-header">
+                    🧪 Полиморфизмді тестілеу
+                </div>
+                <div>
+<span class="keyword">public class</span> <span class="variable">PolymorphismTest</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="keyword">String</span>[] <span class="variable">args</span>) {
+        <span class="comment">// Полиморфизм: ата класс reference-і арқылы бала объектілерін сақтау</span>
+        <span class="variable">Shape</span>[] <span class="variable">shapes</span> = {
+            <span class="keyword">new</span> <span class="variable">Circle</span>(<span class="string">"Қызыл"</span>, <span class="number">5.0</span>),
+            <span class="keyword">new</span> <span class="variable">Rectangle</span>(<span class="string">"Көк"</span>, <span class="number">4.0</span>, <span class="number">6.0</span>),
+            <span class="keyword">new</span> <span class="variable">Circle</span>(<span class="string">"Жасыл"</span>, <span class="number">3.0</span>)
+        };
+        
+        <span class="comment">// Әрбір фигура үшін дұрыс әдіс шақырылады (Runtime Polymorphism)</span>
+        <span class="keyword">for</span> (<span class="variable">Shape</span> <span class="variable">shape</span> : <span class="variable">shapes</span>) {
+            System.out.println(<span class="string">"\n--- "</span> + <span class="variable">shape</span>.getClass().getSimpleName() + <span class="string">" ---"</span>);
+            <span class="variable">shape</span>.<span class="method">displayInfo</span>(); <span class="comment">// Қай класстың әдісі шақырылады?</span>
+            
+            <span class="comment">// instanceof арқылы нақты тип тексеру</span>
+            <span class="keyword">if</span> (<span class="variable">shape</span> <span class="keyword">instanceof</span> <span class="variable">Circle</span>) {
+                <span class="variable">Circle</span> <span class="variable">circle</span> = (<span class="variable">Circle</span>) <span class="variable">shape</span>; <span class="comment">// Casting</span>
+                <span class="variable">circle</span>.<span class="method">roll</span>(); <span class="comment">// Circle-ке тән әдіс</span>
+            }
+        }
+        
+        <span class="comment">// Method overriding көрсету</span>
+        System.out.println(<span class="string">"\n=== Method Overriding мысалы ==="</span>);
+        <span class="variable">Shape</span> <span class="variable">myShape</span> = <span class="keyword">new</span> <span class="variable">Circle</span>(<span class="string">"Сары"</span>, <span class="number">10.0</span>);
+        <span class="variable">myShape</span>.<span class="method">calculateArea</span>(); <span class="comment">// Circle класының calculateArea() шақырылады</span>
+    }
+}
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-section animate-in">
+            <h2 class="section-title">📊 Мұрагерлік vs Композиция</h2>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Аспект</th>
+                        <th>Мұрагерлік (Inheritance)</th>
+                        <th>Композиция (Composition)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Қатынас</strong></td>
+                        <td>"is-a" қатынасы</td>
+                        <td>"has-a" қатынасы</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Байланыс</strong></td>
+                        <td>Күшті байланыс (Tight coupling)</td>
+                        <td>Әлсіз байланыс (Loose coupling)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Икемділік</strong></td>
+                        <td>Аз икемді (Compile time)</td>
+                        <td>Икемді (Runtime)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Код қайта пайдалану</strong></td>
+                        <td>Жақсы (automatic)</td>
+                        <td>Жақсы (manual)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Тестілеу</strong></td>
+                        <td>Қиын (dependencies)</td>
+                        <td>Оңай (isolation)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Мысал</strong></td>
+                        <td>Dog extends Animal</td>
+                        <td>Car has Engine</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="examples-showcase">
+            <div class="example-card">
+                <h4>🏦 Bank Account Hierarchy</h4>
+                <div class="code-example" style="margin: 0;">
+                    <div>
+<span class="keyword">public class</span> <span class="variable">BankAccount</span> {
+    <span class="keyword">protected</span> <span class="keyword">String</span> <span class="variable">accountNumber</span>;
+    <span class="keyword">protected</span> <span class="keyword">double</span> <span class="variable">balance</span>;
+    <span class="keyword">protected</span> <span class="keyword">String</span> <span class="variable">ownerName</span>;
+
+    <span class="keyword">public</span> <span class="method">BankAccount</span>(<span class="keyword">String</span> <span class="variable">accountNumber</span>, <span class="keyword">String</span> <span class="variable">ownerName</span>) {
+        <span class="keyword">this</span>.<span class="variable">accountNumber</span> = <span class="variable">accountNumber</span>;
+        <span class="keyword">this</span>.<span class="variable">ownerName</span> = <span class="variable">ownerName</span>;
+        <span class="keyword">this</span>.<span class="variable">balance</span> = <span class="number">0.0</span>;
+    }
+
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">deposit</span>(<span class="keyword">double</span> <span class="variable">amount</span>) {
+        <span class="variable">balance</span> += <span class="variable">amount</span>;
+        System.out.println(<span class="string">"Салынды: $"</span> + <span class="variable">amount</span>);
+    }
+
+    <span class="keyword">public</span> <span class="keyword">boolean</span> <span class="method">withdraw</span>(<span class="keyword">double</span> <span class="variable">amount</span>) {
+        <span class="keyword">if</span> (<span class="variable">balance</span> >= <span class="variable">amount</span>) {
+            <span class="variable">balance</span> -= <span class="variable">amount</span>;
+            <span class="keyword">return</span> <span class="keyword">true</span>;
+        }
+        <span class="keyword">return</span> <span class="keyword">false</span>;
+    }
+}
+
+<span class="keyword">class</span> <span class="variable">SavingsAccount</span> <span class="keyword">extends</span> <span class="variable">BankAccount</span> {
+    <span class="keyword">private</span> <span class="keyword">double</span> <span class="variable">interestRate</span>;
+
+    <span class="keyword">public</span> <span class="method">SavingsAccount</span>(<span class="keyword">String</span> <span class="variable">accountNumber</span>, <span class="keyword">String</span> <span class="variable">ownerName</span>, <span class="keyword">double</span> <span class="variable">interestRate</span>) {
+        <span class="keyword">super</span>(<span class="variable">accountNumber</span>, <span class="variable">ownerName</span>);
+        <span class="keyword">this</span>.<span class="variable">interestRate</span> = <span class="variable">interestRate</span>;
+    }
+
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">addInterest</span>() {
+        <span class="keyword">double</span> <span class="variable">interest</span> = <span class="variable">balance</span> * <span class="variable">interestRate</span> / <span class="number">100</span>;
+        <span class="method">deposit</span>(<span class="variable">interest</span>);
+    }
+}
+                    </div>
+                </div>
+            </div>
+
+            <div class="example-card">
+                <h4>📱 Device Hierarchy</h4>
+                <div class="code-example" style="margin: 0;">
+                    <div>
+<span class="keyword">public class</span> <span class="variable">Device</span> {
+    <span class="keyword">protected</span> <span class="keyword">String</span> <span class="variable">brand</span>, <span class="variable">model</span>;
+    <span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="variable">isOn</span>;
+
+    <span class="keyword">public</span> <span class="method">Device</span>(<span class="keyword">String</span> <span class="variable">brand</span>, <span class="keyword">String</span> <span class="variable">model</span>) {
+        <span class="keyword">this</span>.<span class="variable">brand</span> = <span class="variable">brand</span>;
+        <span class="keyword">this</span>.<span class="variable">model</span> = <span class="variable">model</span>;
+        <span class="keyword">this</span>.<span class="variable">isOn</span> = <span class="keyword">false</span>;
+    }
+
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">turnOn</span>() {
+        <span class="variable">isOn</span> = <span class="keyword">true</span>;
+        System.out.println(<span class="variable">brand</span> + <span class="string">" "</span> + <span class="variable">model</span> + <span class="string">" қосылды"</span>);
+    }
+
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">turnOff</span>() {
+        <span class="variable">isOn</span> = <span class="keyword">false</span>;
+        System.out.println(<span class="variable">brand</span> + <span class="string">" "</span> + <span class="variable">model</span> + <span class="string">" өшірілді"</span>);
+    }
+}
+
+<span class="keyword">class</span> <span class="variable">Smartphone</span> <span class="keyword">extends</span> <span class="variable">Device</span> {
+    <span class="keyword">private</span> <span class="keyword">String</span> <span class="variable">operatingSystem</span>;
+
+    <span class="keyword">public</span> <span class="method">Smartphone</span>(<span class="keyword">String</span> <span class="variable">brand</span>, <span class="keyword">String</span> <span class="variable">model</span>, <span class="keyword">String</span> <span class="variable">os</span>) {
+        <span class="keyword">super</span>(<span class="variable">brand</span>, <span class="variable">model</span>);
+        <span class="keyword">this</span>.<span class="variable">operatingSystem</span> = <span class="variable">os</span>;
+    }
+
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">makeCall</span>(<span class="keyword">String</span> <span class="variable">number</span>) {
+        <span class="keyword">if</span> (<span class="variable">isOn</span>) {
+            System.out.println(<span class="variable">number</span> + <span class="string">"-ге қоңырау шалынды"</span>);
+        }
+    }
+
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">installApp</span>(<span class="keyword">String</span> <span class="variable">appName</span>) {
+        System.out.println(<span class="variable">appName</span> + <span class="string">" қосымшасы орнатылды"</span>);
+    }
+}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="warning-box">
+            <h4>⚠️ Мұрагерліктегі жиі кездесетін қателер</h4>
+            <p>• Constructor chaining жасамау (super() қоймау)<br>
+            • Private өрістерге тікелей қол жеткізуге тырысу<br>
+            • Method overriding кезінде @Override қолданбау<br>
+            • Access modifier дұрыс таңдамау<br>
+            • "is-a" қатынасы жоқ жерде мұрагерлік қолдану<br>
+            • Тым терең иерархия жасау (5+ деңгей)</p>
+        </div>
+
+        <div class="info-box">
+            <h4>💡 Мұрагерлікті қашан қолдану керек?</h4>
+            <p>• Нақты "is-a" қатынасы болған кезде (Dog IS-A Animal)<br>
+            • Ортақ қасиеттер мен әдістер көп болған кезде<br>
+            • Полиморфизм қажет болған кезде<br>
+            • Код қайталауын азайту үшін<br>
+            • Логикалық иерархия бар болған кезде</p>
+        </div>
+
+        <div class="inheritance-demo">
+            <h2 style="text-align: center; margin-bottom: 20px;">🎯 Мұрагерліктегі ең жақсы тәжірибелер</h2>
+            
+            <div class="inheritance-features">
+                <div class="feature-card">
+                    <h4>🏗️ Дұрыс иерархия</h4>
+                    <p>• Логикалық "is-a" қатынасын сақтаңыз<br>
+                    • Тым терең иерархия жасамаңыз<br>
+                    • Ортақ функционалды жоғары деңгейге шығарыңыз</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h4>🔒 Access Control</h4>
+                    <p>• protected қолданыңыз мұрагерлік үшін<br>
+                    • private өрістерге getter/setter арқылы қол жетімді<br>
+                    • Encapsulation принципін сақтаңыз</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h4>📝 Документация</h4>
+                    <p>• @Override annotation қолданыңыз<br>
+                    • Конструкторларға комментарий жазыңыз<br>
+                    • Класс мақсатын түсіндіріңіз</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h4>🧪 Тестілеу</h4>
+                    <p>• Әрбір класты жеке тестілеңіз<br>
+                    • Полиморфизмді тексеріңіз<br>
+                    • Edge case-терді қарастырыңыз</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-section animate-in">
+            <h2 class="section-title">🎓 Практикалық тапсырма</h2>
+            
+            <div class="code-example">
+                <div class="code-header">
+                    🏫 Employee иерархиясын жасау тапсырмасы
+                </div>
+                <div>
+<span class="comment">// Employee (жұмысшы) базалық класын жасаңыз</span>
+<span class="keyword">public class</span> <span class="variable">Employee</span> {
+    <span class="comment">// Ортақ қасиеттер</span>
+    <span class="keyword">protected</span> <span class="keyword">String</span> <span class="variable">name</span>;         <span class="comment">// Аты</span>
+    <span class="keyword">protected</span> <span class="keyword">int</span> <span class="variable">id</span>;            <span class="comment">// ID нөмірі</span>
+    <span class="keyword">protected</span> <span class="keyword">String</span> <span class="variable">department</span>; <span class="comment">// Бөлім</span>
+    <span class="keyword">protected</span> <span class="keyword">double</span> <span class="variable">baseSalary</span>; <span class="comment">// Негізгі жалақы</span>
+    
+    <span class="comment">// TODO: Конструктор жасаңыз</span>
+    
+    <span class="comment">// TODO: Ортақ әдістер</span>
+    <span class="comment">// - displayInfo() - жұмысшы туралы ақпарат</span>
+    <span class="comment">// - calculateSalary() - жалақы есептеу (virtual method)</span>
+    <span class="comment">// - work() - жұмыс істеу</span>
+}
+
+<span class="comment">// TODO: Manager класын жасаңыз</span>
+<span class="keyword">class</span> <span class="variable">Manager</span> <span class="keyword">extends</span> <span class="variable">Employee</span> {
+    <span class="comment">// Қосымша қасиеттер</span>
+    <span class="keyword">private</span> <span class="keyword">int</span> <span class="variable">teamSize</span>;        <span class="comment">// Команда мөлшері</span>
+    <span class="keyword">private</span> <span class="keyword">double</span> <span class="variable">bonus</span>;         <span class="comment">// Сыйақы</span>
+    
+    <span class="comment">// TODO: Конструктор, calculateSalary() override, басқару әдістері</span>
+}
+
+<span class="comment">// TODO: Developer класын жасаңыз</span>
+<span class="keyword">class</span> <span class="variable">Developer</span> <span class="keyword">extends</span> <span class="variable">Employee</span> {
+    <span class="comment">// Қосымша қасиеттер</span>
+    <span class="keyword">private</span> <span class="keyword">String</span> <span class="variable">programmingLanguage</span>; <span class="comment">// Бағдарламалау тілі</span>
+    <span class="keyword">private</span> <span class="keyword">int</span> <span class="variable">experienceYears</span>;      <span class="comment">// Тәжірибе жылдары</span>
+    
+    <span class="comment">// TODO: Конструктор, calculateSalary() override, код жазу әдістері</span>
+}
+
+<span class="comment">// TODO: SalesRepresentative класын жасаңыз</span>
+<span class="keyword">class</span> <span class="variable">SalesRepresentative</span> <span class="keyword">extends</span> <span class="variable">Employee</span> {
+    <span class="comment">// Қосымша қасиеттер</span>
+    <span class="keyword">private</span> <span class="keyword">double</span> <span class="variable">salesTarget</span>;    <span class="comment">// Сату мақсаты</span>
+    <span class="keyword">private</span> <span class="keyword">double</span> <span class="variable">commission</span>;     <span class="comment">// Комиссия пайызы</span>
+    
+    <span class="comment">// TODO: Конструктор, calculateSalary() override, сату әдістері</span>
+}
+                </div>
+            </div>
+            
+            <div style="background: rgba(52, 152, 219, 0.1); border-radius: 15px; padding: 20px; margin-top: 20px;">
+                <h4 style="color: #3498db; margin-bottom: 10px;">📝 Тапсырма талаптары:</h4>
+                <p style="color: #2980b9;">
+                1. Employee базалық класында ортақ қасиеттер мен әдістерді жасаңыз<br>
+                2. Әрбір бала класста calculateSalary() әдісін override жасаңыз:<br>
+                   • Manager: baseSalary + bonus + (teamSize * 1000)<br>
+                   • Developer: baseSalary + (experienceYears * 5000)<br>
+                   • SalesRepresentative: baseSalary + (commission% пайыз)<br>
+                3. super() конструкторларын дұрыс қолданыңыз<br>
+                4. @Override annotation қолданыңыз<br>
+                5. Main класста полиморфизмді көрсетіңіз<br>
+                6. toString() әдісін override жасаңыз
+                </p>
+            </div>
+        </div>
+
+        <div class="lesson-section animate-in">
+            <h2 class="section-title">🏆 Қорытынды</h2>
+            
+            <div class="inheritance-demo">
+                <h3 style="text-align: center; margin-bottom: 20px;">🎯 Мұрагерлік туралы негізгі мәліметтер</h3>
+                
+                <div class="inheritance-features">
+                    <div class="feature-card">
+                        <h4>📚 Не үйрендік?</h4>
+                        <p>• Мұрагерліктің мәні мен артықшылықтары<br>
+                        • extends кілт сөзін қолдану<br>
+                        • super() конструктор шақыру<br>
+                        • Method overriding принциптері</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>🔧 Практикалық дағдылар</h4>
+                        <p>• Класс иерархиясын жобалау<br>
+                        • Полиморфизмді қолдану<br>
+                        • Access modifier таңдау<br>
+                        • @Override annotation қолдану</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>⚡ Маңызды ұғымдар</h4>
+                        <p>• "is-a" қатынасы<br>
+                        • Runtime polymorphism<br>
+                        • Method overriding vs overloading<br>
+                        • Abstract класстар (келесі сабақта)</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>🎯 Келесі қадамдар</h4>
+                        <p>• Abstract класстар мен интерфейстер<br>
+                        • Exception handling<br>
+                        • Collections framework<br>
+                        • Design patterns</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h4>🎓 Сабақты аяқтау</h4>
+            <p>Мұрагерлік - Java-дағы объектіге бағытталған программалаудың негізгі принциптерінің бірі. Бұл механизм арқылы сіз код қайталауын азайтып, икемді және кеңейтілетін программалар жаза аласыз. Практикалық тапсырмаларды орындап, түсінгеніңізді бекітіңіз!</p>
+        </div>
+
+        <div style="background: linear-gradient(135deg, #f093fb, #f5576c); color: white; border-radius: 20px; padding: 35px; margin: 30px 0; text-align: center;">
+            <h2 style="margin-bottom: 15px;">🌟 Сәттілік тілейміз!</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 20px;">
+                Java мұрагерлігін игеру арқылы сіз объектіге бағытталған программалаудың маңызды бөлігін меңгердіңіз.
+            </p>
+            <div style="background: rgba(255,255,255,0.2); border-radius: 15px; padding: 20px; margin-top: 20px;">
+                <p><strong>Ұмытпаңыз:</strong> Тәжірибе - табыстың кілті! 🔑</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Анимация үшін
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.lesson-section');
+            sections.forEach((section, index) => {
+                setTimeout(() => {
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+
+            // Hierarchy tree анимациясы
+            const treeNodes = document.querySelectorAll('.tree-node');
+            treeNodes.forEach((node, index) => {
+                setTimeout(() => {
+                    node.style.transform = 'scale(1)';
+                    node.style.opacity = '1';
+                }, 1000 + index * 300);
+            });
+        });
+
+        // Hover effects
+        document.querySelectorAll('.type-card, .feature-card, .poly-card, .access-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.02)';
+                this.style.boxShadow = '0 15px 35px rgba(0,0,0,0.2)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+                this.style.boxShadow = 'none';
+            });
+        });
+    </script>
+
+    <style>
+        /* Қосымша анимация стильдері */
+        .tree-node {
+            transform: scale(0.8);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+        
+        .type-card, .feature-card, .poly-card, .access-card {
+            transition: all 0.3s ease;
+        }
+        
+        .lesson-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .hierarchy-tree {
+                transform: scale(0.8);
+            }
+            
+            .polymorphism-examples {
+                grid-template-columns: 1fr;
+            }
+            
+            .access-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</body>
+</html>

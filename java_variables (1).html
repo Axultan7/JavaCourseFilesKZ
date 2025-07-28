@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Айнымалылары</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+            padding: 40px 0;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .lesson-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 5px solid #3498db;
+            transition: transform 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .info-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .data-types-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .data-type-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .data-type-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .data-type-details {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .code-example {
+            background: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            line-height: 1.8;
+            box-shadow: 0 10px 30px rgba(44, 62, 80, 0.3);
+        }
+
+        .code-header {
+            background: #34495e;
+            color: white;
+            padding: 12px 20px;
+            margin: -25px -25px 20px -25px;
+            border-radius: 15px 15px 0 0;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .keyword { color: #e74c3c; font-weight: bold; }
+        .string { color: #f39c12; }
+        .number { color: #3498db; }
+        .comment { color: #95a5a6; font-style: italic; }
+        .variable { color: #2ecc71; }
+
+        .memory-visualization {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .memory-boxes {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+
+        .memory-box {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            border-radius: 15px;
+            padding: 20px;
+            min-width: 140px;
+            text-align: center;
+        }
+
+        .memory-box h4 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .memory-box p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 18px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .comparison-table td {
+            padding: 15px 18px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .comparison-table tr:hover {
+            background: #e3f2fd;
+        }
+
+        .rules-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .rules-list li {
+            background: rgba(46, 204, 113, 0.1);
+            border-left: 4px solid #2ecc71;
+            padding: 15px 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .rules-list li:hover {
+            background: rgba(46, 204, 113, 0.2);
+            transform: translateX(5px);
+        }
+
+        .warning-box {
+            background: rgba(231, 76, 60, 0.1);
+            border: 2px solid #e74c3c;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #c0392b;
+        }
+
+        .warning-box h4 {
+            color: #e74c3c;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .success-box {
+            background: rgba(46, 204, 113, 0.1);
+            border: 2px solid #2ecc71;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #27ae60;
+        }
+
+        .success-box h4 {
+            color: #2ecc71;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .examples-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .example-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .example-card h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .tips-container {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .tip-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid white;
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .examples-showcase {
+                grid-template-columns: 1fr;
+            }
+            
+            .data-types-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .memory-boxes {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        .animate-in {
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📦 Java Айнымалылары</h1>
+            <p>Мәліметтерді сақтау және басқару негіздері</p>
+            <div style="background: rgba(255,255,255,0.2); border-radius: 50px; padding: 15px 30px; display: inline-block; margin-top: 20px;">
+                <strong>Айнымалы</strong> - бұл мәліметтерді уақытша сақтайтын жад ұяшығы
+            </div>
+        </div>
+
+        <div class="lesson-section animate-in">
+            <h2 class="section-title">🤔 Айнымалы дегеніміз не?</h2>
+            
+            <div class="content-grid">
+                <div class="info-card">
+                    <h3>📚 Анықтама</h3>
+                    <p>Айнымалы - бұл компьютер жадысындағы белгілі бір орын, онда біз мәліметтерді сақтай аламыз. Оған ат беріп, кейін сол ат арқылы мәнді алып қолдана аламыз.</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>🏷️ Мысал</h3>
+                    <p>Күнделікті өмірде сіз телефон нөмірін жаттап алып, оны "Ана", "Әке" деп атайсыз. Java-да да дәл солай - мәнді сақтап, оған ат береміз.</p>
+                </div>
+            </div>
+
+            <div class="code-example">
+                <div class="code-header">
+                    📄 Айнымалылардың мысалы
+                </div>
+                <div>
+<span class="comment">// Бүтін сан айнымалысы</span>
+<span class="keyword">int</span> <span class="variable">age</span> = <span class="number">25</span>;
+
+<span class="comment">// Мәтін айнымалысы</span>
+<span class="keyword">String</span> <span class="variable">name</span> = <span class="string">"Айдос"</span>;
+
+<span class="comment">// Ондық сан айнымалысы</span>
+<span class="keyword">double</span> <span class="variable">salary</span> = <span class="number">150000.50</span>;
+
+<span class="comment">// Логикалық айнымалы</span>
+<span class="keyword">boolean</span> <span class="variable">isStudent</span> = <span class="keyword">true</span>;
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-section animate-in">
+            <h2 class="section-title">🔢 Мәліметтер Типтері</h2>
+            
+            <p style="font-size: 1.1rem; margin-bottom: 25px; color: #7f8c8d;">
+                Java-да әрбір айнымалының белгілі бір типі болуы керек. Бұл компьютерге қандай мәлімет сақталатынын және оған қанша орын бөлу керектігін айтады.
+            </p>
+
+            <div class="data-types-container">
+                <div class="data-type-card">
+                    <h3>🔢 Бүтін сандар</h3>
+                    <div class="data-type-details">
+                        <strong>byte:</strong> -128 ... 127<br>
+                        <strong>short:</strong> -32,768 ... 32,767<br>
+                        <strong>int:</strong> -2,147,483,648 ... 2,147,483,647<br>
+                        <strong>long:</strong> өте үлкен сандар
+                    </div>
+                </div>
+
+                <div class="data-type-card">
+                    <h3>🔘 Ондық сандар</h3>
+                    <div class="data-type-details">
+                        <strong>float:</strong> 32-бит (7 цифр дәлдік)<br>
+                        <strong>double:</strong> 64-бит (15 цифр дәлдік)
+                    </div>
+                </div>
+
+                <div class="data-type-card">
+                    <h3>📝 Мәтін және таңбалар</h3>
+                    <div class="data-type-details">
+                        <strong>char:</strong> бір таңба 'A', 'ə'<br>
+                        <strong>String:</strong> мәтін "Сәлем әлем"
+                    </div>
+                </div>
+
+                <div class="data-type-card">
+                    <h3>✅ Логикалық</h3>
+                    <div class="data-type-details">
+                        <strong>boolean:</strong> тек екі мән<br>
+                        true (ақиқат) немесе false (жалған)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-section animate-in">
+            <h2 class="section-title">📊 Типтерді салыстыру</h2>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Тип</th>
+                        <th>Мөлшері</th>
+                        <th>Диапазон</th>
+                        <th>Мысал</th>
+                        <th>Қолданылуы</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>byte</strong></td>
+                        <td>1 байт</td>
+                        <td>-128 ... 127</td>
+                        <td>byte age = 25;</td>
+                        <td>Кішкентай сандар</td>
+                    </tr>
+                    <tr>
+                        <td><strong>short</strong></td>
+                        <td>2 байт</td>
+                        <td>-32,768 ... 32,767</td>
+                        <td>short year = 2024;</td>
+                        <td>Орташа сандар</td>
+                    </tr>
+                    <tr>
+                        <td><strong>int</strong></td>
+                        <td>4 байт</td>
+                        <td>-2B ... 2B</td>
+                        <td>int population = 20000000;</td>
+                        <td>Көп қолданылады</td>
+                    </tr>
+                    <tr>
+                        <td><strong>long</strong></td>
+                        <td>8 байт</td>
+                        <td>Өте үлкен</td>
+                        <td>long distance = 9876543210L;</td>
+                        <td>Үлкен сандар</td>
+                    </tr>
+                    <tr>
+                        <td><strong>float</strong></td>
+                        <td>4 байт</td>
+                        <td>±3.4E38</td>
+                        <td>float price = 99.99f;</td>
+                        <td>Ондық сандар</td>
+                    </tr>
+                    <tr>
+                        <td><strong>double</strong></td>
+                        <td>8 байт</td>
+                        <td>±1.7E308</td>
+                        <td>double pi = 3.14159;</td>
+                        <td>Дәл ондық сандар</td>
+                    </tr>
+                    <tr>
+                        <td><strong>char</strong></td>
+                        <td>2 байт</td>
+                        <td>Unicode</td>
+                        <td>char grade = 'A';</td>
+                        <td>Бір таңба</td>
+                    </tr>
+                    <tr>
+                        <td><strong>boolean</strong></td>
+                        <td>1 бит</td>
+                        <td>true/false</td>
+                        <td>boolean isReady = true;</td>
+                        <td>Логика</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="memory-visualization">
+            <h2 style="margin-bottom: 20px;">🧠 Жадыдағы Көрініс</h2>
+            <p style="margin-bottom: 25px; font-size: 1.1rem;">
+                Айнымалылар компьютер жадысында қалай сақталады
+            </p>
+            
+            <div class="memory-boxes">
+                <div class="memory-box">
+                    <h4>int age = 25</h4>
+                    <p>4 байт</p>
+                    <p>0x1000</p>
+                </div>
+                <div class="memory-box">
+                    <h4>double salary = 50000.0</h4>
+                    <p>8 байт</p>
+                    <p>0x1004</p>
+                </div>
+                <div class="memory-box">
+                    <h4>boolean isActive = true</h4>
+                    <p>1 байт</p>
+                    <p>0x100C</p>
+                </div>
+                <div class="memory-box">
+                    <h4>char grade = 'A'</h4>
+                    <p>2 байт</p>
+                    <p>0x100D</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-section animate-in">
+            <h2 class="section-title">📝 Айнымалы Жариялау Ережелері</h2>
+            
+            <ul class="rules-list">
+                <li><strong>🔤 Атау ережелері:</strong> Айнымалы аты әріппен, $ немесе _ таңбасымен басталуы керек. Цифрмен басталмауы керек.</li>
+                <li><strong>🚫 Тыйым салынған сөздер:</strong> Java кілт сөздерін (int, class, public, if, for) айнымалы атауы ретінде қолданбаңыз.</li>
+                <li><strong>📝 CamelCase стилі:</strong> Бірнеше сөзден тұратын атауларда екінші сөзді бас әріппен жазыңыз (firstName, lastName).</li>
+                <li><strong>🎯 Мағыналы атаулар:</strong> x, y орнына age, name, salary сияқты мағынасы бар атаулар қолданыңыз.</li>
+                <li><strong>🔧 Инициализация:</strong> Айнымалыны жариялағанда мән беру ұсынылады: int count = 0;</li>
+                <li><strong>💾 Тип көрсету:</strong> Әрбір айнымалы үшін тип міндетті түрде көрсетілуі керек.</li>
+            </ul>
+        </div>
+
+        <div class="examples-showcase">
+            <div class="example-card">
+                <h4>✅ Дұрыс мысалдар</h4>
+                <div class="code-example" style="margin: 15px 0;">
+<span class="keyword">int</span> <span class="variable">studentAge</span> = <span class="number">20</span>;
+<span class="keyword">String</span> <span class="variable">firstName</span> = <span class="string">"Айгүл"</span>;
+<span class="keyword">double</span> <span class="variable">accountBalance</span> = <span class="number">1500.75</span>;
+<span class="keyword">boolean</span> <span class="variable">isMarried</span> = <span class="keyword">false</span>;
+<span class="keyword">char</span> <span class="variable">bloodType</span> = <span class="string">'O'</span>;
+                </div>
+            </div>
+
+            <div class="example-card">
+                <h4>❌ Қате мысалдар</h4>
+                <div class="code-example" style="margin: 15px 0;">
+<span class="comment">// Цифрмен басталу</span>
+<span class="keyword">int</span> <span style="color: #e74c3c;">2age</span> = <span class="number">20</span>;
+
+<span class="comment">// Кілт сөзді қолдану</span>
+<span class="keyword">int</span> <span style="color: #e74c3c;">class</span> = <span class="number">5</span>;
+
+<span class="comment">// Дұрыс емес тип</span>
+<span class="keyword">int</span> <span class="variable">price</span> = <span style="color: #e74c3c;">"100"</span>;
+
+<span class="comment">// Ат жоқ</span>
+<span class="keyword">String</span> = <span class="string">"Әлия"</span>;
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-section animate-in">
+            <h2 class="section-title">🔄 Айнымалыларды Өзгерту</h2>
+            
+            <div class="code-example">
+                <div class="code-header">
+                    🔧 Мәндерді өзгерту мысалдары
+                </div>
+                <div>
+<span class="comment">// Жаңа мән беру</span>
+<span class="keyword">int</span> <span class="variable">score</span> = <span class="number">100</span>;
+<span class="variable">score</span> = <span class="number">150</span>;  <span class="comment">// score енді 150</span>
+
+<span class="comment">// Арифметикалық операциялар</span>
+<span class="variable">score</span> = <span class="variable">score</span> + <span class="number">50</span>;  <span class="comment">// score = 200</span>
+<span class="variable">score</span> += <span class="number">25</span>;        <span class="comment">// score = 225 (қысқаша жазу)</span>
+<span class="variable">score</span>++;             <span class="comment">// score = 226 (1-ге арттыру)</span>
+<span class="variable">score</span>--;             <span class="comment">// score = 225 (1-ге кеміту)</span>
+
+<span class="comment">// Мәтінді өзгерту</span>
+<span class="keyword">String</span> <span class="variable">message</span> = <span class="string">"Сәлем"</span>;
+<span class="variable">message</span> = <span class="variable">message</span> + <span class="string">" әлем!"</span>;  <span class="comment">// "Сәлем әлем!"</span>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ Назар аударыңыз!</h4>
+                <p>Java-да айнымалының типін өзгерту мүмкін емес! Егер int деп жариялаған болсаңыз, ол әрқашан int болып қалады.</p>
+            </div>
+        </div>
+
+        <div class="lesson-section animate-in">
+            <h2 class="section-title">🌟 Константалар</h2>
+            
+            <p style="margin-bottom: 20px; font-size: 1.1rem;">
+                Константа - бұл мәні өзгермейтін айнымалы. Java-да <strong>final</strong> кілт сөзі арқылы жариялайды.
+            </p>
+
+            <div class="code-example">
+                <div class="code-header">
+                    🔒 Константалар мысалдары
+                </div>
+                <div>
+<span class="comment">// Константа жариялау</span>
+<span class="keyword">final int</span> <span class="variable">MAX_STUDENTS</span> = <span class="number">30</span>;
+<span class="keyword">final double</span> <span class="variable">PI</span> = <span class="number">3.14159</span>;
+<span class="keyword">final String</span> <span class="variable">UNIVERSITY_NAME</span> = <span class="string">"ҚазҰТЗУ"</span>;
+
+<span class="comment">// Константаны өзгертуге болмайды</span>
+<span class="comment">// MAX_STUDENTS = 40; // ҚАТЕ!</span>
+                </div>
+            </div>
+
+            <div class="success-box">
+                <h4>✅ Константалар үшін ережелер:</h4>
+                <p>• Атауын БҮТІН БАС ӘРІППЕН жазыңыз<br>
+                • Сөздерді _ арқылы бөліңіз (MAX_VALUE)<br>
+                • Жариялаған кезде мән беріңіз<br>
+                • Кейін өзгертуге болмайды</p>
+            </div>
+        </div>
+
+        <div class="tips-container">
+            <h2 style="text-align: center; margin-bottom: 25px;">💡 Маңызды Кеңестер</h2>
+            
+            <div class="tips-grid">
+                <div class="tip-item">
+                    <h4>🎯 Дұрыс тип таңдау</h4>
+                    <p>Жас үшін int, жалақы үшін double, аты үшін String қолданыңыз. Қажетінен артық үлкен тип таңдамаңыз.</p>
+                </div>
+                
+                <div class="tip-item">
+                    <h4>📝 Мағыналы атаулар</h4>
+                    <p>a, b, x орнына age, name, studentCount сияқты түсінікті атаулар беріңіз. Код оқуға жеңіл болуы керек.</p>
+                </div>
+                
+                <div class="tip-item">
+                    <h4>🔧 Инициализация</h4>
+                    <p>Айнымалыны жариялаған кезде бастапқы мән беріңіз. Бұл қателерді болдырмайды.</p>
+                </div>
+                
+                <div class="tip-item">
+                    <h4>🚫 Қате жібермеу</h4>
+                    <p>Үтір (,) орнына нүктелі үтір (;) қолданыңыз. Тырнақшаларды дұрыс жабыңыз.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-section animate-in">

@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Нақты сандар түрлері</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .presentation-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .slide {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 20px 0;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transform: translateY(50px);
+            opacity: 0;
+            animation: slideIn 0.8s ease-out forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #3498db, #2ecc71, #f39c12, #e74c3c);
+        }
+
+        .slide:nth-child(2) { animation-delay: 0.2s; }
+        .slide:nth-child(3) { animation-delay: 0.4s; }
+        .slide:nth-child(4) { animation-delay: 0.6s; }
+        .slide:nth-child(5) { animation-delay: 0.8s; }
+        .slide:nth-child(6) { animation-delay: 1.0s; }
+        .slide:nth-child(7) { animation-delay: 1.2s; }
+        .slide:nth-child(8) { animation-delay: 1.4s; }
+        .slide:nth-child(9) { animation-delay: 1.6s; }
+
+        @keyframes slideIn {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            font-size: 2.8em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            border-radius: 2px;
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+            position: relative;
+        }
+
+        h2::before {
+            content: '📊';
+            margin-right: 10px;
+        }
+
+        h3 {
+            color: #34495e;
+            font-size: 1.6em;
+            margin: 25px 0 15px 0;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        h3::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #3498db;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            overflow-x: auto;
+            border-left: 5px solid #3498db;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .code-block::before {
+            content: 'Java';
+            position: absolute;
+            top: -10px;
+            right: 15px;
+            background: #3498db;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+
+        .highlight {
+            background: #f39c12;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .fractional-types-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .fractional-type-card {
+            background: linear-gradient(135deg, #ecf0f1 0%, #bdc3c7 100%);
+            border: 2px solid #3498db;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fractional-type-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .fractional-type-card:hover::before {
+            left: 100%;
+        }
+
+        .fractional-type-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(52, 152, 219, 0.3);
+            border-color: #2ecc71;
+        }
+
+        .fractional-type-card h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .type-info {
+            background: #34495e;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 0.9em;
+        }
+
+        .size-info {
+            background: #e74c3c;
+            color: white;
+            padding: 8px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .range-info {
+            background: #2ecc71;
+            color: white;
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 0.85em;
+            margin: 5px 0;
+        }
+
+        .precision-info {
+            background: #9b59b6;
+            color: white;
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 0.85em;
+            margin: 5px 0;
+        }
+
+        .example-box {
+            background: linear-gradient(135deg, #d5f4e6 0%, #c8e6c9 100%);
+            border: 2px solid #27ae60;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .example-box::before {
+            content: '💡';
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            background: #27ae60;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 50%;
+            font-size: 14px;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border: 2px solid #f39c12;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 6px solid #f39c12;
+            position: relative;
+        }
+
+        .warning-box::before {
+            content: '⚠️';
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            background: #f39c12;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 50%;
+            font-size: 14px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table th {
+            background: #3498db;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .comparison-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .comparison-table tr:hover {
+            background: #e8f4f8;
+        }
+
+        .float-visualization {
+            background: #34495e;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+        }
+
+        .float-bit {
+            display: inline-block;
+            width: 20px;
+            height: 25px;
+            background: #e74c3c;
+            color: white;
+            text-align: center;
+            line-height: 25px;
+            margin: 1px;
+            border-radius: 3px;
+            font-size: 10px;
+        }
+
+        .float-bit.sign {
+            background: #e74c3c;
+        }
+
+        .float-bit.exponent {
+            background: #f39c12;
+        }
+
+        .float-bit.mantissa {
+            background: #2ecc71;
+        }
+
+        .summary-list {
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .summary-list ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .summary-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #a5d6a7;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .summary-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(155, 89, 182, 0.1) 100%);
+            border-radius: 15px;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2.2em;
+            }
+            
+            h2 {
+                font-size: 1.8em;
+            }
+            
+            .fractional-types-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Слайд 1: Титул -->
+        <div class="slide">
+            <h1>Java Нақты сандар түрлері</h1>
+            <div style="text-align: center; font-size: 1.3em; color: #666; margin-top: 30px;">
+                <p>Java-дағы нақты сандар түрлері туралы толық ақпарат</p>
+                <p style="margin-top: 20px; font-size: 1.1em;">🔢 Floating Point Data Types in Java</p>
+            </div>
+        </div>
+
+        <!-- Слайд 2: Кіріспе -->
+        <div class="slide">
+            <h2>Нақты сандар түрлері дегеніміз не?</h2>
+            <p style="font-size: 1.2em; line-height: 1.7; margin-bottom: 25px;">
+                Нақты сандар түрлері - бұл <span class="highlight">нақты сандарды</span> (бөлшек бөліктері бар) сақтау үшін 
+                пайдаланылатын деректер түрлері. Java-да 2 түрлі нақты сандар түрі бар.
+            </p>
+            
+            <div class="example-box">
+                <h3>Неліктен нақты сандар керек?</h3>
+                <ul style="margin-left: 20px; line-height: 1.8;">
+                    <li>Ғылыми есептеулер үшін</li>
+                    <li>Қаржылық операциялар үшін</li>
+                    <li>Физика және математика есептеулері</li>
+                    <li>Графика және анимация</li>
+                    <li>Статистикалық талдау</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <strong>Маңызды:</strong> Нақты сандар <strong>IEEE 754</strong> стандартына сәйкес сақталады 
+                және дәлдік шектеулері бар.
+            </div>
+        </div>
+
+        <!-- Слайд 3: 2 негізгі түр -->
+        <div class="slide">
+            <h2>2 негізгі нақты сандар түрі</h2>
+            
+            <div class="fractional-types-grid">
+                <div class="fractional-type-card">
+                    <h4>float</h4>
+                    <div class="size-info">32 бит (4 байт)</div>
+                    <div class="range-info">±1.4e-45 ... ±3.4e38</div>
+                    <div class="precision-info">~6-7 ондық таңба</div>
+                    <div class="type-info">Жай дәлдік</div>
+                    <div class="code-block">
+float бағасы = 25.99f;
+float температура = -15.5f;
+float пайыз = 0.05f;
+                    </div>
+                </div>
+
+                <div class="fractional-type-card">
+                    <h4>double</h4>
+                    <div class="size-info">64 бит (8 байт)</div>
+                    <div class="range-info">±4.9e-324 ... ±1.7e308</div>
+                    <div class="precision-info">~15-16 ондық таңба</div>
+                    <div class="type-info">Қос дәлдік (стандарт)</div>
+                    <div class="code-block">
+double арақашықтық = 384400.5;
+double PI = 3.14159265359;
+double жалақы = 350000.75;
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>Ескерту:</strong> <code>float</code> түрі үшін мәнді жазғанда соңына 
+                <strong>f</strong> немесе <strong>F</strong> қою керек!
+            </div>
+        </div>
+
+        <!-- Слайд 4: Салыстырмалы кесте -->
+        <div class="slide">
+            <h2>Салыстырмалы кесте</h2>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Түрі</th>
+                        <th>Өлшемі</th>
+                        <th>Дәлдік</th>
+                        <th>Диапазон</th>
+                        <th>Әдепкі мәні</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>float</strong></td>
+                        <td>32 бит</td>
+                        <td>6-7 ондық таңба</td>
+                        <td>±1.4e-45 ... ±3.4e38</td>
+                        <td>0.0f</td>
+                    </tr>
+                    <tr>
+                        <td><strong>double</strong></td>
+                        <td>64 бит</td>
+                        <td>15-16 ондық таңба</td>
+                        <td>±4.9e-324 ... ±1.7e308</td>
+                        <td>0.0d немесе 0.0</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="example-box">
+                <h3>Қашан қайсысын пайдалану?</h3>
+                <ul style="margin-left: 20px; line-height: 1.8;">
+                    <li><strong>float:</strong> Жадыны үнемдеу керек болса, дәлдік маңызды емес</li>
+                    <li><strong>double:</strong> Жоғары дәлдік керек болса (әдепкі таңдау)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Слайд 5: IEEE 754 стандарты -->
+        <div class="slide">
+            <h2>IEEE 754 стандарты</h2>
+            
+            <h3>float түрінің құрылымы (32 бит):</h3>
+            <div class="float-visualization">
+                <p>1 бит таңба + 8 бит дәреже + 23 бит мантисса</p>
+                <div style="margin: 15px 0;">
+                    <span class="float-bit sign">S</span>
+                    <span class="float-bit exponent">E</span><span class="float-bit exponent">E</span><span class="float-bit exponent">E</span><span class="float-bit exponent">E</span>
+                    <span class="float-bit exponent">E</span><span class="float-bit exponent">E</span><span class="float-bit exponent">E</span><span class="float-bit exponent">E</span>
+                    <span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span>
+                    <span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span>
+                    <span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span>
+                    <span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span>
+                    <span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span>
+                    <span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span>
+                </div>
+                <p style="font-size: 12px;">S = Таңба, E = Дәреже, M = Мантисса</p>
+            </div>
+
+            <h3>double түрінің құрылымы (64 бит):</h3>
+            <div class="float-visualization">
+                <p>1 бит таңба + 11 бит дәреже + 52 бит мантисса</p>
+                <div style="margin: 15px 0; font-size: 10px;">
+                    <span class="float-bit sign">S</span>
+                    <span class="float-bit exponent">E</span><span class="float-bit exponent">E</span><span class="float-bit exponent">E</span><span class="float-bit exponent">E</span>
+                    <span class="float-bit exponent">E</span><span class="float-bit exponent">E</span><span class="float-bit exponent">E</span><span class="float-bit exponent">E</span>
+                    <span class="float-bit exponent">E</span><span class="float-bit exponent">E</span><span class="float-bit exponent">E</span>
+                    <span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span>
+                    <span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span>
+                    <span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span>
+                    <span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span>
+                    <span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span>
+                    <span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span>
+                    <span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span>
+                    <span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span>
+                    <span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span>
+                    <span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span>
+                    <span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span>
+                    <span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span>
+                    <span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span>
+                    <span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span>
+                    <span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span>
+                    <span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span>
+                    <span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span><span class="float-bit mantissa">M</span>
+                </div>
+                <p style="font-size: 12px;">Көбірек дәлдік = көбірек мантисса биттері</p>
+            </div>
+        </div>
+
+        <!-- Слайд 6: Практикалық мысалдар -->
+        <div class="slide">
+            <h2>Практикалық мысалдар</h2>
+            
+            <div class="example-box">
+                <h3>Ғылыми есептеулер:</h3>
+                <div class="code-block">
+// Физика константалары
+double жарық_жылдамдығы = 299792458.0;    // м/с
+double планк_константасы = 6.62607015e-34;  // J⋅s
+double пи = 3.14159265358979323846;        // π
+
+// Геометрия есептеулері
+double радиус = 5.75;
+double аудан = пи * радиус * радиус;
+double көлем = (4.0 / 3.0) * пи * радиус * радиус * радиус;
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h3>Қаржылық есептеулер:</h3>
+                <div class="code-block">
+// Банк есептеулері
+double негізгі_сома = 100000.0;
+double пайыз_мөлшері = 0.12;    // 12%
+double мерзім = 5.0;           // 5 жыл
+
+// Күрделі пайыз формуласы
+double соңғы_сома = негізгі_сома * Math.pow(1 + пайыз_мөлшері, мерзім);
+
+// Валюта айырбастау
+double доллар = 450.75;
+double курс = 470.50;
+double теңге = доллар * курс;
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>Ескерту:</strong> Дәл қаржылық есептеулер үшін <code>BigDecimal</code> 
+                класын пайдаланған жөн!
+            </div>
+        </div>
+
+        <!-- Слайд 7: Дәлдік мәселелері -->
+        <div class="slide">
+            <h2>Дәлдік мәселелері</h2>
+            
+            <h3>Нақты сандар дәлдік проблемалары:</h3>
+            
+            <div class="example-box">
+                <h3>Проблемалық мысалдар:</h3>
+                <div class="code-block">
+// Дәлдік жоғалуы
+double a = 0.1;
+double b = 0.2;
+double c = a + b;
+System.out.println(c);  // 0.30000000000000004 (0.3 емес!)
+
+// float дәлдігі
+float f1 = 16777216.0f;
+float f2 = 1.0f;
+float f3 = f1 + f2;
+System.out.println(f3 == f1);  // true! (қосылған жоқ)
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h3>Дұрыс салыстыру:</h3>
+                <div class="code-block">
+// Қате жол:
+if (a + b == 0.3) { ... }
+
+// Дұрыс жол:
+double epsilon = 1e-9;
+if (Math.abs(a + b - 0.3) < epsilon) {
+    System.out.println("Сандар тең!");
+}
+
+// Арнайы мәндерді тексеру
+double x = Double.NaN;
+if (Double.isNaN(x)) {
+    System.out.println("Бұл сан емес!");
+}
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>Қауіпті жағдайлар:</strong>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Нақты сандарды == арқылы салыстыру</li>
+                    <li>Ақшалай есептеулерде дәлдік жоғалуы</li>
+                    <li>Цикл шарттарында нақты сандар пайдалану</li>
+                    <li>Infinity және NaN мәндерін тексермеу</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Слайд 8: Арнайы мәндер -->
+<div class="slide">
+    <h2>Арнайы мәндер</h2>
+    
+    <h3>Нақты сандардың арнайы мәндері:</h3>
+
+    <div class="fractional-types-grid">
+        <div class="fractional-type-card">
+            <h4>Infinity</h4>
+            <div class="size-info">+∞ немесе -∞</div>
+            <div class="type-info">Шексіздік</div>
+            <div class="example-box">
+                <h3>Мысалы:</h3>
+                <div class="code-block">
+double x = 1.0 / 0.0;   // +∞
+double y = -1.0 / 0.0;  // -∞
+System.out.println(x);  // Infinity
+System.out.println(y);  // -Infinity
+                </div>
+            </div>
+        </div>
+
+        <div class="fractional-type-card">
+            <h4>NaN</h4>
+            <div class="size-info">Not a Number</div>
+            <div class="type-info">Сан емес мән</div>
+            <div class="example-box">
+                <h3>Мысалы:</h3>
+                <div class="code-block">
+double z = 0.0 / 0.0;       // NaN
+double w = Math.sqrt(-1);   // NaN
+System.out.println(z);      // NaN
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="example-box">
+        <h3>Тексеру әдістері:</h3>
+        <div class="code-block">
+double value = Double.POSITIVE_INFINITY;
+
+if (Double.isInfinite(value)) {
+    System.out.println("Шексіздік!");
+}
+
+if (Double.isNaN(value)) {
+    System.out.println("NaN табылды!");
+}
+        </div>
+    </div>
+
+    <div class="warning-box">
+        <strong>Ескерту:</strong> <code>Infinity</code> және <code>NaN</code> мәндерімен 
+        жұмыс істегенде оларды міндетті түрде тексеру керек!
+    </div>
+</div>
+
+            
+            

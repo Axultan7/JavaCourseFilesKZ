@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Бүтін Сандар Типтері</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+            padding: 40px 0;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .lesson-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+        }
+
+        .types-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .type-card {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(52, 152, 219, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .type-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .type-card h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .type-size {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 15px 0;
+            font-size: 1.1rem;
+        }
+
+        .type-range {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 12px;
+            margin: 10px 0;
+            font-size: 0.95rem;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .comparison-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid #ecf0f1;
+            font-size: 1rem;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .comparison-table tr:hover {
+            background: #e3f2fd;
+        }
+
+        .code-example {
+            background: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            line-height: 1.8;
+            box-shadow: 0 10px 30px rgba(44, 62, 80, 0.3);
+        }
+
+        .code-header {
+            background: #34495e;
+            color: white;
+            padding: 12px 20px;
+            margin: -25px -25px 20px -25px;
+            border-radius: 15px 15px 0 0;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .keyword { color: #e74c3c; font-weight: bold; }
+        .number { color: #3498db; }
+        .comment { color: #95a5a6; font-style: italic; }
+        .variable { color: #2ecc71; }
+
+        .memory-visualization {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .memory-boxes {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+
+        .memory-box {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            border-radius: 15px;
+            padding: 20px;
+            min-width: 140px;
+            text-align: center;
+        }
+
+        .memory-box h4 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .memory-box p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .binary-demo {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .binary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .binary-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .binary-bits {
+            display: flex;
+            justify-content: center;
+            gap: 3px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .bit {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .examples-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .example-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .example-card h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .warning-box {
+            background: rgba(231, 76, 60, 0.1);
+            border: 2px solid #e74c3c;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #c0392b;
+        }
+
+        .warning-box h4 {
+            color: #e74c3c;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .info-box {
+            background: rgba(52, 152, 219, 0.1);
+            border: 2px solid #3498db;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #2980b9;
+        }
+
+        .info-box h4 {
+            color: #3498db;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .tips-container {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .tip-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid white;
+        }
+
+        .operations-demo {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .operation-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .operation-card {
+            background: #f8f9fa;
+            border-left: 4px solid #2ecc71;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .examples-showcase {
+                grid-template-columns: 1fr;
+            }
+            
+            .types-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .memory-boxes {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        .animate-in {
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .overflow-demo {
+            background: linear-gradient(135deg, #fd79a8, #e17055);
+            color: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .overflow-example {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔢 Java Бүтін Сандар Типтері</h1>
+            <p>byte, short, int, long - толық нұсқаулық</p>
+            <div style="background: rgba(255,255,255,0.2); border-radius: 50px; padding: 15px 30px; display: inline-block; margin-top: 20px;">
+                <strong>Бүтін сан</strong> - ондық бөлігі жоқ сан (1, 25, -100, 0)
+            </div>
+        </div>
+
+        <div class="lesson-section animate-in">
+            <h2 class="section-title">📊 Бүтін Сандар Типтерінің Шолуы</h2>
+            
+            <p style="font-size: 1.2rem; margin-bottom: 25px; color: #7f8c8d; text-align: center;">
+                Java-да 4 түрлі бүтін сан типі бар. Олардың арасындағы айырмашылық - сақтай алатын сан диапазоны мен жад мөлшері.
+            </p>
+
+            <div class="types-grid">
+                <div class="type-card">
+                    <h3>byte</h3>
+                    <div class="type-size">
+                        <strong>Мөлшері:</strong> 1 байт (8 бит)
+                    </div>
+                    <div class="type-range">
+                        <strong>Диапазон:</strong><br>
+                        -128 ... 127
+                    </div>
+                    <div class="type-range">
+                        <strong>Қолданылуы:</strong><br>
+                        Кішкентай сандар үшін
+                    </div>
+                </div>
+
+                <div class="type-card">
+                    <h3>short</h3>
+                    <div class="type-size">
+                        <strong>Мөлшері:</strong> 2 байт (16 бит)
+                    </div>
+                    <div class="type-range">
+                        <strong>Диапазон:</strong><br>
+                        -32,768 ... 32,767
+                    </div>
+                    <div class="type-range">
+                        <strong>Қолданылуы:</strong><br>
+                        Орташа сандар үшін
+                    </div>
+                </div>
+
+                <div class="type-card">
+                    <h3>int</h3>
+                    <div class="type-size">
+                        <strong>Мөлшері:</strong> 4 байт (32 бит)
+                    </div>
+                    <div class="type-range">
+                        <strong>Диапазон:</strong><br>
+                        -2,147,483,648 ... 2,147,483,647
+                    </div>
+                    <div class="type-range">
+                        <strong>Қолданылуы:</strong><br>
+                        Ең көп қолданылатын тип
+                    </div>
+                </div>
+
+                <div class="type-card">
+                    <h3>long</h3>
+                    <div class="type-size">
+                        <strong>Мөлшері:</strong> 8 байт (64 бит)
+                    </div>
+                    <div class="type-range">
+                        <strong>Диапазон:</strong><br>
+                        -9,223,372,036,854,775,808 ...<br>
+                        9,223,372,036,854,775,807
+                    </div>
+                    <div class="type-range">
+                        <strong>Қолданылуы:</strong><br>
+                        Өте үлкен сандар үшін
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-section animate-in">
+            <h2 class="section-title">📋 Толық Салыстыру Кестесі</h2>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Тип</th>
+                        <th>Мөлшері</th>
+                        <th>Минимум мәні</th>
+                        <th>Максимум мәні</th>
+                        <th>Мысал</th>
+                        <th>Ерекшеліктері</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>byte</strong></td>
+                        <td>1 байт (8 бит)</td>
+                        <td>-128</td>
+                        <td>127</td>
+                        <td>byte age = 25;</td>
+                        <td>Ең аз жад алады</td>
+                    </tr>
+                    <tr>
+                        <td><strong>short</strong></td>
+                        <td>2 байт (16 бит)</td>
+                        <td>-32,768</td>
+                        <td>32,767</td>
+                        <td>short year = 2024;</td>
+                        <td>Сирек қолданылады</td>
+                    </tr>
+                    <tr>
+                        <td><strong>int</strong></td>
+                        <td>4 байт (32 бит)</td>
+                        <td>-2,147,483,648</td>
+                        <td>2,147,483,647</td>
+                        <td>int count = 1000000;</td>
+                        <td>Стандартты тип</td>
+                    </tr>
+                    <tr>
+                        <td><strong>long</strong></td>
+                        <td>8 байт (64 бит)</td>
+                        <td>-9.2 × 10¹⁸</td>
+                        <td>9.2 × 10¹⁸</td>
+                        <td>long distance = 9876543210L;</td>
+                        <td>L жұрнағы керек</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="memory-visualization">
+            <h2 style="margin-bottom: 20px;">🧠 Жадыдағы Көрініс</h2>
+            <p style="margin-bottom: 25px; font-size: 1.1rem;">
+                Әр тип жадыда қанша орын алатынын көріңіз
+            </p>
+            
+            <div class="memory-boxes">
+                <div class="memory-box">
+                    <h4>byte</h4>
+                    <p>1 байт</p>
+                    <div style="display: flex; gap: 2px; justify-content: center; margin-top: 10px;">
+                        <div style="width: 15px; height: 15px; background: white; border-radius: 3px;"></div>
+                    </div>
+                </div>
+                <div class="memory-box">
+                    <h4>short</h4>
+                    <p>2 байт</p>
+                    <div style="display: flex; gap: 2px; justify-content: center; margin-top: 10px;">
+                        <div style="width: 15px; height: 15px; background: white; border-radius: 3px;"></div>
+                        <div style="width: 15px; height: 15px; background: white; border-radius: 3px;"></div>
+                    </div>
+                </div>
+                <div class="memory-box">
+                    <h4>int</h4>
+                    <p>4 байт</p>
+                    <div style="display: flex; gap: 2px; justify-content: center; margin-top: 10px;">
+                        <div style="width: 15px; height: 15px; background: white; border-radius: 3px;"></div>
+                        <div style="width: 15px; height: 15px; background: white; border-radius: 3px;"></div>
+                        <div style="width: 15px; height: 15px; background: white; border-radius: 3px;"></div>
+                        <div style="width: 15px; height: 15px; background: white; border-radius: 3px;"></div>
+                    </div>
+                </div>
+                <div class="memory-box">
+                    <h4>long</h4>
+                    <p>8 байт</p>
+                    <div style="display: flex; gap: 2px; justify-content: center; margin-top: 10px; flex-wrap: wrap;">
+                        <div style="width: 15px; height: 15px; background: white; border-radius: 3px;"></div>
+                        <div style="width: 15px; height: 15px; background: white; border-radius: 3px;"></div>
+                        <div style="width: 15px; height: 15px; background: white; border-radius: 3px;"></div>
+                        <div style="width: 15px; height: 15px; background: white; border-radius: 3px;"></div>
+                        <div style="width: 15px; height: 15px; background: white; border-radius: 3px;"></div>
+                        <div style="width: 15px; height: 15px; background: white; border-radius: 3px;"></div>
+                        <div style="width: 15px; height: 15px; background: white; border-radius: 3px;"></div>
+                        <div style="width: 15px; height: 15px; background: white; border-radius: 3px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-section animate-in">
+            <h2 class="section-title">💻 Айнымалыларды Жариялау</h2>
+            
+            <div class="code-example">
+                <div class="code-header">
+                    📝 Бүтін сандар типтерінің мысалдары
+                </div>
+                <div>
+<span class="comment">// byte - кішкентай сандар үшін</span>
+<span class="keyword">byte</span> <span class="variable">studentAge</span> = <span class="number">20</span>;
+<span class="keyword">byte</span> <span class="variable">temperature</span> = <span class="number">-5</span>;
+<span class="keyword">byte</span> <span class="variable">grade</span> = <span class="number">100</span>;
+
+<span class="comment">// short - орташа сандар үшін</span>
+<span class="keyword">short</span> <span class="variable">currentYear</span> = <span class="number">2024</span>;
+<span class="keyword">short</span> <span class="variable">elevation</span> = <span class="number">1500</span>;
+<span class="keyword">short</span> <span class="variable">populationInThousands</span> = <span class="number">25000</span>;
+
+<span class="comment">// int - стандартты тип</span>
+<span class="keyword">int</span> <span class="variable">populationCount</span> = <span class="number">20000000</span>;
+<span class="keyword">int</span> <span class="variable">bankAccount</span> = <span class="number">1500000</span>;
+<span class="keyword">int</span> <span class="variable">secondsInDay</span> = <span class="number">86400</span>;
+
+<span class="comment">// long - үлкен сандар үшін (L жұрнағымен)</span>
+<span class="keyword">long</span> <span class="variable">earthToSunDistance</span> = <span class="number">149597870700L</span>;
+<span class="keyword">long</span> <span class="variable">phoneNumber</span> = <span class="number">87051234567L</span>;
+<span class="keyword">long</span> <span class="variable">fileSize</span> = <span class="number">5368709120L</span>;
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h4>💡 Маңызды ережелер:</h4>
+                <p>• <strong>long</strong> типіне мән беру кезінде соңына <strong>L</strong> немесе <strong>l</strong> жұрнағын қосыңыз<br>
+                • Әдетте <strong>int</strong> типін қолданыңыз, егер аса үлкен сан қажет болмаса<br>
+                • <strong>byte</strong> және <strong>short</strong> жад үнемдеу үшін қолданылады<br>
+                • Бүтін сандарда ондық нүкте болмайды</p>
+            </div>
+        </div>
+
+        <div class="binary-demo">
+            <h2 style="text-align: center; margin-bottom: 25px;">🔢 Екілік Жүйедегі Көрініс</h2>
+            <p style="text-align: center; margin-bottom: 25px; font-size: 1.1rem;">
+                Компьютер барлық сандарды екілік (binary) жүйеде сақтайды
+            </p>
+            
+            <div class="binary-grid">
+                <div class="binary-card">
+                    <h4>byte: 5</h4>
+                    <div class="binary-bits">
+                        <div class="bit">0</div>
+                        <div class="bit">0</div>
+                        <div class="bit">0</div>
+                        <div class="bit">0</div>
+                        <div class="bit">0</div>
+                        <div class="bit">1</div>
+                        <div class="bit">0</div>
+                        <div class="bit">1</div>
+                    </div>
+                    <p>8 бит</p>
+                </div>
+                
+                <div class="binary-card">
+                    <h4>byte: -1</h4>
+                    <div class="binary-bits">
+                        <div class="bit">1</div>
+                        <div class="bit">1</div>
+                        <div class="bit">1</div>
+                        <div class="bit">1</div>
+                        <div class="bit">1</div>
+                        <div class="bit">1</div>
+                        <div class="bit">1</div>
+                        <div class="bit">1</div>
+                    </div>
+                    <p>Алғашқы бит - таңба биті</p>
+                </div>
+                
+                <div class="binary-card">
+                    <h4>byte: 127 (max)</h4>
+                    <div class="binary-bits">
+                        <div class="bit">0</div>
+                        <div class="bit">1</div>
+                        <div class="bit">1</div>
+                        <div class="bit">1</div>
+                        <div class="bit">1</div>
+                        <div class="bit">1</div>
+                        <div class="bit">1</div>
+                        <div class="bit">1</div>
+                    </div>
+                    <p>Максимум оң мән</p>
+                </div>
+                
+                <div class="binary-card">
+                    <h4>byte: -128 (min)</h4>
+                    <div class="binary-bits">
+                        <div class="bit">1</div>
+                        <div class="bit">0</div>
+                        <div class="bit">0</div>
+                        <div class="bit">0</div>
+                        <div class="bit">0</div>
+                        <div class="bit">0</div>
+                        <div class="bit">0</div>
+                        <div class="bit">0</div>
+                    </div>
+                    <p>Минимум теріс мән</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="overflow-demo">
+            <h2 style="margin-bottom: 20px;">⚠️ Overflow (Толып кету) проблемасы</h2>
+            <p style="margin-bottom: 25px; font-size: 1.1rem;">
+                Айнымалыға оның сақтай алатын диапазонынан үлкен мән берсе не болады?
+            </p>
+            
+            <div class="overflow-example">
+                <strong>Мысал:</strong><br>
+                byte maxValue = 127;  // byte-тың максимумы<br>
+                maxValue++;           // 128 болуы керек еді, бірақ...<br>
+                // Нәтиже: -128 (минимумға секіреді!)
+            </div>
+            
+            <div class="overflow-example">
+                <strong>int типі үшін:</strong><br>
+                int maxInt = 2147483647;    // int максимумы<br>
+                maxInt = maxInt + 1;        // 2147483648 болуы керек еді<br>
+                // Нәтиже: -2147483648 (минимумға секіреді!)
+            </div>
+        </div>
+
+        <div class="operations-demo">
+            <h2 class="section-title">🧮 Арифметикалық Операциялар</h2>
+            
+            <div class="code-example">
+                <div class="code-header">
+                    ➕ Негізгі операциялар
+                </div>
+                <div>
+<span class="keyword">int</span> <span class="variable">a</span> = <span class="number">10</span>;
+<span class="keyword">int</span> <span class="variable">b</span> = <span class="number">3</span>;
+
+<span class="comment">// Негізгі арифметика</span>
+<span class="keyword">int</span> <span class="variable">sum</span> = <span class="number">10</span> + <span class="number">3</span>; <span class="comment">// 13</span>
+<span class="keyword">int</span> <span class="variable">difference</span> = <span class="number">10</span> - <span class="number">3</span>; <span class="comment">// 7</span>
+<span class="keyword">int</span> <span class="variable">product</span> = <span class="number">10</span> * <span class="number">3</span>; <span class="comment">// 13</span>
+<span class="keyword">int</span> <span class="variable">division</span> = <span class="number">10</span> / <span class="number">3</span>; <span class="comment">// 3</span>
+<span class="keyword">int</span> <span class="variable">remainder</span> = <span class="number">10</span> % <span class="number">3</span>; <span class="comment">// 1</span>

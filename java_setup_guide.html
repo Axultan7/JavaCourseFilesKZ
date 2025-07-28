@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java дамыту ортасын орнату</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .step-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .step-title {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px 0;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+        }
+
+        .requirements {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .requirements h3 {
+            color: #e74c3c;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .req-list {
+            list-style: none;
+        }
+
+        .req-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .req-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .installation-steps {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .installation-steps h3 {
+            color: #3498db;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .step-item {
+            padding: 15px;
+            margin: 10px 0;
+            background: rgba(52, 152, 219, 0.1);
+            border-left: 4px solid #3498db;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .step-item:hover {
+            background: rgba(52, 152, 219, 0.2);
+        }
+
+        .verification {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .verification h2 {
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            font-size: 1.1rem;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .success-message {
+            background: rgba(46, 204, 113, 0.1);
+            border: 2px solid #2ecc71;
+            color: #27ae60;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .steps-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+
+        .animated {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header animated">
+            <h1>☕ Java Дамыту Ортасын Орнату</h1>
+            <p>JDK және IntelliJ IDEA қадамдық нұсқаулығы</p>
+        </div>
+
+        <div class="steps-container">
+            <div class="step-card animated">
+                <div class="step-number">1</div>
+                <h2 class="step-title">JDK Орнату</h2>
+                
+                <div class="requirements">
+                    <h3>🖥️ Жүйелік талаптар:</h3>
+                    <ul class="req-list">
+                        <li>Windows 10/11, macOS, Linux</li>
+                        <li>Кемінде 2 GB RAM</li>
+                        <li>500 MB бос орын</li>
+                        <li>Интернет байланысы</li>
+                    </ul>
+                </div>
+
+                <a href="https://www.oracle.com/java/technologies/downloads/" 
+                   class="download-btn" target="_blank">
+                    📥 JDK Жүктеп алу
+                </a>
+
+                <div class="installation-steps">
+                    <h3>🔧 Орнату қадамдары:</h3>
+                    <div class="step-item">
+                        <strong>1-қадам:</strong> Oracle сайтынан JDK 21 LTS жүктеңіз
+                    </div>
+                    <div class="step-item">
+                        <strong>2-қадам:</strong> Жүктелген файлды ашып, орнатуды бастаңыз
+                    </div>
+                    <div class="step-item">
+                        <strong>3-қадам:</strong> "Add to PATH" опциясын таңдаңыз
+                    </div>
+                    <div class="step-item">
+                        <strong>4-қадам:</strong> Орнатуды аяқтаңыз
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-card animated">
+                <div class="step-number">2</div>
+                <h2 class="step-title">IntelliJ IDEA Орнату</h2>
+                
+                <div class="requirements">
+                    <h3>💻 Ұсынылатын конфигурация:</h3>
+                    <ul class="req-list">
+                        <li>4 GB RAM (8 GB ұсынылады)</li>
+                        <li>2.5 GB бос орын</li>
+                        <li>1024×768 рұқсат</li>
+                        <li>JDK 8 немесе жоғары</li>
+                    </ul>
+                </div>
+
+                <a href="https://www.jetbrains.com/idea/download/" 
+                   class="download-btn" target="_blank">
+                    📥 IntelliJ IDEA Жүктеп алу
+                </a>
+
+                <div class="installation-steps">
+                    <h3>🔧 Орнату қадамдары:</h3>
+                    <div class="step-item">
+                        <strong>1-қадам:</strong> Community Edition (тегін) жүктеңіз
+                    </div>
+                    <div class="step-item">
+                        <strong>2-қадам:</strong> Орнатқышты іске қосыңыз
+                    </div>
+                    <div class="step-item">
+                        <strong>3-қадам:</strong> 64-bit launcher ауып, PATH қосыңыз
+                    </div>
+                    <div class="step-item">
+                        <strong>4-қадам:</strong> .java файлдарын байланыстыра аласыз
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="verification animated">
+            <h2>🔍 Орнатуды Тексеру</h2>
+            <p>Терминалда немесе Command Prompt-та мынаны енгізіңіз:</p>
+            
+            <div class="code-block">
+                java -version
+            </div>
+            
+            <div class="code-block">
+                javac -version
+            </div>
+            
+            <div class="success-message">
+                ✅ Егер нұсқа ақпараты көрінсе - орнату сәтті аяқталды!
+            </div>
+            
+            <p style="margin-top: 20px; font-size: 1.1rem;">
+                Енді сіз Java бағдарламалауға дайынсыз! 🎉
+            </p>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.95); border-radius: 15px; padding: 25px; margin-top: 30px;">
+            <h3 style="color: #8e44ad; margin-bottom: 15px;">📚 Келесі қадам:</h3>
+            <p style="font-size: 1.1rem; line-height: 1.6;">
+                IntelliJ IDEA ашып, жаңа жоба жасаңыз. "File" → "New" → "Project" → "Java" таңдап, 
+                алғашқы "Hello World" бағдарламаңызды жазуға дайын боласыз!
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.step-card, .verification').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.8s ease-out';
+            observer.observe(el);
+        });
+
+        // Add click effects
+        document.querySelectorAll('.download-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-2px)';
+                }, 150);
+            });
+        });
+    </script>
+</body>
+</html>

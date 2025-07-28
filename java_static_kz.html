@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Static</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+            padding: 40px 0;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .lesson-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+        }
+
+        .static-overview {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .static-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .static-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .static-card:hover {
+            transform: scale(1.05);
+        }
+
+        .static-card h4 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .syntax-section {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .syntax-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 1.2rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .memory-section {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .memory-diagram {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .memory-block {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            min-width: 200px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .code-example {
+            background: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            line-height: 1.8;
+            box-shadow: 0 10px 30px rgba(44, 62, 80, 0.3);
+        }
+
+        .code-header {
+            background: #34495e;
+            color: white;
+            padding: 12px 20px;
+            margin: -25px -25px 20px -25px;
+            border-radius: 15px 15px 0 0;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .keyword { color: #e74c3c; font-weight: bold; }
+        .string { color: #f39c12; }
+        .number { color: #3498db; }
+        .comment { color: #95a5a6; font-style: italic; }
+        .variable { color: #2ecc71; }
+        .method { color: #9b59b6; }
+        .class-name { color: #e67e22; font-weight: bold; }
+        .static-keyword { color: #ff6b6b; font-weight: bold; background: rgba(255, 107, 107, 0.1); padding: 2px 4px; border-radius: 3px; }
+
+        .comparison-section {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 18px;
+            text-align: left;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .comparison-table td {
+            padding: 15px 18px;
+            border-bottom: 1px solid #ecf0f1;
+            font-size: 1rem;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .comparison-table tr:hover {
+            background: #e3f2fd;
+        }
+
+        .examples-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .example-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .example-card h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .warning-box {
+            background: rgba(231, 76, 60, 0.1);
+            border: 2px solid #e74c3c;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #c0392b;
+        }
+
+        .warning-box h4 {
+            color: #e74c3c;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .info-box {
+            background: rgba(52, 152, 219, 0.1);
+            border: 2px solid #3498db;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #2980b9;
+        }
+
+        .info-box h4 {
+            color: #3498db;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .success-box {
+            background: rgba(39, 174, 96, 0.1);
+            border: 2px solid #27ae60;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #27ae60;
+        }
+
+        .success-box h4 {
+            color: #27ae60;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .block-section {
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .practical-examples {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .practical-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .practical-card {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .tips-container {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .tip-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid white;
+        }
+
+        @media (max-width: 768px) {
+            .examples-showcase {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .memory-diagram {
+                flex-direction: column;
+            }
+        }
+
+        .animate-in {
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚡ Java Static</h1>
+            <p>Класстық деректер мен әдістерді басқару</p>
+            <div style="background: rgba(255,255,255,0.2); border-radius: 50px; padding: 15px 30px; display: inline-block; margin-top: 20px;">
+                <strong>static</strong> — объект құрмай-ақ қол жетімді болатын мүшелер
+            </div>
+        </div>
+
+        <div class="static-overview">
+            <h2 style="margin-bottom: 20px;">⚡ Static дегеніміз не?</h2>
+            <p style="margin-bottom: 25px; font-size: 1.2rem;">
+                Static кілт сөзі — класс мүшелерін (өрістер мен әдістер) объект құрмай-ақ қолдануға мүмкіндік беретін модификатор. Static мүшелер класстың өзіне тиесілі, объектілерге емес.
+            </p>
+            
+            <div class="static-types">
+                <div class="static-card">
+                    <h4>📊 Static Variables</h4>
+                    <p>Класстық айнымалылар</p>
+                    <small>Барлық объектілер үшін ортақ</small>
+                </div>
+                
+                <div class="static-card">
+                    <h4>⚙️ Static Methods</h4>
+                    <p>Класстық әдістер</p>
+                    <small>Объект құрмай шақыруға болады</small>
+                </div>
+                
+                <div class="static-card">
+                    <h4>🏗️ Static Blocks</h4>
+                    <p>Инициализация блоктары</p>
+                    <small>Класс жүктелген кезде орындалады</small>
+                </div>
+
+                <div class="static-card">
+                    <h4>📦 Static Nested Classes</h4>
+                    <p>Статикалық ішкі класстар</p>
+                    <small>Сыртқы класс объектісіз жұмыс істейді</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="memory-section">
+            <h2 style="text-align: center; margin-bottom: 25px;">🧠 Жадыдағы Static Элементтер</h2>
+            
+            <div class="memory-diagram">
+                <div class="memory-block">
+                    <h4>🏛️ Method Area</h4>
+                    <p>Static өрістер мен әдістер сақталады</p>
+                    <small>Класс жүктелген кезде құрылады</small>
+                </div>
+                
+                <div class="memory-block">
+                    <h4>🏠 Heap Memory</h4>
+                    <p>Instance объектілері сақталады</p>
+                    <small>new операторымен құрылады</small>
+                </div>
+                
+                <div class="memory-block">
+                    <h4>📚 Stack Memory</h4>
+                    <p>Жергілікті айнымалылар</p>
+                    <small>Әдіс шақырылған кезде құрылады</small>
+                </div>
+            </div>
+
+            <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; margin: 20px 0;">
+                <h4>🔍 Static элементтердің жадыдағы орналасуы:</h4>
+                <p>• Static мүшелер Method Area-да сақталады<br>
+                • Бағдарлама басталған кезде бір рет ғана құрылады<br>
+                • Барлық объектілер бір static өрісті пайдаланады<br>
+                • Бағдарлама аяқталғанға дейін жадыда қалады</p>
+            </div>
+        </div>
+
+        <div class="syntax-section">
+            <h2 style="text-align: center; margin-bottom: 25px;">📝 Static Синтаксисі</h2>
+            
+            <div class="syntax-box">
+                <strong>Static өрістің синтаксисі:</strong><br><br>
+                [қол жетімділік] static [final] тип айнымалыАты = мәні;
+            </div>
+
+            <div class="syntax-box">
+                <strong>Static әдістің синтаксисі:</strong><br><br>
+                [қол жетімділік] static қайтаруТүрі әдісАты(параметрлер) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;// Код<br>
+                }
+            </div>
+
+            <div class="syntax-box">
+                <strong>Static блоктың синтаксисі:</strong><br><br>
+                static {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;// Инициализация коды<br>
+                }
+            </div>
+
+            <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; margin: 20px 0;">
+                <h4>⚡ Static элементтерді шақыру:</h4>
+                <p>• КлассАты.staticӨрісі<br>
+                • КлассАты.staticӘдісі()<br>
+                • new операторы қажет емес<br>
+                • Объект арқылы да шақыруға болады, бірақ ұсынылмайды</p>
+            </div>
+        </div>
+
+        <div class="lesson-section animate-in">
+            <h2 class="section-title">📊 Static Variables (Класстық Айнымалылар)</h2>
+            
+            <div class="code-example">
+                <div class="code-header">
+                    📊 Static өрістердің мысалдары
+                </div>
+                <div>
+<span class="comment">// 1. Студенттер санын санайтын класс</span>
+<span class="keyword">class</span> <span class="class-name">Student</span> {
+    <span class="comment">// Instance өрістері (әр объектіңде жеке)</span>
+    <span class="keyword">private</span> <span class="keyword">String</span> <span class="variable">name</span>;
+    <span class="keyword">private</span> <span class="keyword">int</span> <span class="variable">age</span>;
+    <span class="keyword">private</span> <span class="keyword">int</span> <span class="variable">studentId</span>;
+    
+    <span class="comment">// Static өрістері (барлық объектілерде ортақ)</span>
+    <span class="keyword">private</span> <span class="static-keyword">static</span> <span class="keyword">int</span> <span class="variable">totalStudents</span> = <span class="number">0</span>;  <span class="comment">// Жалпы студенттер саны</span>
+    <span class="keyword">private</span> <span class="static-keyword">static</span> <span class="keyword">int</span> <span class="variable">nextId</span> = <span class="number">1000</span>;       <span class="comment">// Келесі ID</span>
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">final</span> <span class="keyword">String</span> <span class="variable">UNIVERSITY</span> = <span class="string">"ҚазҰУ"</span>; <span class="comment">// Тұрақты</span>
+    
+    <span class="comment">// Constructor</span>
+    <span class="keyword">public</span> <span class="class-name">Student</span>(<span class="keyword">String</span> <span class="variable">name</span>, <span class="keyword">int</span> <span class="variable">age</span>) {
+        <span class="keyword">this</span>.<span class="variable">name</span> = <span class="variable">name</span>;
+        <span class="keyword">this</span>.<span class="variable">age</span> = <span class="variable">age</span>;
+        <span class="keyword">this</span>.<span class="variable">studentId</span> = <span class="variable">nextId</span>++;      <span class="comment">// Автоматты ID беру</span>
+        <span class="variable">totalStudents</span>++;                  <span class="comment">// Студенттер санын арттыру</span>
+        
+        System.out.println(<span class="string">"Жаңа студент тіркелді: "</span> + <span class="variable">name</span> + <span class="string">" (ID: "</span> + <span class="variable">studentId</span> + <span class="string">")"</span>);
+    }
+    
+    <span class="comment">// Static әдіс - жалпы студенттер санын қайтарады</span>
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">int</span> <span class="method">getTotalStudents</span>() {
+        <span class="keyword">return</span> <span class="variable">totalStudents</span>;
+    }
+    
+    <span class="comment">// Static әдіс - университет туралы ақпарат</span>
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">void</span> <span class="method">displayUniversityInfo</span>() {
+        System.out.println(<span class="string">"Университет: "</span> + <span class="variable">UNIVERSITY</span>);
+        System.out.println(<span class="string">"Жалпы студенттер саны: "</span> + <span class="variable">totalStudents</span>);
+        System.out.println(<span class="string">"Келесі ID: "</span> + <span class="variable">nextId</span>);
+    }
+    
+    <span class="comment">// Instance әдісі</span>
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">displayInfo</span>() {
+        System.out.println(<span class="string">"Аты: "</span> + <span class="variable">name</span> + <span class="string">", Жасы: "</span> + <span class="variable">age</span> + 
+                          <span class="string">", ID: "</span> + <span class="variable">studentId</span> + <span class="string">", Университет: "</span> + <span class="variable">UNIVERSITY</span>);
+    }
+    
+    <span class="comment">// Getters</span>
+    <span class="keyword">public</span> <span class="keyword">String</span> <span class="method">getName</span>() { <span class="keyword">return</span> <span class="variable">name</span>; }
+    <span class="keyword">public</span> <span class="keyword">int</span> <span class="method">getStudentId</span>() { <span class="keyword">return</span> <span class="variable">studentId</span>; }
+}
+
+<span class="comment">// Қолдану мысалы</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="class-name">StaticDemo</span> {
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="method">main</span>(<span class="keyword">String</span>[] <span class="variable">args</span>) {
+        <span class="comment">// Static әдісті класс атауы арқылы шақыру</span>
+        System.out.println(<span class="string">"Бастапқы жағдай:"</span>);
+        <span class="class-name">Student</span>.<span class="method">displayUniversityInfo</span>();
+        
+        <span class="comment">// Объектілер құру</span>
+        <span class="class-name">Student</span> <span class="variable">student1</span> = <span class="keyword">new</span> <span class="class-name">Student</span>(<span class="string">"Айдос"</span>, <span class="number">20</span>);
+        <span class="class-name">Student</span> <span class="variable">student2</span> = <span class="keyword">new</span> <span class="class-name">Student</span>(<span class="string">"Айгүл"</span>, <span class="number">19</span>);
+        <span class="class-name">Student</span> <span class="variable">student3</span> = <span class="keyword">new</span> <span class="class-name">Student</span>(<span class="string">"Асыл"</span>, <span class="number">21</span>);
+        
+        System.out.println(<span class="string">"\nОбъектілер құрғаннан кейін:"</span>);
+        <span class="class-name">Student</span>.<span class="method">displayUniversityInfo</span>();
+        
+        <span class="comment">// Static константаны тікелей қолдану</span>
+        System.out.println(<span class="string">"\nУниверситет: "</span> + <span class="class-name">Student</span>.<span class="variable">UNIVERSITY</span>);
+        System.out.println(<span class="string">"Жалпы студенттер: "</span> + <span class="class-name">Student</span>.<span class="method">getTotalStudents</span>());
+        
+        <span class="comment">// Instance әдістерін шақыру</span>
+        System.out.println(<span class="string">"\nСтуденттер туралы ақпарат:"</span>);
+        <span class="variable">student1</span>.<span class="method">displayInfo</span>();
+        <span class="variable">student2</span>.<span class="method">displayInfo</span>();
+        <span class="variable">student3</span>.<span class="method">displayInfo</span>();
+    }
+}
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h4>💡 Static Variables-тің ерекшеліктері:</h4>
+                <p>• Барлық объектілер үшін ортақ болып табылады<br>
+                • Класс жүктелген кезде бір рет ғана құрылады<br>
+                • Method Area жадысында сақталады<br>
+                • Объект құрмай-ақ қол жетімді болады<br>
+                • Көбінесе final-мен бірге тұрақты ретінде қолданылады</p>
+            </div>
+        </div>
+
+        <div class="lesson-section animate-in">
+            <h2 class="section-title">⚙️ Static Methods (Класстық Әдістер)</h2>
+            
+            <div class="code-example">
+                <div class="code-header">
+                    ⚙️ Static әдістердің мысалдары
+                </div>
+                <div>
+<span class="comment">// 1. Математикалық операциялар класы</span>
+<span class="keyword">class</span> <span class="class-name">MathUtils</span> {
+    <span class="comment">// Static тұрақтылар</span>
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">final</span> <span class="keyword">double</span> <span class="variable">PI</span> = <span class="number">3.14159</span>;
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">final</span> <span class="keyword">double</span> <span class="variable">E</span> = <span class="number">2.71828</span>;
+    
+    <span class="comment">// Static әдістер - объект құру қажет емес</span>
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">int</span> <span class="method">add</span>(<span class="keyword">int</span> <span class="variable">a</span>, <span class="keyword">int</span> <span class="variable">b</span>) {
+        <span class="keyword">return</span> <span class="variable">a</span> + <span class="variable">b</span>;
+    }
+    
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">int</span> <span class="method">multiply</span>(<span class="keyword">int</span> <span class="variable">a</span>, <span class="keyword">int</span> <span class="variable">b</span>) {
+        <span class="keyword">return</span> <span class="variable">a</span> * <span class="variable">b</span>;
+    }
+    
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">double</span> <span class="method">circleArea</span>(<span class="keyword">double</span> <span class="variable">radius</span>) {
+        <span class="keyword">return</span> <span class="variable">PI</span> * <span class="variable">radius</span> * <span class="variable">radius</span>;
+    }
+    
+    <span class="comment">// Өлшемді айналдыру</span>
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">double</span> <span class="method">celsiusToFahrenheit</span>(<span class="keyword">double</span> <span class="variable">celsius</span>) {
+        <span class="keyword">return</span> (<span class="variable">celsius</span> * <span class="number">9.0</span> / <span class="number">5.0</span>) + <span class="number">32.0</span>;
+    }
+    
+    <span class="comment">// Максимум табу (varargs қолдану)</span>
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">int</span> <span class="method">max</span>(<span class="keyword">int</span>... <span class="variable">numbers</span>) {
+        <span class="keyword">if</span> (<span class="variable">numbers</span>.<span class="variable">length</span> == <span class="number">0</span>) {
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="class-name">IllegalArgumentException</span>(<span class="string">"Кемінде бір сан беру керек"</span>);
+        }
+        
+        <span class="keyword">int</span> <span class="variable">maxValue</span> = <span class="variable">numbers</span>[<span class="number">0</span>];
+        <span class="keyword">for</span> (<span class="keyword">int</span> <span class="variable">i</span> = <span class="number">1</span>; <span class="variable">i</span> < <span class="variable">numbers</span>.<span class="variable">length</span>; <span class="variable">i</span>++) {
+            <span class="keyword">if</span> (<span class="variable">numbers</span>[<span class="variable">i</span>] > <span class="variable">maxValue</span>) {
+                <span class="variable">maxValue</span> = <span class="variable">numbers</span>[<span class="variable">i</span>];
+            }
+        }
+        <span class="keyword">return</span> <span class="variable">maxValue</span>;
+    }
+    
+    <span class="comment">// Факториал есептеу (рекурсивті static әдіс)</span>
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">long</span> <span class="method">factorial</span>(<span class="keyword">int</span> <span class="variable">n</span>) {
+        <span class="keyword">if</span> (<span class="variable">n</span> < <span class="number">0</span>) {
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="class-name">IllegalArgumentException</span>(<span class="string">"Теріс сан болмауы керек"</span>);
+        }
+        <span class="keyword">if</span> (<span class="variable">n</span> <= <span class="number">1</span>) {
+            <span class="keyword">return</span> <span class="number">1</span>;
+        }
+        <span class="keyword">return</span> <span class="variable">n</span> * <span class="method">factorial</span>(<span class="variable">n</span> - <span class="number">1</span>);
+    }
+    
+    <span class="comment">// Static әдіс ішінде instance әдісін шақыра алмайды</span>
+    <span class="comment">// private void instanceMethod() { } // Бұл әдісті static әдіс ішінде шақыра алмаймыз</span>
+}
+
+<span class="comment">// 2. String утилиталары</span>
+<span class="keyword">class</span> <span class="class-name">StringUtils</span> {
+    <span class="comment">// String-ті керіге айналдыру</span>
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">String</span> <span class="method">reverse</span>(<span class="keyword">String</span> <span class="variable">str</span>) {
+        <span class="keyword">if</span> (<span class="variable">str</span> == <span class="keyword">null</span> || <span class="variable">str</span>.<span class="method">isEmpty</span>()) {
+            <span class="keyword">return</span> <span class="variable">str</span>;
+        }
+        <span class="keyword">return</span> <span class="keyword">new</span> <span class="class-name">StringBuilder</span>(<span class="variable">str</span>).<span class="method">reverse</span>().<span class="method">toString</span>();
+    }
+    
+    <span class="comment">// Сөздер санын санау</span>
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">int</span> <span class="method">countWords</span>(<span class="keyword">String</span> <span class="variable">text</span>) {
+        <span class="keyword">if</span> (<span class="variable">text</span> == <span class="keyword">null</span> || <span class="variable">text</span>.<span class="method">trim</span>().<span class="method">isEmpty</span>()) {
+            <span class="keyword">return</span> <span class="number">0</span>;
+        }
+        <span class="keyword">return</span> <span class="variable">text</span>.<span class="method">trim</span>().<span class="method">split</span>(<span class="string">"\\s+"</span>).<span class="variable">length</span>;
+    }
+    
+    <span class="comment">// Palindrome тексеру</span>
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">boolean</span> <span class="method">isPalindrome</span>(<span class="keyword">String</span> <span class="variable">str</span>) {
+        <span class="keyword">if</span> (<span class="variable">str</span> == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">false</span>;
+        
+        <span class="keyword">String</span> <span class="variable">cleaned</span> = <span class="variable">str</span>.<span class="method">replaceAll</span>(<span class="string">"[^a-zA-ZА-Яа-яӘәІіҢңҒғҮүҰұҚқӨөҺһ]"</span>, <span class="string">""</span>).<span class="method">toLowerCase</span>();
+        <span class="keyword">return</span> <span class="variable">cleaned</span>.<span class="method">equals</span>(<span class="method">reverse</span>(<span class="variable">cleaned</span>));
+    }
+}
+
+<span class="comment">// Қолдану мысалы</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="class-name">StaticMethodsDemo</span> {
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">void</span> <span class="method">main</span>(<span class="keyword">String</span>[] <span class="variable">args</span>) {
+        <span class="comment">// MathUtils static әдістерін қолдану</span>
+        System.out.println(<span class="string">"=== Математикалық операциялар ==="</span>);
+        System.out.println(<span class="string">"5 + 3 = "</span> + <span class="class-name">MathUtils</span>.<span class="method">add</span>(<span class="number">5</span>, <span class="number">3</span>));
+        System.out.println(<span class="string">"4 * 7 = "</span> + <span class="class-name">MathUtils</span>.<span class="method">multiply</span>(<span class="number">4</span>, <span class="number">7</span>));
+        System.out.println(<span class="string">"Дөңгелек ауданы (r=5): "</span> + <span class="class-name">MathUtils</span>.<span class="method">circleArea</span>(<span class="number">5.0</span>));
+        System.out.println(<span class="string">"25°C = "</span> + <span class="class-name">MathUtils</span>.<span class="method">celsiusToFahrenheit</span>(<span class="number">25.0</span>) + <span class="string">"°F"</span>);
+        System.out.println(<span class="string">"Max(10, 5, 25, 15): "</span> + <span class="class-name">MathUtils</span>.<span class="method">max</span>(<span class="number">10</span>, <span class="number">5</span>, <span class="number">25</span>, <span class="number">15</span>));
+        System.out.println(<span class="string">"5! = "</span> + <span class="class-name">MathUtils</span>.<span class="method">factorial</span>(<span class="number">5</span>));
+        
+        <span class="comment">// StringUtils static әдістерін қолдану</span>
+        System.out.println(<span class="string">"\n=== String операциялары ==="</span>);
+        <span class="keyword">String</span> <span class="variable">text</span> = <span class="string">"Сәлем, Java әлемі!"</span>;
+        System.out.println(<span class="string">"Түпнұсқа: "</span> + <span class="variable">text</span>);
+        System.out.println(<span class="string">"Кері: "</span> + <span class="class-name">StringUtils</span>.<span class="method">reverse</span>(<span class="variable">text</span>));
+        System.out.println(<span class="string">"Сөздер саны: "</span> + <span class="class-name">StringUtils</span>.<span class="method">countWords</span>(<span class="variable">text</span>));
+        
+        <span class="keyword">String</span> <span class="variable">palindrome</span> = <span class="string">"мадам"</span>;
+        System.out.println(<span class="string">"'"</span> + <span class="variable">palindrome</span> + <span class="string">"' палиндром ма? "</span> + 
+                          <span class="class-name">StringUtils</span>.<span class="method">isPalindrome</span>(<span class="variable">palindrome</span>));
+        
+        <span class="comment">// Static тұрақтыларды қолдану</span>
+        System.out.println(<span class="string">"\n=== Константалар ==="</span>);
+        System.out.println(<span class="string">"π = "</span> + <span class="class-name">MathUtils</span>.<span class="variable">PI</span>);
+        System.out.println(<span class="string">"e = "</span> + <span class="class-name">MathUtils</span>.<span class="variable">E</span>);
+    }
+}
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ Static Әдістердің Шектеулері:</h4>
+                <p>• Instance өрістер мен әдістерді тікелей қолдана алмайды<br>
+                • <code>this</code> және <code>super</code> кілт сөздерін қолдана алмайды<br>
+                • Instance әдістерден overriding болмайды<br>
+                • Generic параметрлерді қолдану шектеулі</p>
+            </div>
+        </div>
+
+        <div class="block-section">
+            <h2 style="text-align: center; margin-bottom: 25px;">🏗️ Static Blocks (Инициализация Блоктары)</h2>
+            
+            <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; margin: 20px 0;">
+                <h4>🔄 Static блоктардың орындалу реті:</h4>
+                <p>1️⃣ Класс JVM-ға алғаш рет жүктелген кезде<br>
+                2️⃣ Static өрістердің инициализациясынан кейін<br>
+                3️⃣ Кез келген static әдіс шақырылғанға дейін<br>
+                4️⃣ Кез келген объект құрылғанға дейін</p>
+            </div>
+
+            <div class="code-example">
+                <div class="code-header">
+                    🏗️ Static блоктардың мысалдары
+                </div>
+                <div>
+<span class="comment">// 1. Конфигурация класы</span>
+<span class="keyword">class</span> <span class="class-name">DatabaseConfig</span> {
+    <span class="comment">// Static өрістер</span>
+    <span class="keyword">private</span> <span class="static-keyword">static</span> <span class="keyword">String</span> <span class="variable">url</span>;
+    <span class="keyword">private</span> <span class="static-keyword">static</span> <span class="keyword">String</span> <span class="variable">username</span>;
+    <span class="keyword">private</span> <span class="static-keyword">static</span> <span class="keyword">String</span> <span class="variable">password</span>;
+    <span class="keyword">private</span> <span class="static-keyword">static</span> <span class="keyword">boolean</span> <span class="variable">isConfigured</span> = <span class="keyword">false</span>;
+    
+    <span class="comment">// Static блок - класс жүктелген кезде орындалады</span>
+    <span class="static-keyword">static</span> {
+        System.out.println(<span class="string">"🔧 DatabaseConfig инициализациясы басталды..."</span>);
+        
+        <span class="comment">// Конфигурацияны жүктеу (симуляция)</span>
+        <span class="variable">url</span> = <span class="string">"jdbc:mysql://localhost:3306/mydb"</span>;
+        <span class="variable">username</span> = <span class="string">"admin"</span>;
+        <span class="variable">password</span> = <span class="string">"password123"</span>;
+        
+        <span class="comment">// Байланысты тексеру</span>
+        <span class="keyword">if</span> (<span class="method">testConnection</span>()) {
+            <span class="variable">isConfigured</span> = <span class="keyword">true</span>;
+            System.out.println(<span class="string">"✅ Дерекқор конфигурациясы сәтті жүктелді"</span>);
+        } <span class="keyword">else</span> {
+            System.out.println(<span class="string">"❌ Дерекқор конфигурациясында қате"</span>);
+        }
+        
+        System.out.println(<span class="string">"🏁 DatabaseConfig инициализациясы аяқталды"</span>);
+    }
+    
+    <span class="comment">// Бірнеше static блок болуы мүмкін (ретімен орындалады)</span>
+    <span class="static-keyword">static</span> {
+        System.out.println(<span class="string">"📊 Екінші static блок орындалуда..."</span>);
+        <span class="comment">// Қосымша инициализация</span>
+        System.out.println(<span class="string">"📈 Статистика жүйесі қосулды"</span>);
+    }
+    
+    <span class="comment">// Static әдістер</span>
+    <span class="keyword">private</span> <span class="static-keyword">static</span> <span class="keyword">boolean</span> <span class="method">testConnection</span>() {
+        <span class="comment">// Байланысты тексеру симуляциясы</span>
+        <span class="keyword">try</span> {
+            <span class="class-name">Thread</span>.<span class="method">sleep</span>(<span class="number">100</span>); <span class="comment">// Байланыс уақытын имитациялау</span>
+            <span class="keyword">return</span> <span class="keyword">true</span>;
+        } <span class="keyword">catch</span> (<span class="class-name">InterruptedException</span> <span class="variable">e</span>) {
+            <span class="keyword">return</span> <span class="keyword">false</span>;
+        }
+    }
+    
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">String</span> <span class="method">getConnectionString</span>() {
+        <span class="keyword">if</span> (!<span class="variable">isConfigured</span>) {
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="class-name">RuntimeException</span>(<span class="string">"Дерекқор конфигурацияланбаған"</span>);
+        }
+        <span class="keyword">return</span> <span class="variable">url</span> + <span class="string">" (User: "</span> + <span class="variable">username</span> + <span class="string">")"</span>;
+    }
+}
+
+<span class="comment">// 2. Математикалық константалар класы</span>
+<span class="keyword">class</span> <span class="class-name">MathConstants</span> {
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">final</span> <span class="keyword">double</span> <span class="variable">PI</span>;
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">final</span> <span class="keyword">double</span> <span class="variable">E</span>;
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">final</span> <span class="keyword">double</span> <span class="variable">GOLDEN_RATIO</span>;
+    
+    <span class="comment">// Static блокта final өрістерді инициализациялау</span>
+    <span class="static-keyword">static</span> {
+        System.out.println(<span class="string">"🔢 Математикалық константаларды есептеу..."</span>);
+        
+        <span class="comment">// PI есептеу (Лейбниц формуласы)</span>
+        <span class="keyword">double</span> <span class="variable">piCalculated</span> = <span class="number">0</span>;
+        <span class="keyword">for</span> (<span class="keyword">int</span> <span class="variable">i</span> = <span class="number">0</span>; <span class="variable">i</span> < <span class="number">1000000</span>; <span class="variable">i</span>++) {
+            <span class="variable">piCalculated</span> += <span class="method">Math</span>.<span class="method">pow</span>(-<span class="number">1</span>, <span class="variable">i</span>) / (<span class="number">2</span> * <span class="variable">i</span> + <span class="number">1</span>);
+        }
+        <span class="variable">PI</span> = <span class="number">4</span> * <span class="variable">piCalculated</span>;
+        
+        <span class="comment">// E есептеу (факториал арқылы)</span>
+        <span class="keyword">double</span> <span class="variable">eCalculated</span> = <span class="number">0</span>;
+        <span class="keyword">long</span> <span class="variable">factorial</span> = <span class="number">1</span>;
+        <span class="keyword">for</span> (<span class="keyword">int</span> <span class="variable">i</span> = <span class="number">0</span>; <span class="variable">i</span> < <span class="number">20</span>; <span class="variable">i</span>++) {
+            <span class="keyword">if</span> (<span class="variable">i</span> > <span class="number">0</span>) <span class="variable">factorial</span> *= <span class="variable">i</span>;
+            <span class="variable">eCalculated</span> += <span class="number">1.0</span> / <span class="variable">factorial</span>;
+        }
+        <span class="variable">E</span> = <span class="variable">eCalculated</span>;
+        
+        <span class="comment">// Алтын қатынас</span>
+        <span class="variable">GOLDEN_RATIO</span> = (<span class="number">1</span> + <span class="class-name">Math</span>.<span class="method">sqrt</span>(<span class="number">5</span>)) / <span class="number">2</span>;
+        
+        System.out.println(<span class="string">"✅ Барлық константалар есептелді"</span>);
+    }
+    
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">void</span> <span class="method">displayConstants</span>() {
+        System.out.println(<span class="string">"π ≈ "</span> + <span class="variable">PI</span>);
+        System.out.println(<span class="string">"e ≈ "</span> + <span class="variable">E</span>);
+        System.out.println(<span class="string">"φ (Алтын қатынас) ≈ "</span> + <span class="variable">GOLDEN_RATIO</span>);
+    }
+}
+
+<span class="comment">// Қолдану мысалы</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="class-name">StaticBlockDemo</span> {
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">void</span> <span class="method">main</span>(<span class="keyword">String</span>[] <span class="variable">args</span>) {
+        System.out.println(<span class="string">"=== Static блоктар демосы ==="</span>);
+        System.out.println(<span class="string">"Main әдісі басталды\n"</span>);
+        
+        <span class="comment">// Алғашқы static әдіс шақыру - static блоктар орындалады</span>
+        System.out.println(<span class="string">"DatabaseConfig класын қолдану:"</span>);
+        System.out.println(<span class="class-name">DatabaseConfig</span>.<span class="method">getConnectionString</span>());
+        
+        System.out.println(<span class="string">"\nМатематикалық константалар:"</span>);
+        <span class="class-name">MathConstants</span>.<span class="method">displayConstants</span>();
+        
+        System.out.println(<span class="string">"\n📝 Ескерту: Static блоктар тек бір рет орындалады!"</span>);
+        <span class="comment">// Екінші рет шақырғанда static блоктар орындалмайды</span>
+        System.out.println(<span class="class-name">DatabaseConfig</span>.<span class="method">getConnectionString</span>());
+    }
+}
+                </div>
+            </div>
+
+            <div class="success-box">
+                <h4>✨ Static Блоктардың артықшылықтары:</h4>
+                <p>• Күрделі инициализация логикасын орындауға мүмкіндік береді<br>
+                • Final static өрістерді есептеулер арқылы инициализациялауға болады<br>
+                • Exception handling қолдануға болады<br>
+                • Бір рет орындалуы ресурстарды үнемдейді</p>
+            </div>
+        </div>
+
+        <div class="comparison-section">
+            <h2 style="text-align: center; margin-bottom: 25px;">⚖️ Static vs Instance Салыстыру</h2>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Критерий</th>
+                        <th>Static</th>
+                        <th>Instance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Жадыдағы орны</strong></td>
+                        <td>Method Area</td>
+                        <td>Heap Memory</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Құрылу уақыты</strong></td>
+                        <td>Класс жүктелген кезде</td>
+                        <td>new операторымен</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Қол жетімділік</strong></td>
+                        <td>КлассАты.мүше</td>
+                        <td>объект.мүше</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Көптеген объектілер</strong></td>
+                        <td>Барлығы үшін ортақ</td>
+                        <td>Әр объектіңде жеке</td>
+                    </tr>
+                    <tr>
+                        <td><strong>this, super қолдану</strong></td>
+                        <td>❌ Қолдана алмайды</td>
+                        <td>✅ Қолдана алады</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Overriding</strong></td>
+                        <td>❌ Болмайды</td>
+                        <td>✅ Болады</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Жады қолданысы</strong></td>
+                        <td>Аз (бір данада)</td>
+                        <td>Көп (әр объектіде)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Пайдалану мақсаты</strong></td>
+                        <td>Утилита әдістер, константалар</td>
+                        <td>Объектінің күйі мен әрекеттері</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; margin: 20px 0;">
+                <h4>🎯 Қашан Static қолдану керек:</h4>
+                <p>• Утилита әдістері үшін (Math.max, Arrays.sort)<br>
+                • Константалар үшін (Math.PI, Integer.MAX_VALUE)<br>
+                • Factory әдістері үшін<br>
+                • Объектілер санын санау үшін<br>
+                • Конфигурация мәліметтері үшін</p>
+            </div>
+        </div>
+
+        <div class="practical-examples">
+            <h2 style="text-align: center; margin-bottom: 25px; color: #2c3e50;">🚀 Практикалық Мысалдар</h2>
+            
+            <div class="practical-grid">
+                <div class="practical-card">
+                    <h4>🏭 Singleton Pattern</h4>
+                    <div class="code-example" style="margin: 15px 0;">
+                        <div style="background: #34495e; color: white; padding: 10px; font-family: monospace; font-size: 0.9rem; border-radius: 8px;">
+<span class="keyword">class</span> <span class="class-name">DatabaseConnection</span> {<br>
+&nbsp;&nbsp;<span class="keyword">private</span> <span class="static-keyword">static</span> <span class="class-name">DatabaseConnection</span> <span class="variable">instance</span>;<br>
+&nbsp;&nbsp;<span class="keyword">private</span> <span class="class-name">DatabaseConnection</span>() {}<br><br>
+&nbsp;&nbsp;<span class="keyword">public</span> <span class="static-keyword">static</span> <span class="class-name">DatabaseConnection</span> <span class="method">getInstance</span>() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> (<span class="variable">instance</span> == <span class="keyword">null</span>) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">instance</span> = <span class="keyword">new</span> <span class="class-name">DatabaseConnection</span>();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="variable">instance</span>;<br>
+&nbsp;&nbsp;}<br>
+}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="practical-card">
+                    <h4>📊 Статистика Жинау</h4>
+                    <div class="code-example" style="margin: 15px 0;">
+                        <div style="background: #34495e; color: white; padding: 10px; font-family: monospace; font-size: 0.9rem; border-radius: 8px;">
+<span class="keyword">class</span> <span class="class-name">WebsiteStats</span> {<br>
+&nbsp;&nbsp;<span class="keyword">private</span> <span class="static-keyword">static</span> <span class="keyword">long</span> <span class="variable">pageViews</span> = <span class="number">0</span>;<br>
+&nbsp;&nbsp;<span class="keyword">private</span> <span class="static-keyword">static</span> <span class="keyword">long</span> <span class="variable">uniqueVisitors</span> = <span class="number">0</span>;<br><br>
+&nbsp;&nbsp;<span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">void</span> <span class="method">incrementPageViews</span>() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">pageViews</span>++;<br>
+&nbsp;&nbsp;}<br><br>
+&nbsp;&nbsp;<span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">long</span> <span class="method">getPageViews</span>() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="variable">pageViews</span>;<br>
+&nbsp;&nbsp;}<br>
+}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="practical-card">
+                    <h4>🔧 Factory Pattern</h4>
+                    <div class="code-example" style="margin: 15px 0;">
+                        <div style="background: #34495e; color: white; padding: 10px; font-family: monospace; font-size: 0.9rem; border-radius: 8px;">
+<span class="keyword">class</span> <span class="class-name">ShapeFactory</span> {<br>
+&nbsp;&nbsp;<span class="keyword">public</span> <span class="static-keyword">static</span> <span class="class-name">Shape</span> <span class="method">createShape</span>(<span class="keyword">String</span> <span class="variable">type</span>) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">switch</span> (<span class="variable">type</span>.<span class="method">toLowerCase</span>()) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">case</span> <span class="string">"circle"</span>: <span class="keyword">return</span> <span class="keyword">new</span> <span class="class-name">Circle</span>();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">case</span> <span class="string">"square"</span>: <span class="keyword">return</span> <span class="keyword">new</span> <span class="class-name">Square</span>();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">default</span>: <span class="keyword">return</span> <span class="keyword">null</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;}<br>
+}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="practical-card">
+                    <h4>📱 Application Settings</h4>
+                    <div class="code-example" style="margin: 15px 0;">
+                        <div style="background: #34495e; color: white; padding: 10px; font-family: monospace; font-size: 0.9rem; border-radius: 8px;">
+<span class="keyword">class</span> <span class="class-name">AppConfig</span> {<br>
+&nbsp;&nbsp;<span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">final</span> <span class="keyword">String</span> <span class="variable">VERSION</span> = <span class="string">"1.0.0"</span>;<br>
+&nbsp;&nbsp;<span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="variable">MAX_USERS</span> = <span class="number">1000</span>;<br>
+&nbsp;&nbsp;<span class="keyword">private</span> <span class="static-keyword">static</span> <span class="keyword">boolean</span> <span class="variable">debugMode</span> = <span class="keyword">false</span>;<br><br>
+&nbsp;&nbsp;<span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">void</span> <span class="method">enableDebug</span>() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">debugMode</span> = <span class="keyword">true</span>;<br>
+&nbsp;&nbsp;}<br>
+}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tips-container">
+            <h2 style="text-align: center; margin-bottom: 25px;">💡 Static Қолдану Кеңестері</h2>
+            
+            <div class="tips-grid">
+                <div class="tip-item">
+                    <h4>🎯 Дұрыс Қолдану</h4>
+                    <p>• Утилита әдістері үшін қолданыңыз<br>
+                    • Константалар үшін static final пайдаланыңыз<br>
+                    • Factory pattern-де қолданыңыз<br>
+                    • Сингleton паттернінде пайдаланыңыз</p>
+                </div>
+
+                <div class="tip-item">
+                    <h4>⚠️ Сақ Болу Керек</h4>
+                    <p>• Static өрістерді көп қолданбаңыз<br>
+                    • Mutable static state-тен аулақ болыңыз<br>
+                    • Thread safety туралы ойлаңыз<br>
+                    • Memory leak-тің алдын алыңыз</p>
+                </div>
+
+                <div class="tip-item">
+                    <h4>🚫 Тыйым Салынған</h4>
+                    <p>• Static импорт көп қолданбау<br>
+                    • Instance әдістерді static етпеу<br>
+                    • Static блокта exception лақтырмау<br>
+                    • Mutable static collections пайдаланбау</p>
+                </div>
+
+                <div class="tip-item">
+                    <h4>✅ Жақсы Практика</h4>
+                    <p>• Static final константалар UPPER_CASE<br>
+                    • Static әдістер үшін нақты атаулар<br>
+                    • Documentation жазу<br>
+                    • Unit тестілер жасау</p>
+                </div>
+
+                <div class="tip-item">
+                    <h4>🧠 Жады Басқару</h4>
+                    <p>• Static өрістер Method Area-да сақталады<br>
+                    • Garbage Collection-нан өтпейді<br>
+                    • ClassLoader өшкенге дейін қалады<br>
+                    • Memory профилирование жасаңыз</p>
+                </div>
+
+                <div class="tip-item">
+                    <h4>🔒 Thread Safety</h4>
+                    <p>• Static өрістер үшін синхронизация<br>
+                    • Immutable объектілер қолданыңыз<br>
+                    • ConcurrentHashMap пайдаланыңыз<br>
+                    • Atomic операцияларды қолданыңыз</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-section animate-in">
+            <h2 class="section-title">🔍 Толық Мысал: Банк Жүйесі</h2>
+            
+            <div class="code-example">
+                <div class="code-header">
+                    🏦 Static элементтерді қолданатын толық мысал
+                </div>
+                <div>
+<span class="comment">// Банк жүйесі - static элементтердің толық демосы</span>
+<span class="keyword">class</span> <span class="class-name">BankSystem</span> {
+    <span class="comment">// Static константалар</span>
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">final</span> <span class="keyword">String</span> <span class="variable">BANK_NAME</span> = <span class="string">"Қазақстан Банкі"</span>;
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">final</span> <span class="keyword">String</span> <span class="variable">BANK_CODE</span> = <span class="string">"KZBANK"</span>;
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">final</span> <span class="keyword">double</span> <span class="variable">MIN_BALANCE</span> = <span class="number">1000.0</span>;
+    
+    <span class="comment">// Static өрістер - барлық аккаунттар үшін ортақ</span>
+    <span class="keyword">private</span> <span class="static-keyword">static</span> <span class="keyword">long</span> <span class="variable">totalAccounts</span> = <span class="number">0</span>;
+    <span class="keyword">private</span> <span class="static-keyword">static</span> <span class="keyword">double</span> <span class="variable">totalDeposits</span> = <span class="number">0.0</span>;
+    <span class="keyword">private</span> <span class="static-keyword">static</span> <span class="keyword">long</span> <span class="variable">nextAccountNumber</span> = <span class="number">100001</span>;
+    <span class="keyword">private</span> <span class="static-keyword">static</span> <span class="keyword">double</span> <span class="variable">interestRate</span> = <span class="number">0.05</span>; <span class="comment">// 5%</span>
+    
+    <span class="comment">// Static блок - бастапқы конфигурация</span>
+    <span class="static-keyword">static</span> {
+        System.out.println(<span class="string">"🏦 "</span> + <span class="variable">BANK_NAME</span> + <span class="string">" жүйесі қосылуда..."</span>);
+        System.out.println(<span class="string">"📋 Банк коды: "</span> + <span class="variable">BANK_CODE</span>);
+        System.out.println(<span class="string">"💰 Минималды баланс: "</span> + <span class="variable">MIN_BALANCE</span> + <span class="string">" тг"</span>);
+        System.out.println(<span class="string">"📈 Пайыз мөлшерлемесі: "</span> + (<span class="variable">interestRate</span> * <span class="number">100</span>) + <span class="string">"%"</span>);
+        System.out.println(<span class="string">"✅ Банк жүйесі дайын!"</span>);
+    }
+    
+    <span class="comment">// Instance өрістері</span>
+    <span class="keyword">private</span> <span class="keyword">long</span> <span class="variable">accountNumber</span>;
+    <span class="keyword">private</span> <span class="keyword">String</span> <span class="variable">ownerName</span>;
+    <span class="keyword">private</span> <span class="keyword">double</span> <span class="variable">balance</span>;
+    <span class="keyword">private</span> <span class="keyword">String</span> <span class="variable">accountType</span>;
+    
+    <span class="comment">// Constructor</span>
+    <span class="keyword">public</span> <span class="class-name">BankSystem</span>(<span class="keyword">String</span> <span class="variable">ownerName</span>, <span class="keyword">double</span> <span class="variable">initialDeposit</span>, <span class="keyword">String</span> <span class="variable">accountType</span>) {
+        <span class="keyword">if</span> (<span class="variable">initialDeposit</span> < <span class="variable">MIN_BALANCE</span>) {
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="class-name">IllegalArgumentException</span>(
+                <span class="string">"Бастапқы салым "</span> + <span class="variable">MIN_BALANCE</span> + <span class="string">" тенгеден кем болмауы керек"</span>);
+        }
+        
+        <span class="keyword">this</span>.<span class="variable">accountNumber</span> = <span class="variable">nextAccountNumber</span>++;
+        <span class="keyword">this</span>.<span class="variable">ownerName</span> = <span class="variable">ownerName</span>;
+        <span class="keyword">this</span>.<span class="variable">balance</span> = <span class="variable">initialDeposit</span>;
+        <span class="keyword">this</span>.<span class="variable">accountType</span> = <span class="variable">accountType</span>;
+        
+        <span class="comment">// Static өрістерді жаңарту</span>
+        <span class="variable">totalAccounts</span>++;
+        <span class="variable">totalDeposits</span> += <span class="variable">initialDeposit</span>;
+        
+        System.out.println(<span class="string">"✅ Жаңа аккаунт ашылды: "</span> + <span class="variable">accountNumber</span> + 
+                          <span class="string">" (Иесі: "</span> + <span class="variable">ownerName</span> + <span class="string">")"</span>);
+    }
+    
+    <span class="comment">// Static әдістер - банк статистикасы</span>
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">void</span> <span class="method">displayBankStats</span>() {
+        System.out.println(<span class="string">"\n📊 "</span> + <span class="variable">BANK_NAME</span> + <span class="string">" Статистикасы:"</span>);
+        System.out.println(<span class="string">"👥 Жалпы аккаунттар саны: "</span> + <span class="variable">totalAccounts</span>);
+        System.out.println(<span class="string">"💰 Жалпы депозиттер: "</span> + <span class="variable">totalDeposits</span> + <span class="string">" тг"</span>);
+        System.out.println(<span class="string">"📈 Орташа баланс: "</span> + 
+                          (<span class="variable">totalAccounts</span> > <span class="number">0</span> ? <span class="variable">totalDeposits</span> / <span class="variable">totalAccounts</span> : <span class="number">0</span>) + <span class="string">" тг"</span>);
+        System.out.println(<span class="string">"📋 Келесі аккаунт нөмірі: "</span> + <span class="variable">nextAccountNumber</span>);
+    }
+    
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">long</span> <span class="method">getTotalAccounts</span>() {
+        <span class="keyword">return</span> <span class="variable">totalAccounts</span>;
+    }
+    
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">double</span> <span class="method">getTotalDeposits</span>() {
+        <span class="keyword">return</span> <span class="variable">totalDeposits</span>;
+    }
+    
+    <span class="comment">// Static әдіс - пайыз мөлшерлемесін басқару</span>
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">void</span> <span class="method">setInterestRate</span>(<span class="keyword">double</span> <span class="variable">newRate</span>) {
+        <span class="keyword">if</span> (<span class="variable">newRate</span> < <span class="number">0</span> || <span class="variable">newRate</span> > <span class="number">1</span>) {
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="class-name">IllegalArgumentException</span>(<span class="string">"Пайыз мөлшерлемесі 0-100% аралығында болуы керек"</span>);
+        }
+        <span class="variable">interestRate</span> = <span class="variable">newRate</span>;
+        System.out.println(<span class="string">"📈 Жаңа пайыз мөлшерлемесі: "</span> + (<span class="variable">newRate</span> * <span class="number">100</span>) + <span class="string">"%"</span>);
+    }
+    
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">double</span> <span class="method">getInterestRate</span>() {
+        <span class="keyword">return</span> <span class="variable">interestRate</span>;
+    }
+    
+    <span class="comment">// Static утилита әдісі</span>
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">boolean</span> <span class="method">isValidAccountNumber</span>(<span class="keyword">long</span> <span class="variable">accountNum</span>) {
+        <span class="keyword">return</span> <span class="variable">accountNum</span> >= <span class="number">100001</span> && <span class="variable">accountNum</span> < <span class="variable">nextAccountNumber</span>;
+    }
+    
+    <span class="comment">// Instance әдістері</span>
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">deposit</span>(<span class="keyword">double</span> <span class="variable">amount</span>) {
+        <span class="keyword">if</span> (<span class="variable">amount</span> <= <span class="number">0</span>) {
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="class-name">IllegalArgumentException</span>(<span class="string">"Салым мөлшері оң сан болуы керек"</span>);
+        }
+        <span class="variable">balance</span> += <span class="variable">amount</span>;
+        <span class="variable">totalDeposits</span> += <span class="variable">amount</span>; <span class="comment">// Static өрісін жаңарту</span>
+        System.out.println(<span class="string">"💰 Салым жасалды: "</span> + <span class="variable">amount</span> + <span class="string">" тг. Жаңа баланс: "</span> + <span class="variable">balance</span> + <span class="string">" тг"</span>);
+    }
+    
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">withdraw</span>(<span class="keyword">double</span> <span class="variable">amount</span>) {
+        <span class="keyword">if</span> (<span class="variable">amount</span> <= <span class="number">0</span>) {
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="class-name">IllegalArgumentException</span>(<span class="string">"Алу мөлшері оң сан болуы керек"</span>);
+        }
+        <span class="keyword">if</span> (<span class="variable">balance</span> - <span class="variable">amount</span> < <span class="variable">MIN_BALANCE</span>) {
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="class-name">IllegalArgumentException</span>(<span class="string">"Минималды балансты сақтау керек"</span>);
+        }
+        <span class="variable">balance</span> -= <span class="variable">amount</span>;
+        <span class="variable">totalDeposits</span> -= <span class="variable">amount</span>; <span class="comment">// Static өрісін жаңарту</span>
+        System.out.println(<span class="string">"💸 Ақша алынды: "</span> + <span class="variable">amount</span> + <span class="string">" тг. Жаңа баланс: "</span> + <span class="variable">balance</span> + <span class="string">" тг"</span>);
+    }
+    
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">calculateInterest</span>() {
+        <span class="keyword">double</span> <span class="variable">interest</span> = <span class="variable">balance</span> * <span class="variable">interestRate</span>;
+        <span class="variable">balance</span> += <span class="variable">interest</span>;
+        <span class="variable">totalDeposits</span> += <span class="variable">interest</span>;
+        System.out.println(<span class="string">"📈 Пайыз есептелді: "</span> + <span class="variable">interest</span> + <span class="string">" тг. Жаңа баланс: "</span> + <span class="variable">balance</span> + <span class="string">" тг"</span>);
+    }
+    
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">displayAccountInfo</span>() {
+        System.out.println(<span class="string">"\n📋 Аккаунт ақпараты:"</span>);
+        System.out.println(<span class="string">"🏦 Банк: "</span> + <span class="variable">BANK_NAME</span>);
+        System.out.println(<span class="string">"🔢 Аккаунт нөмірі: "</span> + <span class="variable">accountNumber</span>);
+        System.out.println(<span class="string">"👤 Иесі: "</span> + <span class="variable">ownerName</span>);
+        System.out.println(<span class="string">"💳 Түрі: "</span> + <span class="variable">accountType</span>);
+        System.out.println(<span class="string">"💰 Баланс: "</span> + <span class="variable">balance</span> + <span class="string">" тг"</span>);
+    }
+    
+    <span class="comment">// Getters</span>
+    <span class="keyword">public</span> <span class="keyword">long</span> <span class="method">getAccountNumber</span>() { <span class="keyword">return</span> <span class="variable">accountNumber</span>; }
+    <span class="keyword">public</span> <span class="keyword">String</span> <span class="method">getOwnerName</span>() { <span class="keyword">return</span> <span class="variable">ownerName</span>; }
+    <span class="keyword">public</span> <span class="keyword">double</span> <span class="method">getBalance</span>() { <span class="keyword">return</span> <span class="variable">balance</span>; }
+    <span class="keyword">public</span> <span class="keyword">String</span> <span class="method">getAccountType</span>() { <span class="keyword">return</span> <span class="variable">accountType</span>; }
+}
+
+<span class="comment">// Демо класы</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="class-name">BankDemo</span> {
+    <span class="keyword">public</span> <span class="static-keyword">static</span> <span class="keyword">void</span> <span class="method">main</span>(<span class="keyword">String</span>[] <span class="variable">args</span>) {
+        System.out.println(<span class="string">"=== БАНК ЖҮЙЕСІ ДЕМОСЫ ==="</span>);
+        
+        <span class="comment">// Static блок орындалады (алғашқы static элемент қолданылғанда)</span>
+        System.out.println(<span class="string">"Банк аты: "</span> + <span class="class-name">BankSystem</span>.<span class="variable">BANK_NAME</span>);
+        
+        <span class="comment">// Бастапқы статистика</span>
+        <span class="class-name">BankSystem</span>.<span class="method">displayBankStats</span>();
+        
+        <span class="comment">// Аккаунттар құру</span>
+        System.out.println(<span class="string">"\n=== АККАУНТТАР ҚҰРУ ==="</span>);
+        <span class="class-name">BankSystem</span> <span class="variable">account1</span> = <span class="keyword">new</span> <span class="class-name">BankSystem</span>(<span class="string">"Айдос Нұрланұлы"</span>, <span class="number">5000.0</span>, <span class="string">"Ағымдағы"</span>);
+        <span class="class-name">BankSystem</span> <span class="variable">account2</span> = <span class="keyword">new</span> <span class="class-name">BankSystem</span>(<span class="string">"Айгүл Серікқызы"</span>, <span class="number">10000.0</span>, <span class="string">"Жинақ"</span>);
+        <span class="class-name">BankSystem</span> <span class="variable">account3</span> = <span class="keyword">new</span> <span class="class-name">BankSystem</span>(<span class="string">"Асыл Болатұлы"</span>, <span class="number">15000.0</span>, <span class="string">"Валютный"</span>);
+        
+        <span class="comment">// Жаңартылған статистика</span>
+        <span class="class-name">BankSystem</span>.<span class="method">displayBankStats</span>();
+        
+        <span class="comment">// Аккаунт операциялары</span>
+        System.out.println(<span class="string">"\n=== ОПЕРАЦИЯЛАР ==="</span>);
+        <span class="variable">account1</span>.<span class="method">deposit</span>(<span class="number">2000.0</span>);
+        <span class="variable">account2</span>.<span class="method">withdraw</span>(<span class="number">3000.0</span>);
+        
+        <span class="comment">// Пайыз мөлшерлемесін өзгерту</span>
+        <span class="class-name">BankSystem</span>.<span class="method">setInterestRate</span>(<span class="number">0.07</span>); <span class="comment">// 7%</span>
+        
+        <span class="comment">// Пайыз есептеу</span>
+        System.out.println(<span class="string">"\n=== ПАЙЫЗ ЕСЕПТЕУ ==="</span>);
+        <span class="variable">account1</span>.<span class="method">calculateInterest</span>();
+        <span class="variable">account2</span>.<span class="method">calculateInterest</span>();
+        <span class="variable">account3</span>.<span class="method">calculateInterest</span>();
+        
+        <span class="comment">// Аккаунт ақпаратын көрсету</span>
+        <span class="variable">account1</span>.<span class="method">displayAccountInfo</span>();
+        <span class="variable">account2</span>.<span class="method">displayAccountInfo</span>();
+        <span class="variable">account3</span>.<span class="method">displayAccountInfo</span>();
+        
+        <span class="comment">// Соңғы статистика</span>
+        <span class="class-name">BankSystem</span>.<span class="method">displayBankStats</span>();
+        
+        <span class="comment">// Static утилита әдісін тексеру</span>
+        System.out.println(<span class="string">"\n=== УТИЛИТА ӘДІСТЕРІ ==="</span>);
+        System.out.println(<span class="string">"Аккаунт нөмірі 100001 дұрыс па? "</span> + 
+                          <span class="class-name">BankSystem</span>.<span class="method">isValidAccountNumber</span>(<span class="number">100001</span>));
+        System.out.println(<span class="string">"Аккаунт нөмірі 999999 дұрыс па? "</span> + 
+                          <span class="class-name">BankSystem</span>.<span class="method">isValidAccountNumber</span>(<span class="number">999999</span>));
+        
+        System.out.println(<span class="string">"\n🎉 Банк жүйесі демосы аяқталды!"</span>);
+    }
+}
+                </div>
+            </div>
+
+            <div class="success-box">
+                <h4>🎯 Мысалдан алынған қорытындылар:</h4>
+                <p>• Static өрістер барлық объектілер арасында мәліметтерді бөліседі<br>
+                • Static әдістер объект құрмай-ақ пайдалы функцияларды ұсынады<br>
+                • Static блоктар класс инициализациясын басқарады<br>
+                • Static элементтер жүйелік конфигурация мен утилиталар үшін өте пайдалы</p>
+            </div>
+        </div>
+
+        <div class="lesson-section animate-in">
+            <h2 class="section-title">📚 Қорытынды және Негізгі Ұғымдар</h2>
+            
+            <div class="info-box">
+                <h4>🎯 Static туралы негізгі ұғымдар:</h4>
+                <p><strong>Static</strong> — Java-дағы кілт сөз, ол класс мүшелерін (өрістер, әдістер, блоктар) объект құрмай-ақ қолдануға мүмкіндік береді. Static мүшелер класстің өзіне тиесілі, жеке объектілерге емес.</p>
+            </div>
+
+            <div class="examples-showcase">
+                <div class="example-card">
+                    <h4>✅ Static Артықшылықтары</h4>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>Жады үнемдеу (бір данада сақталады)</li>
+                        <li>Объект құрмай-ақ қол жетімді</li>
+                        <li>Утилита әдістері үшін ыңғайлы</li>
+                        <li>Константалар үшін керемет</li>
+                        <li>Класс деңгейіндегі операциялар</li>
+                    </ul>
+                </div>
+
+                <div class="example-card">
+                    <h4>⚠️ Static Кемшіліктері</h4>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>OOP принциптерін бұзуы мүмкін</li>
+                        <li>Thread safety мәселелері</li>
+                        <li>Тестілеуді қиындатады</li>
+                        <li>Memory leak қаупі</li>
+                        <li>Inheritance шектеулері</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4>🚨 Маңызды ескертулер:</h4>
+                <p>• Static әдістер instance мүшелерін тікелей қолдана алмайды<br>
+                • Static өрістер барлық объектілер арасында ортақ<br>
+                • Static блоктар класс жүктелген кезде бір рет орындалады<br>
+                • Static импорт көп қолданбау керек<br>
+                • Thread safety туралы ойлау қажет</p>
+            </div>
+
+            <div class="success-box">
+                <h4>🎖️ Сіз енді біледі:</h4>
+                <p>• Static өрістер мен әдістерді қалай құру керектігін<br>
+                • Static блоктардың қалай жұмыс істейтінін<br>
+                • Static элементтерді қашан қолдану керектігін<br>
+                • Static пен instance арасындағы айырмашылықты<br>
+                • Практикалық мысалдарда static қалай қолданылатынын</p>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #74b9ff, #0984e3); color: white; border-radius: 15px; padding: 25px; margin: 20px 0; text-align: center;">
+                <h3 style="margin-bottom: 15px;">🎓 Табыстарыңызбен!</h3>
+                <p style="font-size: 1.1rem;">Static кілт сөзін меңгердіңіз! Енді сіз Java-да тиімді және дұрыс static элементтерді қолдана аласыз. Object-Oriented Programming сапарыңызда келесі қадам — inheritance және polymorphism!</p>
+                <div style="margin-top: 20px; font-size: 1.5rem;">
+                    🚀 Java Static Master! 🏆
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

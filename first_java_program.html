@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Алғашқы Java бағдарламасы</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .lesson-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .theory-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .practice-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .code-editor {
+            background: #2c3e50;
+            border-radius: 15px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .code-header {
+            background: #34495e;
+            color: white;
+            padding: 10px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 15px 15px 0 0;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .code-content {
+            color: #ecf0f1;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .keyword { color: #e74c3c; font-weight: bold; }
+        .string { color: #f39c12; }
+        .comment { color: #95a5a6; font-style: italic; }
+        .method { color: #3498db; }
+        .class-name { color: #9b59b6; }
+
+        .run-btn {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
+        }
+
+        .run-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(39, 174, 96, 0.4);
+        }
+
+        .output {
+            background: #1a1a1a;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            border-left: 4px solid #27ae60;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+        }
+
+        .step-box {
+            background: rgba(52, 152, 219, 0.1);
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .step-box:hover {
+            background: rgba(52, 152, 219, 0.2);
+            transform: translateX(5px);
+        }
+
+        .step-number {
+            background: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .explanation {
+            background: rgba(155, 89, 182, 0.1);
+            border: 2px solid #9b59b6;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .explanation h3 {
+            color: #9b59b6;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .interactive-demo {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .demo-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .demo-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .demo-btn:hover {
+            background: white;
+            color: #ff6b6b;
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.3);
+            height: 8px;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: #27ae60;
+            height: 100%;
+            border-radius: 10px;
+            transition: width 1s ease;
+            width: 0%;
+        }
+
+        @media (max-width: 768px) {
+            .lesson-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .demo-buttons {
+                flex-direction: column;
+            }
+        }
+
+        .floating-tip {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #f39c12;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 50px;
+            box-shadow: 0 5px 20px rgba(243, 156, 18, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .floating-tip:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(243, 156, 18, 0.4);
+        }
+
+        .code-line {
+            position: relative;
+            padding: 2px 0;
+        }
+
+        .code-line:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+
+        .line-number {
+            color: #7f8c8d;
+            display: inline-block;
+            width: 25px;
+            text-align: right;
+            margin-right: 15px;
+            user-select: none;
+        }
+
+        .animate-in {
+            animation: slideInUp 0.6s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>☕ Алғашқы Java Бағдарламасы</h1>
+            <p>"Hello World" - бағдарламашының алғашқы қадамы</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+        </div>
+
+        <div class="lesson-container">
+            <div class="theory-section animate-in">
+                <h2 class="section-title">📚 Теория</h2>
+                
+                <div class="step-box">
+                    <span class="step-number">1</span>
+                    <strong>Java бағдарламасының құрылымы</strong>
+                    <p>Әрбір Java бағдарламасы класстан тұрады және main методы бар болуы керек.</p>
+                </div>
+
+                <div class="code-editor">
+                    <div class="code-header">
+                        📄 HelloWorld.java
+                    </div>
+                    <div class="code-content">
+<span class="line-number">1</span><span class="keyword">public</span> <span class="keyword">class</span> <span class="class-name">HelloWorld</span> {
+<span class="line-number">2</span>    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="method">main</span>(<span class="class-name">String</span>[] args) {
+<span class="line-number">3</span>        <span class="class-name">System</span>.out.<span class="method">println</span>(<span class="string">"Сәлем Әлем!"</span>);
+<span class="line-number">4</span>    }
+<span class="line-number">5</span>}
+                    </div>
+                </div>
+
+                <div class="explanation">
+                    <h3>🔍 Кодты түсіндіру:</h3>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li><strong style="color: #e74c3c;">public class</strong> - Ашық класс</li>
+                        <li><strong style="color: #3498db;">main</strong> - Бағдарлама басталатын орын</li>
+                        <li><strong style="color: #f39c12;">System.out.println</strong> - Мәтін шығару</li>
+                        <li><strong style="color: #27ae60;">String[] args</strong> - Командалық параметрлер</li>
+                    </ul>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-number">2</span>
+                    <strong>IntelliJ IDEA-да жоба жасау</strong>
+                    <p>File → New → Project → Java → Create</p>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-number">3</span>
+                    <strong>Файл құру</strong>
+                    <p>src папкасында жаңа Java класс құрыңыз: HelloWorld.java</p>
+                </div>
+            </div>
+
+            <div class="practice-section animate-in">
+                <h2 class="section-title">💻 Практика</h2>
+                
+                <div class="code-editor" id="codeEditor">
+                    <div class="code-header">
+                        ✏️ Кодты өзгертіп көріңіз
+                    </div>
+                    <textarea id="codeInput" style="width: 100%; height: 200px; background: #2c3e50; color: #ecf0f1; border: none; outline: none; font-family: 'Courier New', monospace; font-size: 14px; padding: 15px; resize: none; border-radius: 0 0 15px 15px;">public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Сәлем Әлем!");
+        System.out.println("Менің атым Java!");
+    }
+}</textarea>
+                </div>
+
+                <button class="run-btn" onclick="runCode()">▶️ Жіберу</button>
+                <button class="run-btn" onclick="resetCode()" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">🔄 Тазалау</button>
+
+                <div class="output" id="output">
+                    💡 Кодты жіберу үшін "Жіберу" батырмасын басыңыз
+                </div>
+
+                <div class="explanation">
+                    <h3>🎯 Тапсырмалар:</h3>
+                    <div id="taskList">
+                        <div class="task-item" onclick="setTask(1)">
+                            <input type="checkbox" id="task1"> 
+                            <label for="task1">1. Өз атыңызды шығарыңыз</label>
+                        </div>
+                        <div class="task-item" onclick="setTask(2)">
+                            <input type="checkbox" id="task2">
+                            <label for="task2">2. 3 жол мәтін шығарыңыз</label>
+                        </div>
+                        <div class="task-item" onclick="setTask(3)">
+                            <input type="checkbox" id="task3">
+                            <label for="task3">3. Математика есеп жасаңыз</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="interactive-demo">
+            <h2>🚀 Интерактивті Демо</h2>
+            <p>Төмендегі батырмаларды басып, нәтижені көріңіз!</p>
+            
+            <div class="demo-buttons">
+                <button class="demo-btn" onclick="showExample('hello')">Қарапайым Сәлем</button>
+                <button class="demo-btn" onclick="showExample('name')">Атымен Сәлемдесу</button>
+                <button class="demo-btn" onclick="showExample('math')">Математика</button>
+                <button class="demo-btn" onclick="showExample('emoji')">Эмодзимен</button>
+            </div>
+            
+            <div class="output" id="demoOutput">
+                Батырманы басып көріңіз!
+            </div>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.95); border-radius: 20px; padding: 30px; margin-top: 30px;">
+            <h3 style="color: #2c3e50; margin-bottom: 20px; font-size: 1.8rem;">📋 Есте сақтаңыз:</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                <div style="background: rgba(52, 152, 219, 0.1); padding: 20px; border-radius: 10px; border-left: 4px solid #3498db;">
+                    <strong>Класс атауы</strong><br>
+                    Файл атауымен бірдей болуы керек
+                </div>
+                <div style="background: rgba(155, 89, 182, 0.1); padding: 20px; border-radius: 10px; border-left: 4px solid #9b59b6;">
+                    <strong>main методы</strong><br>
+                    Бағдарлама осыдан басталады
+                </div>
+                <div style="background: rgba(39, 174, 96, 0.1); padding: 20px; border-radius: 10px; border-left: 4px solid #27ae60;">
+                    <strong>Жақшалар</strong><br>
+                    { } дұрыс жабылуы керек
+                </div>
+                <div style="background: rgba(231, 76, 60, 0.1); padding: 20px; border-radius: 10px; border-left: 4px solid #e74c3c;">
+                    <strong>Нүктелі үтір</strong><br>
+                    Әрбір команда ; арқылы аяқталады
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="floating-tip" onclick="showHint()">
+        💡 Кеңес
+    </div>
+
+    <script>
+        let currentTask = 0;
+        const examples = {
+            hello: {
+                code: 'System.out.println("Сәлем, Әлем!");',
+                output: 'Сәлем, Әлем!'
+            },
+            name: {
+                code: 'System.out.println("Сәлем, менің атым Айдос!");',
+                output: 'Сәлем, менің атым Айдос!'
+            },
+            math: {
+                code: 'System.out.println("2 + 3 = " + (2 + 3));',
+                output: '2 + 3 = 5'
+            },
+            emoji: {
+                code: 'System.out.println("☕ Java ❤️");',
+                output: '☕ Java ❤️'
+            }
+        };
+
+        function runCode() {
+            const code = document.getElementById('codeInput').value;
+            const output = document.getElementById('output');
+            
+            // Simple simulation of Java output
+            const lines = code.match(/println\("([^"]*)"\)/g);
+            if (lines) {
+                let result = '';
+                lines.forEach(line => {
+                    const text = line.match(/println\("([^"]*)"\)/)[1];
+                    result += text + '\n';
+                });
+                output.innerHTML = result.trim();
+                output.style.color = '#00ff00';
+                
+                // Update progress
+                updateProgress();
+                
+                // Check tasks
+                checkTasks(code);
+            } else {
+                output.innerHTML = '❌ Қате: println командасы табылмады';
+                output.style.color = '#ff6b6b';
+            }
+        }
+
+        function resetCode() {
+            document.getElementById('codeInput').value = `public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Сәлем Әлем!");
+    }
+}`;
+            document.getElementById('output').innerHTML = '💡 Кодты жіберу үшін "Жіберу" батырмасын басыңыз';
+            document.getElementById('output').style.color = '#00ff00';
+        }
+
+        function showExample(type) {
+            const example = examples[type];
+            const output = document.getElementById('demoOutput');
+            output.innerHTML = `<strong>Код:</strong> ${example.code}<br><strong>Нәтиже:</strong> ${example.output}`;
+        }
+
+        function setTask(taskNum) {
+            currentTask = taskNum;
+            const tasks = {
+                1: `public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Менің атым [АТЫҢЫЗ]");
+    }
+}`,
+                2: `public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Бірінші жол");
+        System.out.println("Екінші жол");
+        System.out.println("Үшінші жол");
+    }
+}`,
+                3: `public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("5 + 3 = " + (5 + 3));
+        System.out.println("10 - 4 = " + (10 - 4));
+    }
+}`
+            };
+            
+            document.getElementById('codeInput').value = tasks[taskNum];
+        }
+
+        function checkTasks(code) {
+            // Task checking logic
+            if (code.includes('Менің атым')) {
+                document.getElementById('task1').checked = true;
+            }
+            
+            const lineCount = (code.match(/println/g) || []).length;
+            if (lineCount >= 3) {
+                document.getElementById('task2').checked = true;
+            }
+            
+            if (code.includes('+') || code.includes('-') || code.includes('*') || code.includes('/')) {
+                document.getElementById('task3').checked = true;
+            }
+        }
+
+        function updateProgress() {
+            const checkedTasks = document.querySelectorAll('#taskList input:checked').length;
+            const totalTasks = document.querySelectorAll('#taskList input').length;
+            const progress = (checkedTasks / totalTasks) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function showHint() {
+            const hints = [
+                "💡 Мәтінді тырнақша ішінде жазыңыз",
+                "💡 Әрбір команда нүктелі үтірмен аяқталады",
+                "💡 Жақшаларды дұрыс жабуды ұмытпаңыз",
+                "💡 Класс атауы файл атауымен бірдей болуы керек",
+                "💡 System.out.println() мәтін шығару үшін қолданылады"
+            ];
+            
+            const randomHint = hints[Math.floor(Math.random() * hints.length)];
+            alert(randomHint);
+        }
+
+        // Animation on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        });
+
+        document.querySelectorAll('.theory-section, .practice-section').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Auto-update progress on page load
+        setTimeout(updateProgress, 500);
+    </script>
+</body>
+</html>

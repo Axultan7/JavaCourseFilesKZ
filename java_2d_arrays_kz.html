@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Екіөлшемді Массивтер</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+            padding: 40px 0;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .lesson-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+        }
+
+        .array-overview {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .matrix-visual {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 25px 0;
+            gap: 5px;
+        }
+
+        .matrix-row {
+            display: flex;
+            gap: 5px;
+        }
+
+        .matrix-cell {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            border-radius: 8px;
+            padding: 15px 20px;
+            min-width: 60px;
+            text-align: center;
+            font-family: monospace;
+            font-size: 1.2rem;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .matrix-indices {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+        }
+
+        .declaration-section {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .syntax-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 1.1rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .creation-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .method-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .method-card h4 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .initialization-section {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .access-section {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .coordinate-demo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 25px 0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .coordinate-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 80px);
+            gap: 2px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .coordinate-cell {
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid white;
+            padding: 10px;
+            text-align: center;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .code-example {
+            background: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            line-height: 1.8;
+            box-shadow: 0 10px 30px rgba(44, 62, 80, 0.3);
+        }
+
+        .code-header {
+            background: #34495e;
+            color: white;
+            padding: 12px 20px;
+            margin: -25px -25px 20px -25px;
+            border-radius: 15px 15px 0 0;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .keyword { color: #e74c3c; font-weight: bold; }
+        .string { color: #f39c12; }
+        .number { color: #3498db; }
+        .comment { color: #95a5a6; font-style: italic; }
+        .variable { color: #2ecc71; }
+        .method { color: #9b59b6; }
+
+        .operations-section {
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .operation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .operation-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .examples-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .example-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .example-card h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .warning-box {
+            background: rgba(231, 76, 60, 0.1);
+            border: 2px solid #e74c3c;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #c0392b;
+        }
+
+        .warning-box h4 {
+            color: #e74c3c;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .info-box {
+            background: rgba(52, 152, 219, 0.1);
+            border: 2px solid #3498db;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #2980b9;
+        }
+
+        .info-box h4 {
+            color: #3498db;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .success-box {
+            background: rgba(39, 174, 96, 0.1);
+            border: 2px solid #27ae60;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #27ae60;
+        }
+
+        .success-box h4 {
+            color: #27ae60;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .practical-examples {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .practical-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .practical-card {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .memory-representation {
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .memory-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 25px 0;
+            gap: 10px;
+        }
+
+        .memory-row {
+            display: flex;
+            gap: 2px;
+        }
+
+        .memory-cell {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid white;
+            padding: 8px 12px;
+            text-align: center;
+            min-width: 60px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .address-label {
+            font-size: 0.7rem;
+            opacity: 0.8;
+        }
+
+        .tips-container {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .tip-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid white;
+        }
+
+        .jagged-example {
+            background: linear-gradient(135deg, #16a085, #1abc9c);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .jagged-visual {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+            gap: 5px;
+        }
+
+        .jagged-row {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .examples-showcase {
+                grid-template-columns: 1fr;
+            }
+            
+            .matrix-visual {
+                transform: scale(0.8);
+            }
+            
+            .coordinate-grid {
+                grid-template-columns: repeat(3, 60px);
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        .animate-in {
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Java Екіөлшемді Массивтер</h1>
+            <p>Матрица түрінде деректерді сақтау құрылымы</p>
+            <div style="background: rgba(255,255,255,0.2); border-radius: 50px; padding: 15px 30px; display: inline-block; margin-top: 20px;">
+                <strong>2D Массив</strong> — массивтардың массиві (матрица)
+            </div>
+        </div>
+
+        <div class="array-overview">
+            <h2 style="margin-bottom: 20px;">📋 2D Массив дегеніміз не?</h2>
+            <p style="margin-bottom: 25px; font-size: 1.2rem;">
+                Екіөлшемді массив — бұл жол мен бағанның қиылысуында орналасқан элементтердің жиынтығы. Ол кестелер, матрицалар, ойындардағы карталар сияқты деректерді сақтауға ыңғайлы.
+            </p>
+            
+            <h4 style="margin-bottom: 15px;">🎯 2D Массив мысалы: int[][] matrix = {{1,2,3}, {4,5,6}, {7,8,9}}</h4>
+            <div class="matrix-visual">
+                <div class="matrix-row">
+                    <div class="matrix-cell">
+                        <div class="matrix-indices">[0][0]</div>
+                        1
+                    </div>
+                    <div class="matrix-cell">
+                        <div class="matrix-indices">[0][1]</div>
+                        2
+                    </div>
+                    <div class="matrix-cell">
+                        <div class="matrix-indices">[0][2]</div>
+                        3
+                    </div>
+                </div>
+                <div class="matrix-row">
+                    <div class="matrix-cell">
+                        <div class="matrix-indices">[1][0]</div>
+                        4
+                    </div>
+                    <div class="matrix-cell">
+                        <div class="matrix-indices">[1][1]</div>
+                        5
+                    </div>
+                    <div class="matrix-cell">
+                        <div class="matrix-indices">[1][2]</div>
+                        6
+                    </div>
+                </div>
+                <div class="matrix-row">
+                    <div class="matrix-cell">
+                        <div class="matrix-indices">[2][0]</div>
+                        7
+                    </div>
+                    <div class="matrix-cell">
+                        <div class="matrix-indices">[2][1]</div>
+                        8
+                    </div>
+                    <div class="matrix-cell">
+                        <div class="matrix-indices">[2][2]</div>
+                        9
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; margin: 20px 0;">
+                <h4>🔍 2D Массивтің ерекшеліктері:</h4>
+                <p>• Екі индекс арқылы қол жеткізу: [жол][баған]<br>
+                • Бірінші индекс — жол нөмірі (row)<br>
+                • Екінші индекс — баған нөмірі (column)<br>
+                • Тік бұрышты немесе jagged болуы мүмкін<br>
+                • Негізінде массивтардың массиві</p>
+            </div>
+        </div>
+
+        <div class="declaration-section">
+            <h2 style="text-align: center; margin-bottom: 25px;">📝 2D Массив Жариялау</h2>
+            
+            <div class="syntax-box">
+                <strong>Жалпы синтаксис:</strong><br><br>
+                тип[][] массивАты;  // немесе<br>
+                тип массивАты[][];  // немесе<br>
+                тип[] массивАты[];
+            </div>
+
+            <div class="creation-methods">
+                <div class="method-card">
+                    <h4>1️⃣ Жариялау</h4>
+                    <div style="font-family: monospace; background: rgba(255,255,255,0.2); padding: 10px; border-radius: 5px; margin: 10px 0;">
+                        int[][] matrix;<br>
+                        String[][] table;<br>
+                        double[][] prices;
+                    </div>
+                </div>
+                
+                <div class="method-card">
+                    <h4>2️⃣ Мөлшер көрсету</h4>
+                    <div style="font-family: monospace; background: rgba(255,255,255,0.2); padding: 10px; border-radius: 5px; margin: 10px 0;">
+                        matrix = new int[3][4];<br>
+                        table = new String[2][5];<br>
+                        prices = new double[3][3];
+                    </div>
+                </div>
+                
+                <div class="method-card">
+                    <h4>3️⃣ Бір жолда</h4>
+                    <div style="font-family: monospace; background: rgba(255,255,255,0.2); padding: 10px; border-radius: 5px; margin: 10px 0;">
+                        int[][] matrix = new int[3][4];<br>
+                        String[][] table = new String[2][5];<br>
+                        double[][] prices = new double[3][3];
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; margin: 20px 0;">
+                <h4>💡 Тұсінік:</h4>
+                <p>• <strong>int[3][4]</strong> — 3 жол, 4 баған<br>
+                • <strong>matrix.length</strong> — жолдар саны<br>
+                • <strong>matrix[0].length</strong> — бірінші жолдағы бағандар саны<br>
+                • Жолдардың ұзындығы әртүрлі болуы мүмкін (jagged arrays)</p>
+            </div>
+        </div>
+
+        <div class="initialization-section">
+            <h2 style="text-align: center; margin-bottom: 25px;">🎯 2D Массивті Инициализациялау</h2>
+            
+            <div class="creation-methods">
+                <div class="method-card">
+                    <h4>🔹 Мәндермен инициализация</h4>
+                    <div style="font-family: monospace; background: rgba(255,255,255,0.2); padding: 10px; border-radius: 5px; margin: 10px 0;">
+                        int[][] matrix = {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;{1, 2, 3},<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;{4, 5, 6},<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;{7, 8, 9}<br>
+                        };
+                    </div>
+                </div>
+                
+                <div class="method-card">
+                    <h4>🔹 Бос массив құру</h4>
+                    <div style="font-family: monospace; background: rgba(255,255,255,0.2); padding: 10px; border-radius: 5px; margin: 10px 0;">
+                        int[][] matrix = new int[3][3];<br>
+                        // Барлық элементтер 0-ге тең<br><br>
+                        String[][] names = new String[2][3];<br>
+                        // Барлық элементтер null
+                    </div>
+                </div>
+                
+                <div class="method-card">
+                    <h4>🔹 Кейінгі инициализация</h4>
+                    <div style="font-family: monospace; background: rgba(255,255,255,0.2); padding: 10px; border-radius: 5px; margin: 10px 0;">
+                        int[][] matrix = new int[2][3];<br>
+                        matrix[0][0] = 10;<br>
+                        matrix[0][1] = 20;<br>
+                        matrix[1][2] = 30;
+                    </div>
+                </div>
+            </div>
+
+            <div class="method-card" style="background: rgba(255,255,255,0.15); margin-top: 20px;">
+                <h4>🔹 Бір жолда толық инициализация</h4>
+                <div style="font-family: monospace; background: rgba(255,255,255,0.2); padding: 10px; border-radius: 5px; margin: 10px 0;">
+                    String[][] schedule = {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;{"Математика", "Физика", "Химия"},<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;{"Тарих", "География", "Биология"},<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;{"Қазақ тілі", "Ағылшын", "Орыс тілі"}<br>
+                    };
+                </div>
+            </div>
+        </div>
+
+        <div class="access-section">
+            <h2 style="text-align: center; margin-bottom: 25px;">🔍 Элементтерге Қол Жеткізу</h2>
+            
+            <div style="margin-bottom: 25px;">
+                <h4 style="text-align: center; margin-bottom: 15px;">int[][] grades = {{85,92,78}, {96,88,91}, {73,85,90}}</h4>
+                <div class="coordinate-demo">
+                    <div class="coordinate-grid">
+                        <div class="coordinate-cell" style="background: rgba(255,255,255,0.4);">[0][0]<br>85</div>
+                        <div class="coordinate-cell" style="background: rgba(255,255,255,0.4);">[0][1]<br>92</div>
+                        <div class="coordinate-cell" style="background: rgba(255,255,255,0.4);">[0][2]<br>78</div>
+                        <div class="coordinate-cell" style="background: rgba(255,255,255,0.3);">[1][0]<br>96</div>
+                        <div class="coordinate-cell" style="background: rgba(255,255,255,0.3);">[1][1]<br>88</div>
+                        <div class="coordinate-cell" style="background: rgba(255,255,255,0.3);">[1][2]<br>91</div>
+                        <div class="coordinate-cell" style="background: rgba(255,255,255,0.2);">[2][0]<br>73</div>
+                        <div class="coordinate-cell" style="background: rgba(255,255,255,0.2);">[2][1]<br>85</div>
+                        <div class="coordinate-cell" style="background: rgba(255,255,255,0.2);">[2][2]<br>90</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="syntax-box">
+                <strong>Элементке қол жеткізу:</strong><br><br>
+                массив[жол][баған]  // Оқу<br>
+                массив[жол][баған] = мән;  // Жазу<br><br>
+                <strong>Өлшемдер:</strong><br>
+                массив.length  // Жолдар саны<br>
+                массив[жол].length  // Сол жолдағы бағандар саны
+            </div>
+        </div>
+
+        <div class="lesson-section animate-in">
+            <h2 class="section-title">💻 2D Массив Негіздері Мысалдары</h2>
+            
+            <div class="code-example">
+                <div class="code-header">
+                    📝 2D массив жариялау және қолдану
+                </div>
+                <div>
+<span class="comment">// 1. 2D массив жариялау және инициализациялау</span>
+<span class="keyword">int</span>[][] <span class="variable">matrix</span> = {
+    {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>},
+    {<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>},
+    {<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>}
+};
+
+<span class="keyword">String</span>[][] <span class="variable">subjects</span> = {
+    {<span class="string">"Математика"</span>, <span class="string">"Физика"</span>},
+    {<span class="string">"Тарих"</span>, <span class="string">"География"</span>},
+    {<span class="string">"Қазақ тілі"</span>, <span class="string">"Ағылшын"</span>}
+};
+
+<span class="comment">// 2. Өлшемдерді алу</span>
+System.out.println(<span class="string">"Жолдар саны: "</span> + <span class="variable">matrix</span>.length);        <span class="comment">// 3</span>
+System.out.println(<span class="string">"Бағандар саны: "</span> + <span class="variable">matrix</span>[<span class="number">0</span>].length);  <span class="comment">// 3</span>
+
+<span class="comment">// 3. Элементтерге қол жеткізу</span>
+System.out.println(<span class="string">"Бірінші элемент: "</span> + <span class="variable">matrix</span>[<span class="number">0</span>][<span class="number">0</span>]);      <span class="comment">// 1</span>
+System.out.println(<span class="string">"Орталық элемент: "</span> + <span class="variable">matrix</span>[<span class="number">1</span>][<span class="number">1</span>]);      <span class="comment">// 5</span>
+System.out.println(<span class="string">"Соңғы элемент: "</span> + <span class="variable">matrix</span>[<span class="number">2</span>][<span class="number">2</span>]);        <span class="comment">// 9</span>
+
+<span class="comment">// 4. Элементтерді өзгерту</span>
+<span class="variable">matrix</span>[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">100</span>;  <span class="comment">// Бірінші элементті өзгерту</span>
+<span class="variable">subjects</span>[<span class="number">1</span>][<span class="number">0</span>] = <span class="string">"Химия"</span>; <span class="comment">// Пәнді өзгерту</span>
+
+<span class="comment">// 5. Бос 2D массив құру</span>
+<span class="keyword">double</span>[][] <span class="variable">prices</span> = <span class="keyword">new double</span>[<span class="number">3</span>][<span class="number">4</span>];
+<span class="variable">prices</span>[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">99.99</span>;
+<span class="variable">prices</span>[<span class="number">1</span>][<span class="number">2</span>] = <span class="number">149.50</span>;
+
+<span class="comment">// 6. Барлық элементтерді шығару (Nested loops)</span>
+System.out.println(<span class="string">"Барлық элементтер:"</span>);
+<span class="keyword">for</span> (<span class="keyword">int</span> <span class="variable">i</span> = <span class="number">0</span>; <span class="variable">i</span> < <span class="variable">matrix</span>.length; <span class="variable">i</span>++) {
+    <span class="keyword">for</span> (<span class="keyword">int</span> <span class="variable">j</span> = <span class="number">0</span>; <span class="variable">j</span> < <span class="variable">matrix</span>[<span class="variable">i</span>].length; <span class="variable">j</span>++) {
+        System.out.print(<span class="variable">matrix</span>[<span class="variable">i</span>][<span class="variable">j</span>] + <span class="string">" "</span>);
+    }
+    System.out.println(); <span class="comment">// Жаңа жолға көшу</span>
+}

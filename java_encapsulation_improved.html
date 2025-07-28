@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Encapsulation - Толық Нұсқаулық</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            padding: 50px 0;
+            background: rgba(0,0,0,0.1);
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-size: 3.8rem;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #fff, #e8f4fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.4rem;
+            opacity: 0.95;
+            margin-bottom: 30px;
+        }
+
+        .header .subtitle {
+            background: rgba(255,255,255,0.15);
+            border-radius: 50px;
+            padding: 18px 35px;
+            display: inline-block;
+            border: 2px solid rgba(255,255,255,0.2);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .section-title {
+            font-size: 2.4rem;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+            font-weight: 700;
+        }
+
+        /* Introduction Section */
+        .intro-section {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .intro-section .section-title {
+            color: white;
+            border-bottom-color: rgba(255,255,255,0.3);
+        }
+
+        .definition-box {
+            background: rgba(255,255,255,0.15);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 5px solid #fff;
+        }
+
+        .definition-box h4 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .definition-box p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Principles Grid */
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .principle-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .principle-card:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .principle-card h4 {
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            color: #fff;
+        }
+
+        .principle-card p {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .principle-card small {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* Access Modifiers Section */
+        .access-modifiers {
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+            color: white;
+        }
+
+        .access-modifiers .section-title {
+            color: white;
+            border-bottom-color: rgba(255,255,255,0.3);
+        }
+
+        .modifiers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .modifier-card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            border: 2px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .modifier-card:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+        }
+
+        .modifier-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 18px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .comparison-table td {
+            padding: 15px 18px;
+            border-bottom: 1px solid #ecf0f1;
+            font-size: 1rem;
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .comparison-table tr:hover {
+            background: #e3f2fd;
+        }
+
+        /* Code Examples */
+        .code-example {
+            background: #1e1e2e;
+            color: #cdd6f4;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid #45475a;
+            overflow-x: auto;
+        }
+
+        .code-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 25px;
+            margin: -25px -25px 20px -25px;
+            border-radius: 15px 15px 0 0;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.1rem;
+        }
+
+        /* Syntax Highlighting */
+        .keyword { color: #cba6f7; font-weight: bold; }
+        .string { color: #a6e3a1; }
+        .number { color: #fab387; }
+        .comment { color: #6c7086; font-style: italic; }
+        .variable { color: #89b4fa; }
+        .method { color: #f38ba8; }
+        .class-name { color: #f9e2af; font-weight: bold; }
+        .access-modifier { 
+            color: #89dceb; 
+            font-weight: bold; 
+            background: rgba(137, 220, 235, 0.1); 
+            padding: 2px 6px; 
+            border-radius: 4px; 
+        }
+
+        /* Demo Comparison */
+        .demo-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .demo-side {
+            border-radius: 15px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .demo-bad {
+            border-left: 5px solid #e74c3c;
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.05), rgba(231, 76, 60, 0.1));
+        }
+
+        .demo-good {
+            border-left: 5px solid #27ae60;
+            background: linear-gradient(135deg, rgba(39, 174, 96, 0.05), rgba(39, 174, 96, 0.1));
+        }
+
+        .demo-side h4 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .demo-bad h4 { color: #c0392b; }
+        .demo-good h4 { color: #27ae60; }
+
+        /* Info Boxes */
+        .info-box, .warning-box, .success-box {
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 5px solid;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.08), rgba(52, 152, 219, 0.12));
+            border-left-color: #3498db;
+            color: #2980b9;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.08), rgba(231, 76, 60, 0.12));
+            border-left-color: #e74c3c;
+            color: #c0392b;
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, rgba(39, 174, 96, 0.08), rgba(39, 174, 96, 0.12));
+            border-left-color: #27ae60;
+            color: #27ae60;
+        }
+
+        .info-box h4, .warning-box h4, .success-box h4 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .info-box h4 { color: #3498db; }
+        .warning-box h4 { color: #e74c3c; }
+        .success-box h4 { color: #27ae60; }
+
+        /* Practical Examples */
+        .practical-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .practical-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-left: 4px solid #667eea;
+            padding: 25px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .practical-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .practical-card h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        /* Security section specific styles */
+        .security-section {
+            background: linear-gradient(135deg, #fd79a8, #fdcb6e);
+            color: white;
+        }
+
+        .security-section .section-title {
+            color: white;
+            border-bottom-color: rgba(255,255,255,0.3);
+        }
+
+        /* Getter-Setter section */
+        .getter-setter-section {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: white;
+        }
+
+        .getter-setter-section .section-title {
+            color: white;
+            border-bottom-color: rgba(255,255,255,0.3);
+        }
+
+        /* Validation section */
+        .validation-section {
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+            color: white;
+        }
+
+        .validation-section .section-title {
+            color: white;
+            border-bottom-color: rgba(255,255,255,0.3);
+        }
+
+        /* Animation */
+        .animate-in {
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .demo-comparison {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2.8rem;
+            }
+
+            .section {
+                padding: 25px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .practical-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🛡️ Java Encapsulation</h1>
+            <p>Деректерді қорғау және инкапсуляция принциптері</p>
+            <div class="subtitle">
+                <strong>Encapsulation</strong> — деректерді жасыру және қауіпсіз қол жетімділік
+            </div>
+        </div>
+
+        <!-- Introduction Section -->
+        <div class="section intro-section animate-in">
+            <h2 class="section-title">🎯 Encapsulation дегеніміз не?</h2>
+            
+            <div class="definition-box">
+                <h4>📖 Анықтама</h4>
+                <p>
+                    <strong>Encapsulation (инкапсуляция)</strong> — объектіге бағытталған программалаудың (OOP) негізгі принциптерінің бірі. 
+                    Ол деректер мен кодты бір орында біріктіріп, сыртқы кедергілерден қорғайды. Деректерге тікелей қол жеткізуді шектеп, 
+                    арнайы әдістер арқылы басқаруды қамтамасыз етеді.
+                </p>
+            </div>
+            
+            <div class="principles-grid">
+                <div class="principle-card">
+                    <h4>🔒 Data Hiding</h4>
+                    <p>Деректерді жасыру</p>
+                    <small>Private өрістер арқылы</small>
+                </div>
+                
+                <div class="principle-card">
+                    <h4>🚪 Controlled Access</h4>
+                    <p>Бақылаулы қол жетімділік</p>
+                    <small>Getter/Setter әдістері</small>
+                </div>
+                
+                <div class="principle-card">
+                    <h4>✅ Data Validation</h4>
+                    <p>Деректерді тексеру</p>
+                    <small>Setter-дерде валидация</small>
+                </div>
+
+                <div class="principle-card">
+                    <h4>🔧 Maintainability</h4>
+                    <p>Қолдау көрсету</p>
+                    <small>Код өзгертуді жеңілдетеді</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Access Modifiers Section -->
+        <div class="section access-modifiers animate-in">
+            <h2 class="section-title">🔑 Access Modifiers (Қол жетімділік модификаторлары)</h2>
+            
+            <div class="definition-box">
+                <h4>🎯 Төрт деңгейлі қол жетімділік</h4>
+                <p>
+                    Java-да төрт түрлі қол жетімділік деңгейі бар. Олар деректер мен әдістерге кімнің қол жеткізе алатынын анықтайды.
+                    Дұрыс модификатор таңдау — қауіпсіз код жазудың негізі.
+                </p>
+            </div>
+
+            <div class="modifiers-grid">
+                <div class="modifier-card">
+                    <h4>🔴 private</h4>
+                    <p>Тек сол класс ішінде</p>
+                    <small>Ең қауіпсіз деңгей</small>
+                </div>
+                
+                <div class="modifier-card">
+                    <h4>📦 package-private</h4>
+                    <p>Сол пакет ішінде</p>
+                    <small>Default модификатор</small>
+                </div>
+                
+                <div class="modifier-card">
+                    <h4>🟡 protected</h4>
+                    <p>Пакет + мұрагерлер</p>
+                    <small>Inheritance үшін</small>
+                </div>
+
+                <div class="modifier-card">
+                    <h4>🟢 public</h4>
+                    <p>Барлық жерде</p>
+                    <small>Ашық қол жетімділік</small>
+                </div>
+            </div>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Модификатор</th>
+                        <th>Сол класс</th>
+                        <th>Сол пакет</th>
+                        <th>Мұрагер класс</th>
+                        <th>Басқа пакет</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>private</strong></td>
+                        <td>✅</td>
+                        <td>❌</td>
+                        <td>❌</td>
+                        <td>❌</td>
+                    </tr>
+                    <tr>
+                        <td><strong>package-private</strong></td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>❌</td>
+                        <td>❌</td>
+                    </tr>
+                    <tr>
+                        <td><strong>protected</strong></td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>❌</td>
+                    </tr>
+                    <tr>
+                        <td><strong>public</strong></td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Comparison: Wrong vs Right -->
+        <div class="section animate-in">
+            <h2 class="section-title">🚫 Дұрыс Емес vs ✅ Дұрыс Encapsulation</h2>
+            
+            <div class="demo-comparison">
+                <div class="demo-bad">
+                    <h4>❌ Дұрыс ЕМЕС (Encapsulation жоқ)</h4>
+                    <div class="code-example">
+                        <div class="code-header">
+                            💀 Қауіпті код
+                        </div>
+                        <div>
+<span class="keyword">class</span> <span class="class-name">BadStudent</span> {
+    <span class="comment">// Public өрістер - қауіпті!</span>
+    <span class="access-modifier">public</span> <span class="keyword">String</span> <span class="variable">name</span>;
+    <span class="access-modifier">public</span> <span class="keyword">int</span> <span class="variable">age</span>;
+    <span class="access-modifier">public</span> <span class="keyword">double</span> <span class="variable">gpa</span>;
+}
+
+<span class="comment">// Қолдану:</span>
+<span class="class-name">BadStudent</span> <span class="variable">student</span> = <span class="keyword">new</span> <span class="class-name">BadStudent</span>();
+<span class="variable">student</span>.<span class="variable">age</span> = -<span class="number">5</span>; <span class="comment">// Қате мән!</span>
+<span class="variable">student</span>.<span class="variable">gpa</span> = <span class="number">150.0</span>; <span class="comment">// Мүмкін емес!</span>
+<span class="variable">student</span>.<span class="variable">name</span> = <span class="string">""</span>; <span class="comment">// Бос мән!</span>
+                        </div>
+                    </div>
+                    <div class="warning-box" style="margin: 15px 0;">
+                        <strong>Мәселелер:</strong><br>
+                        • Деректерді тексерусіз өзгертуге болады<br>
+                        • Қате мәндер беруге болады<br>
+                        • Код қауіпсіз емес<br>
+                        • Логика бақылауы жоқ
+                    </div>
+                </div>
+
+                <div class="demo-good">
+                    <h4>✅ ДҰРЫС (Encapsulation бар)</h4>
+                    <div class="code-example">
+                        <div class="code-header">
+                            🛡️ Қауіпсіз код
+                        </div>
+                        <div>
+<span class="keyword">class</span> <span class="class-name">GoodStudent</span> {
+    <span class="comment">// Private өрістер - қауіпсіз!</span>
+    <span class="access-modifier">private</span> <span class="keyword">String</span> <span class="variable">name</span>;
+    <span class="access-modifier">private</span> <span class="keyword">int</span> <span class="variable">age</span>;
+    <span class="access-modifier">private</span> <span class="keyword">double</span> <span class="variable">gpa</span>;
+
+    <span class="comment">// Getter/Setter арқылы бақылау</span>
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">setAge</span>(<span class="keyword">int</span> <span class="variable">age</span>) {
+        <span class="keyword">if</span> (<span class="variable">age</span> > <span class="number">0</span> && <span class="variable">age</span> < <span class="number">150</span>) {
+            <span class="keyword">this</span>.<span class="variable">age</span> = <span class="variable">age</span>;
+        } <span class="keyword">else</span> {
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="class-name">IllegalArgumentException</span>(
+                <span class="string">"Жас дұрыс емес!"</span>);
+        }
+    }
+    
+    <span class="keyword">public</span> <span class="keyword">int</span> <span class="method">getAge</span>() {
+        <span class="keyword">return</span> <span class="variable">age</span>;
+    }
+}
+                        </div>
+                    </div>
+                    <div class="success-box" style="margin: 15px 0;">
+                        <strong>Артықшылықтар:</strong><br>
+                        • Деректер қорғалған<br>
+                        • Валидация бар<br>
+                        • Бақылаулы қол жетімділік<br>
+                        • Қауіпсіз код
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Complete Person Example -->
+        <div class="section animate-in">
+            <h2 class="section-title">👤 Толық Encapsulation Мысалы</h2>
+            
+            <div class="code-example">
+                <div class="code-header">
+                    🔒 Толығымен инкапсуляцияланған класс
+                </div>
+                <div>
+<span class="comment">// Тұлға туралы толық мәліметтер класы</span>
+<span class="keyword">class</span> <span class="class-name">Person</span> {
+    <span class="comment">// Private өрістер - тікелей қол жетімділік жоқ</span>
+    <span class="access-modifier">private</span> <span class="keyword">String</span> <span class="variable">firstName</span>;
+    <span class="access-modifier">private</span> <span class="keyword">String</span> <span class="variable">lastName</span>;
+    <span class="access-modifier">private</span> <span class="keyword">int</span> <span class="variable">age</span>;
+    <span class="access-modifier">private</span> <span class="keyword">String</span> <span class="variable">email</span>;
+    <span class="access-modifier">private</span> <span class="keyword">String</span> <span class="variable">phoneNumber</span>;
+    <span class="access-modifier">private</span> <span class="keyword">double</span> <span class="variable">salary</span>;
+    
+    <span class="comment">// Constructor - объект құру</span>
+    <span class="keyword">public</span> <span class="class-name">Person</span>(<span class="keyword">String</span> <span class="variable">firstName</span>, <span class="keyword">String</span> <span class="variable">lastName</span>, <span class="keyword">int</span> <span class="variable">age</span>) {
+        <span class="method">setFirstName</span>(<span class="variable">firstName</span>);
+        <span class="method">setLastName</span>(<span class="variable">lastName</span>);
+        <span class="method">setAge</span>(<span class="variable">age</span>);
+    }
+    
+    <span class="comment">// Getter әдістері - деректерді оқу</span>
+    <span class="keyword">public</span> <span class="keyword">String</span> <span class="method">getFirstName</span>() {
+        <span class="keyword">return</span> <span class="variable">firstName</span>;
+    }
+    
+    <span class="keyword">public</span> <span class="keyword">String</span> <span class="method">getLastName</span>() {
+        <span class="keyword">return</span> <span class="variable">lastName</span>;
+    }
+    
+    <span class="keyword">public</span> <span class="keyword">String</span> <span class="method">getFullName</span>() {
+        <span class="keyword">return</span> <span class="variable">firstName</span> + <span class="string">" "</span> + <span class="variable">lastName</span>;
+    }
+    
+    <span class="keyword">public</span> <span class="keyword">int</span> <span class="method">getAge</span>() {
+        <span class="keyword">return</span> <span class="variable">age</span>;
+    }
+    
+    <span class="keyword">public</span> <span class="keyword">String</span> <span class="method">getEmail</span>() {
+        <span class="keyword">return</span> <span class="variable">email</span>;
+    }
+    
+    <span class="keyword">public</span> <span class="keyword">String</span> <span class="method">getPhoneNumber</span>() {
+        <span class="keyword">return</span> <span class="variable">phoneNumber</span>;
+    }
+    
+    <span class="comment">// Salary-ді жасырын ұстау - тек белгілі шарттарда көрсету</span>
+    <span class="keyword">public</span> <span class="keyword">String</span> <span class="method">getSalaryInfo</span>(<span class="keyword">boolean</span> <span class="variable">isAuthorized</span>) {
+        <span class="keyword">if</span> (<span class="variable">isAuthorized</span>) {
+            <span class="keyword">return</span> <span class="string">"Жалақы: "</span> + <span class="variable">salary</span> + <span class="string">" тг"</span>;
+        } <span class="keyword">else</span> {
+            <span class="keyword">return</span> <span class="string">"Жалақы туралы ақпарат жабық"</span>;
+        }
+    }
+    
+    <span class="comment">// Setter әдістері - деректерді жазу (валидациямен)</span>
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">setFirstName</span>(<span class="keyword">String</span> <span class="variable">firstName</span>) {
+        <span class="keyword">if</span> (<span class="variable">firstName</span> != <span class="keyword">null</span> && !<span class="variable">firstName</span>.<span class="method">trim</span>().<span class="method">isEmpty</span>()) {
+            <span class="comment">// Тек әріптерді қабылдау</span>
+            <span class="keyword">if</span> (<span class="variable">firstName</span>.<span class="method">matches</span>(<span class="string">"[a-zA-ZА-Яа-яӘәІіҢңҒғҮүҰұҚқӨөҺһ\\s]+"</span>)) {
+                <span class="keyword">this</span>.<span class="variable">firstName</span> = <span class="variable">firstName</span>.<span class="method">trim</span>();
+            } <span class="keyword">else</span> {
+                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="class-name">IllegalArgumentException</span>(<span class="string">"Аты тек әріптерден тұруы керек"</span>);
+            }
+        } <span class="keyword">else</span> {
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="class-name">IllegalArgumentException</span>(<span class="string">"Аты бос болмауы керек"</span>);
+        }
+    }
+    
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">setLastName</span>(<span class="keyword">String</span> <span class="variable">lastName</span>) {
+        <span class="keyword">if</span> (<span class="variable">lastName</span> != <span class="keyword">null</span> && !<span class="variable">lastName</span>.<span class="method">trim</span>().<span class="method">isEmpty</span>()) {
+            <span class="keyword">if</span> (<span class="variable">lastName</span>.<span class="method">matches</span>(<span class="string">"[a-zA-ZА-Яа-яӘәІіҢңҒғҮүҰұҚқӨөҺһ\\s]+"</span>)) {
+                <span class="keyword">this</span>.<span class="variable">lastName</span> = <span class="variable">lastName</span>.<span class="method">trim</span>();
+            } <span class="keyword">else</span> {
+                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="class-name">IllegalArgumentException</span>(<span class="string">"Тегі тек әріптерден тұруы керек"</span>);
+            }
+        } <span class="keyword">else</span> {
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="class-name">IllegalArgumentException</span>(<span class="string">"Тегі бос болмауы керек"</span>);
+        }
+    }
+    
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">setAge</span>(<span class="keyword">int</span> <span class="variable">age</span>) {
+        <span class="keyword">if</span> (<span class="variable">age</span> >= <span class="number">0</span> && <span class="variable">age</span> <= <span class="number">150</span>) {
+            <span class="keyword">this</span>.<span class="variable">age</span> = <span class="variable">age</span>;
+        } <span class="keyword">else</span> {
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="class-name">IllegalArgumentException</span>(<span class="string">"Жас 0-150 аралығында болуы керек"</span>);
+        }
+    }
+    
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">setEmail</span>(<span class="keyword">String</span> <span class="variable">email</span>) {
+        <span class="keyword">if</span> (<span class="variable">email</span> != <span class="keyword">null</span> && <span class="method">isValidEmail</span>(<span class="variable">email</span>)) {
+            <span class="keyword">this</span>.<span class="variable">email</span> = <span class="variable">email</span>.<span class="method">toLowerCase</span>();
+        } <span class="keyword">else</span> {
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="class-name">IllegalArgumentException</span>(<span class="string">"Email форматы дұрыс емес"</span>);
+        }
+    }
+    
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">setSalary</span>(<span class="keyword">double</span> <span class="variable">salary</span>, <span class="keyword">boolean</span> <span class="variable">isAuthorized</span>) {
+        <span class="keyword">if</span> (!<span class="variable">isAuthorized</span>) {
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="class-name">IllegalAccessError</span>(<span class="string">"Жалақы өзгерту үшін рұқсат жоқ"</span>);
+        }
+        <span class="keyword">if</span> (<span class="variable">salary</span> >= <span class="number">0</span>) {
+            <span class="keyword">this</span>.<span class="variable">salary</span> = <span class="variable">salary</span>;
+        } <span class="keyword">else</span> {
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="class-name">IllegalArgumentException</span>(<span class="string">"Жалақы теріс болмауы керек"</span>);
+        }
+    }
+    
+    <span class="comment">// Private көмекші әдістер - валидация</span>
+    <span class="access-modifier">private</span> <span class="keyword">boolean</span> <span class="method">isValidEmail</span>(<span class="keyword">String</span> <span class="variable">email</span>) {
+        <span class="comment">// Жеңілдетілген email валидациясы</span>
+        <span class="keyword">return</span> <span class="variable">email</span>.<span class="method">matches</span>(<span class="string">"^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"</span>);
+    }
+}
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h4>💡 Encapsulation-дың негізгі ерекшеліктері:</h4>
+                <p>• <strong>Private өрістер:</strong> Деректерге тікелей қол жетімділікті шектейді<br>
+                • <strong>Public методтар:</strong> Бақылаулы қол жетімділік ұсынады<br>
+                • <strong>Валидация:</strong> Setter әдістерінде деректерді тексереді<br>
+                • <strong>Қауіпсіздік:</strong> Авторизация және рұқсат тексеру<br>
+                • <strong>Форматтау:</strong> Деректерді стандартты түрге келтіреді</p>
+            </div>
+        </div>
+
+        <!-- Getter/Setter Section -->
+        <div class="section getter-setter-section animate-in">
+            <h2 class="section-title">🔄 Getter және Setter Әдістері</h2>
+            
+            <div class="definition-box">
+                <h4>🎯 Getter/Setter құрылымы</h4>
+                <p>
+                    <strong>Getter:</strong> private өрістің мәнін оқу үшін қолданылады<br>
+                    <strong>Setter:</strong> private өрістің мәнін орнату үшін қолданылады<br>
+                    <strong>Валидация:</strong> setter-де деректерді тексеру мүмкіндігі<br>
+                    <strong>Форматтау:</strong> деректерді дұрыс түрде сақтау
+                </p>
+            </div>
+
+            <div class="code-example">
+                <div class="code-header">
+                    🎓 Студент класының Getter/Setter мысалы
+                </div>
+                <div>
+<span class="comment">// Студент класы - толық encapsulation</span>
+<span class="keyword">class</span> <span class="class-name">Student</span> {
+    <span class="comment">// Private өрістер</span>
+    <span class="access-modifier">private</span> <span class="keyword">String</span> <span class="variable">studentId</span>;
+    <span class="access-modifier">private</span> <span class="keyword">String</span> <span class="variable">name</span>;
+    <span class="access-modifier">private</span> <span class="keyword">int</span> <span class="variable">age</span>;
+    <span class="access-modifier">private</span> <span class="keyword">double</span> <span class="variable">gpa</span>;
+    <span class="access-modifier">private</span> <span class="keyword">String</span> <span class="variable">major</span>;
+    <span class="access-modifier">private</span> <span class="keyword">int</span> <span class="variable">coursesCompleted</span>;
+    
+    <span class="comment">// Constructor</span>
+    <span class="keyword">public</span> <span class="class-name">Student</span>(<span class="keyword">String</span> <span class="variable">name</span>, <span class="keyword">int</span> <span class="variable">age</span>, <span class="keyword">String</span> <span class="variable">major</span>) {
+        <span class="method">setName</span>(<span class="variable">name</span>);
+        <span class="method">setAge</span>(<span class="variable">age</span>);
+        <span class="method">setMajor</span>(<span class="variable">major</span>);
+        <span class="keyword">this</span>.<span class="variable">gpa</span> = <span class="number">0.0</span>;
+        <span class="keyword">this</span>.<span class="variable">coursesCompleted</span> = <span class="number">0</span>;
+        <span class="keyword">this</span>.<span class="variable">studentId</span> = <span class="method">generateStudentId</span>();
+    }
+    
+    <span class="comment">// Getter әдістері</span>
+    <span class="keyword">public</span> <span class="keyword">String</span> <span class="method">getStudentId</span>() {
+        <span class="keyword">return</span> <span class="variable">studentId</span>;
+    }
+    
+    <span class="keyword">public</span> <span class="keyword">String</span> <span class="method">getName</span>() {
+        <span class="keyword">return</span> <span class="variable">name</span>;
+    }
+    
+    <span class="keyword">public</span> <span class="keyword">int</span> <span class="method">getAge</span>() {
+        <span class="keyword">return</span> <span class="variable">age</span>;
+    }
+    
+    <span class="keyword">public</span> <span class="keyword">double</span> <span class="method">getGpa</span>() {
+        <span class="keyword">return</span> <span class="class-name">Math</span>.<span class="method">round</span>(<span class="variable">gpa</span> * <span class="number">100.0</span>) / <span class="number">100.0</span>; <span class="comment">// 2 ондық үтір</span>
+    }
+    
+    <span class="comment">// Есептелетін properties</span>
+    <span class="keyword">public</span> <span class="keyword">String</span> <span class="method">getAcademicLevel</span>() {
+        <span class="keyword">if</span> (<span class="variable">coursesCompleted</span> < <span class="number">30</span>) <span class="keyword">return</span> <span class="string">"1-курс"</span>;
+        <span class="keyword">else</span> <span class="keyword">if</span> (<span class="variable">coursesCompleted</span> < <span class="number">60</span>) <span class="keyword">return</span> <span class="string">"2-курс"</span>;
+        <span class="keyword">else</span> <span class="keyword">if</span> (<span class="variable">coursesCompleted</span> < <span class="number">90</span>) <span class="keyword">return</span> <span class="string">"3-курс"</span>;
+        <span class="keyword">else</span> <span class="keyword">return</span> <span class="string">"4-курс"</span>;
+    }
+    
+    <span class="comment">// Setter әдістері (валидациямен)</span>
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">setName</span>(<span class="keyword">String</span> <span class="variable">name</span>) {
+        <span class="keyword">if</span> (<span class="variable">name</span> == <span class="keyword">null</span> || <span class="variable">name</span>.<span class="method">trim</span>().<span class="method">isEmpty</span>()) {
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="class-name">IllegalArgumentException</span>(<span class="string">"Студент аты бос болмауы керек"</span>);
+        }
+        <span class="keyword">this</span>.<span class="variable">name</span> = <span class="variable">name</span>.<span class="method">trim</span>();
+    }
+    
+    <span class="access-modifier">private</span> <span class="keyword">String</span> <span class="method">generateStudentId</span>() {
+        <span class="keyword">return</span> <span class="string">"STU"</span> + <span class="class-name">System</span>.<span class="method">currentTimeMillis</span>() % <span class="number">100000</span>;
+    }
+}
+                </div>
+            </div>
+
+            <div class="success-box">
+                <h4>✨ Getter/Setter әдістерінің артықшылықтары:</h4>
+                <p>• <strong>Қауіпсіздік:</strong> Private өрістерге бақылаулы қол жетімділік<br>
+                • <strong>Валидация:</strong> Setter-де деректерді тексеру мүмкіндігі<br>
+                • <strong>Есептелетін properties:</strong> Динамикалық мәндерді қайтару<br>
+                • <strong>Форматтау:</strong> Деректерді дұрыс түрде ұсыну<br>
+                • <strong>Логика қосу:</strong> Қосымша бизнес логика енгізу</p>
+            </div>
+        </div>
+
+        <!-- Security Section -->
+        <div class="section security-section animate-in">
+            <h2 class="section-title">🔐 Банк шоты - Қауіпсіздік мысалы</h2>
+            
+            <div class="definition-box">
+                <h4>🛡️ Валидацияның түрлері</h4>
+                <p>
+                    <strong>Мән тексеру:</strong> null, бос жолдар, диапазон<br>
+                    <strong>Формат тексеру:</strong> email, телефон, дата<br>
+                    <strong>Бизнес ережелер:</strong> мамандандырылған логика<br>
+                    <strong>Қауіпсіздік:</strong> авторизация, рұқсат тексеру
+                </p>
+            </div>
+
+            <div class="code-example">
+                <div class="code-header">
+                    🏦 Банк шоты класы - жоғары деңгейлі қауіпсіздік
+                </div>
+                <div>
+<span class="comment">// Банк шоты - жоғары деңгейлі қауіпсіздік</span>
+<span class="keyword">class</span> <span class="class-name">BankAccount</span> {
+    <span class="comment">// Private өрістер</span>
+    <span class="access-modifier">private</span> <span class="keyword">final</span> <span class="keyword">String</span> <span class="variable">accountNumber</span>;
+    <span class="access-modifier">private</span> <span class="keyword">String</span> <span class="variable">accountHolderName</span>;
+    <span class="access-modifier">private</span> <span class="keyword">double</span> <span class="variable">balance</span>;
+    <span class="access-modifier">private</span> <span class="keyword">String</span> <span class="variable">pin</span>;
+    <span class="access-modifier">private</span> <span class="keyword">boolean</span> <span class="variable">isActive</span>;
+    <span class="access-modifier">private</span> <span class="keyword">int</span> <span class="variable">failedAttempts</span>;
+    <span class="access-modifier">private</span> <span class="keyword">final</span> <span class="keyword">double</span> <span class="variable">MIN_BALANCE</span> = <span class="number">1000.0</span>;
+    <span class="access-modifier">private</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="variable">MAX_FAILED_ATTEMPTS</span> = <span class="number">3</span>;
+    
+    <span class="comment">// Constructor</span>
+    <span class="keyword">public</span> <span class="class-name">BankAccount</span>(<span class="keyword">String</span> <span class="variable">accountHolderName</span>, <span class="keyword">double</span> <span class="variable">initialDeposit</span>, <span class="keyword">String</span> <span class="variable">pin</span>) {
+        <span class="keyword">this</span>.<span class="variable">accountNumber</span> = <span class="method">generateAccountNumber</span>();
+        <span class="method">setAccountHolderName</span>(<span class="variable">accountHolderName</span>);
+        <span class="method">setPin</span>(<span class="variable">pin</span>);
+        <span class="method">setInitialBalance</span>(<span class="variable">initialDeposit</span>);
+        <span class="keyword">this</span>.<span class="variable">isActive</span> = <span class="keyword">true</span>;
+        <span class="keyword">this</span>.<span class="variable">failedAttempts</span> = <span class="number">0</span>;
+    }
+    
+    <span class="comment">// Балансты тек PIN арқылы көруге болады</span>
+    <span class="keyword">public</span> <span class="keyword">double</span> <span class="method">getBalance</span>(<span class="keyword">String</span> <span class="variable">inputPin</span>) {
+        <span class="keyword">if</span> (!<span class="method">validatePin</span>(<span class="variable">inputPin</span>)) {
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="class-name">SecurityException</span>(<span class="string">"Қате PIN код"</span>);
+        }
+        <span class="keyword">return</span> <span class="variable">balance</span>;
+    }
+    
+    <span class="comment">// Ақша салу - валидациямен</span>
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">deposit</span>(<span class="keyword">double</span> <span class="variable">amount</span>, <span class="keyword">String</span> <span class="variable">pin</span>) {
+        <span class="keyword">if</span> (!<span class="method">validatePin</span>(<span class="variable">pin</span>)) {
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="class-name">SecurityException</span>(<span class="string">"Қате PIN код"</span>);
+        }
+        <span class="keyword">if</span> (<span class="variable">amount</span> <= <span class="number">0</span>) {
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="class-name">IllegalArgumentException</span>(<span class="string">"Салым мөлшері оң сан болуы керек"</span>);
+        }
+        
+        <span class="variable">balance</span> += <span class="variable">amount</span>;
+        System.out.println(<span class="string">"💰 Салым: "</span> + <span class="variable">amount</span> + <span class="string">" тг. Жаңа баланс: "</span> + <span class="variable">balance</span> + <span class="string">" тг"</span>);
+    }
+    
+    <span class="comment">// Private көмекші әдістер</span>
+    <span class="access-modifier">private</span> <span class="keyword">boolean</span> <span class="method">validatePin</span>(<span class="keyword">String</span> <span class="variable">inputPin</span>) {
+        <span class="keyword">if</span> (!<span class="variable">isActive</span>) {
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="class-name">SecurityException</span>(<span class="string">"Шот блокталған"</span>);
+        }
+        
+        <span class="keyword">if</span> (<span class="variable">inputPin</span> == <span class="keyword">null</span> || !<span class="variable">inputPin</span>.<span class="method">equals</span>(<span class="variable">pin</span>)) {
+            <span class="variable">failedAttempts</span>++;
+            <span class="keyword">if</span> (<span class="variable">failedAttempts</span> >= <span class="variable">MAX_FAILED_ATTEMPTS</span>) {
+                <span class="variable">isActive</span> = <span class="keyword">false</span>;
+                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="class-name">SecurityException</span>(<span class="string">"Шот блокталды! Көп рет қате PIN енгізілді"</span>);
+            }
+            <span class="keyword">return</span> <span class="keyword">false</span>;
+        }
+        
+        <span class="variable">failedAttempts</span> = <span class="number">0</span>; <span class="comment">// Сәтті енгізу</span>
+        <span class="keyword">return</span> <span class="keyword">true</span>;
+    }
+}
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4>🔒 Қауіпсіздік ережелері:</h4>
+                <p>• Сезімтал деректерді (пароль, PIN) ешқашан public етпеңіз<br>
+                • Барлық кіру мәліметтерін валидациядан өткізіңіз<br>
+                • Қате әрекеттерді санап, шот блоктауды енгізіңіз<br>
+                • Қауіпсіз әдістер арқылы ғана деректерге қол жеткізіңіз<br>
+                • Exception handling арқылы қатені дұрыс өңдеңіз</p>
+            </div>
+        </div>
+
+        <!-- Practical Examples -->
+        <div class="section animate-in">
+            <h2 class="section-title">🚀 Практикалық Қолдану Мысалдары</h2>
+            
+            <div class="practical-grid">
+                <div class="practical-card">
+                    <h4>🏢 Кәсіпорын Қызметкері</h4>
+                    <div class="code-example">
+                        <div class="code-header">
+                            👤 Employee класы
+                        </div>
+                        <div>
+<span class="keyword">class</span> <span class="class-name">Employee</span> {
+    <span class="access-modifier">private</span> <span class="keyword">String</span> <span class="variable">employeeId</span>;
+    <span class="access-modifier">private</span> <span class="keyword">String</span> <span class="variable">name</span>;
+    <span class="access-modifier">private</span> <span class="keyword">double</span> <span class="variable">salary</span>;
+    <span class="access-modifier">private</span> <span class="keyword">String</span> <span class="variable">department</span>;
+
+    <span class="comment">// Жалақыны тек HR көре алады</span>
+    <span class="keyword">public</span> <span class="keyword">double</span> <span class="method">getSalary</span>(<span class="keyword">boolean</span> <span class="variable">isHR</span>) {
+        <span class="keyword">return</span> <span class="variable">isHR</span> ? <span class="variable">salary</span> : <span class="number">0</span>;
+    }
+}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="practical-card">
+                    <h4>📱 Смартфон Класы</h4>
+                    <div class="code-example">
+                        <div class="code-header">
+                            📱 Smartphone класы
+                        </div>
+                        <div>
+<span class="keyword">class</span> <span class="class-name">Smartphone</span> {
+    <span class="access-modifier">private</span> <span class="keyword">int</span> <span class="variable">batteryLevel</span>;
+    <span class="access-modifier">private</span> <span class="keyword">boolean</span> <span class="variable">isLocked</span>;
+
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">setBatteryLevel</span>(<span class="keyword">int</span> <span class="variable">level</span>) {
+        <span class="keyword">if</span> (<span class="variable">level</span> >= <span class="number">0</span> && <span class="variable">level</span> <= <span class="number">100</span>) {
+            <span class="keyword">this</span>.<span class="variable">batteryLevel</span> = <span class="variable">level</span>;
+        }
+    }
+    
+    <span class="keyword">public</span> <span class="keyword">int</span> <span class="method">getBatteryLevel</span>() {
+        <span class="keyword">return</span> <span class="variable">batteryLevel</span>;
+    }
+}
+                        </div>
+                    </div>
+                </div>
+
+              
